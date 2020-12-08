@@ -1,0 +1,109 @@
+﻿using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Services.Dto;
+using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace MyInsurance.BusinessLogic.Services
+{
+    public class EmployeeService : IEmployeeService, IDisposable
+    {
+        private readonly InsuranceDBEntities _dbContext;
+
+        public EmployeeService()
+        {
+            _dbContext = new InsuranceDBEntities();
+        }
+
+        public void Add(string username, string password, string email, string firstName, string lastName, DateTime birthDate, bool isBoos, bool isAdmin, decimal salary)
+        {
+        string passEncrypted;
+            using (MD5 md5 = MD5.Create())
+            {
+                passEncrypted = GetMD5HASH(md5, password);
+            }
+            Employee employee = new Employee()
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Salary = salary,
+                BirthDate = birthDate,
+                EmailAddress = email,
+                Login = username,
+                Password = passEncrypted,
+                IsAdmin = isAdmin,
+                IsBoss = isBoos
+            };
+        }
+
+        string GetMD5HASH(MD5 hash, string input)
+        {
+            byte[] tab = hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            StringBuilder sBuilder = new StringBuilder();
+
+            for (int i = 0; i < tab.Length; i++)
+                sBuilder.Append(tab[i].ToString("x2"));
+            return sBuilder.ToString();
+        }
+
+        public void Dispose()
+        {
+            _dbContext.Dispose();
+        }
+
+        public List<CaseDto> GetEmployeeCases(int employeeId)
+        {
+            try
+            {
+                Employee employee = _dbContext.Employees.First(emp => emp.Id == employeeId);
+                return employee.Cases
+                    .Select(cas => new CaseDto()
+                    {
+                        Id = cas.Id,
+                        EmployeeId = cas.EmployeeId,
+                        Description = cas.Description,
+                        Decision = cas.Decision,
+                        IsEnded = cas.IsEnded,
+                        CustomerId = cas.CustomerId,
+                    })
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                //LOGGER
+
+            }
+            return new List<CaseDto>();
+        }
+
+        public List<PolicyDto> GetEmployeePolicies(int employeeId)
+        {
+            try
+            {
+                Employee employee = _dbContext.Employees.First(emp => emp.Id == employeeId);
+                return employee.Policies
+                    .Select(pol => new PolicyDto()
+                    {
+                        Id = pol.Id,
+                        CustomerId = pol.CustomerId,
+                        EmployeeId = pol.EmployeeId,
+                        Amount = pol.Amount,
+                        Type = pol.Type,
+                        Name = pol.Name,
+                        DateOfEnding = new DateTime(pol.DateOfEnding.Year, pol.DateOfEnding.Month, pol.DateOfEnding.Year)
+                    })
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                //LOGGER
+
+            }
+            return new List<PolicyDto>();
+        }
+    }
+}

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DE49FDAA-587F-48FD-9075-0ECC9249498C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MyInsurance.BusinessLogic</RootNamespace>
+    <AssemblyName>MyInsurance.BusinessLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="Data\InsuranceDatabaseModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>InsuranceDatabaseModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Data\InsuranceDatabaseModel.edmx.diagram">
+      <DependentUpon>InsuranceDatabaseModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Case.cs">
+      <DependentUpon>InsuranceDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Customer.cs">
+      <DependentUpon>InsuranceDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Employee.cs">
+      <DependentUpon>InsuranceDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\InsuranceDatabaseModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InsuranceDatabaseModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\InsuranceDatabaseModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InsuranceDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\InsuranceDatabaseModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InsuranceDatabaseModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Message.cs">
+      <DependentUpon>InsuranceDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Policy.cs">
+      <DependentUpon>InsuranceDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\KlasaTest.cs" />
+    <Compile Include="Services\PolicyService.cs" />
+    <Compile Include="Services\MessageService.cs" />
+    <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\CaseService.cs" />
+    <Compile Include="Services\Dto\CaseDto.cs" />
+    <Compile Include="Services\Dto\CustomerDto.cs" />
+    <Compile Include="Services\Dto\EmployeeDto.cs" />
+    <Compile Include="Services\Dto\MessageDto.cs" />
+    <Compile Include="Services\Dto\PolicyDto.cs" />
+    <Compile Include="Services\ServiceInterfaces\IPolicyService.cs" />
+    <Compile Include="Services\ServiceInterfaces\IMessageService.cs" />
+    <Compile Include="Services\ServiceInterfaces\IEmployeeService.cs" />
+    <Compile Include="Services\ServiceInterfaces\ICustomerService.cs" />
+    <Compile Include="Services\ServiceInterfaces\ICaseService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\InsuranceDatabaseModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InsuranceDatabaseModel.edmx</DependentUpon>
+      <LastGenOutput>InsuranceDatabaseModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\InsuranceDatabaseModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InsuranceDatabaseModel.edmx</DependentUpon>
+      <LastGenOutput>InsuranceDatabaseModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
