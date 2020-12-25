@@ -1,12 +1,9 @@
 ﻿using MyInsurance.BusinessLogic.Data;
-using MyInsurance.BusinessLogic.Services.Cryptography;
 using MyInsurance.BusinessLogic.Services.Dto;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace MyInsurance.BusinessLogic.Services
 {
@@ -22,9 +19,9 @@ namespace MyInsurance.BusinessLogic.Services
         public void Add(string username, string password, string email, string firstName, string lastName, DateTime birthDate, bool isBoos, bool isAdmin, decimal salary)
         {
             string passEncrypted;
-            using (Encryption encryption = new Encryption())
+            using (CryptoService crypto = new CryptoService())
             {
-                passEncrypted = encryption.Encrypt(password);
+                passEncrypted = crypto.Encrypt(password);
             }
             Employee employee = new Employee()
             {

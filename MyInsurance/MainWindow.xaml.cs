@@ -28,7 +28,6 @@ namespace MyInsurance
 
         private void testBtn_Click(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }
