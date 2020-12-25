@@ -118,6 +118,7 @@
     <Compile Include="Data\Policy.cs">
       <DependentUpon>InsuranceDatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\CryptoService.cs" />
     <Compile Include="Services\KlasaTest.cs" />
     <Compile Include="Services\PolicyService.cs" />
     <Compile Include="Services\MessageService.cs" />

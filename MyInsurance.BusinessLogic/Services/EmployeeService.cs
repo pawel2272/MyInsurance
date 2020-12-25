@@ -4,8 +4,6 @@ using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace MyInsurance.BusinessLogic.Services
 {
@@ -20,10 +18,10 @@ namespace MyInsurance.BusinessLogic.Services
 
         public void Add(string username, string password, string email, string firstName, string lastName, DateTime birthDate, bool isBoos, bool isAdmin, decimal salary)
         {
-        string passEncrypted;
-            using (MD5 md5 = MD5.Create())
+            string passEncrypted;
+            using (CryptoService crypto = new CryptoService())
             {
-                passEncrypted = GetMD5HASH(md5, password);
+                passEncrypted = crypto.Encrypt(password);
             }
             Employee employee = new Employee()
             {
@@ -37,17 +35,6 @@ namespace MyInsurance.BusinessLogic.Services
                 IsAdmin = isAdmin,
                 IsBoss = isBoos
             };
-        }
-
-        string GetMD5HASH(MD5 hash, string input)
-        {
-            byte[] tab = hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
-            StringBuilder sBuilder = new StringBuilder();
-
-            for (int i = 0; i < tab.Length; i++)
-                sBuilder.Append(tab[i].ToString("x2"));
-            return sBuilder.ToString();
         }
 
         public void Dispose()
