@@ -1,5 +1,6 @@
 ﻿using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Services.Dto;
+using MyInsurance.BusinessLogic.Services.Exceptions;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
@@ -18,23 +19,48 @@ namespace MyInsurance.BusinessLogic.Services
 
         public void Add(string username, string password, string email, string firstName, string lastName, DateTime birthDate, bool isBoos, bool isAdmin, decimal salary)
         {
-            string passEncrypted;
-            using (CryptoService crypto = new CryptoService())
+            if (!this.CheckIfExists(username))
             {
-                passEncrypted = crypto.Encrypt(password);
+                string passEncrypted;
+                using (CryptoService crypto = new CryptoService())
+                {
+                    passEncrypted = crypto.Encrypt(password);
+                }
+                Employee employee = new Employee()
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Salary = salary,
+                    BirthDate = birthDate,
+                    EmailAddress = email,
+                    Login = username,
+                    Password = passEncrypted,
+                    IsAdmin = isAdmin,
+                    IsBoss = isBoos
+                };
+                _dbContext.Employees.Add(employee);
+                _dbContext.SaveChanges();
             }
-            Employee employee = new Employee()
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                Salary = salary,
-                BirthDate = birthDate,
-                EmailAddress = email,
-                Login = username,
-                Password = passEncrypted,
-                IsAdmin = isAdmin,
-                IsBoss = isBoos
-            };
+            else
+                throw new EntityAlreadyExistsException("User: " + username + "already exists!");
+        }
+
+        public bool CheckIfExists(string username)
+        {
+            Employee employee = _dbContext.Employees.FirstOrDefault(e => e.Login == username);
+            if (employee == null)
+                return false;
+            else
+                return true;
+        }
+
+        public bool CheckIfExists(int employeeId)
+        {
+            Employee employee = _dbContext.Employees.FirstOrDefault(e => e.Id == employeeId);
+            if (employee == null)
+                return false;
+            else
+                return true;
         }
 
         public void Dispose()

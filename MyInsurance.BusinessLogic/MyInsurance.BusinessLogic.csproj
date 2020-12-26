@@ -119,6 +119,8 @@
       <DependentUpon>InsuranceDatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Services\CryptoService.cs" />
+    <Compile Include="Services\Exceptions\EntityAlreadyExistsException.cs" />
+    <Compile Include="Services\Exceptions\EntityDoesNotExistsException.cs" />
     <Compile Include="Services\KlasaTest.cs" />
     <Compile Include="Services\PolicyService.cs" />
     <Compile Include="Services\MessageService.cs" />
@@ -147,6 +149,9 @@
       <DependentUpon>InsuranceDatabaseModel.edmx</DependentUpon>
       <LastGenOutput>InsuranceDatabaseModel.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\Enums\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,5 +9,7 @@ namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
         void Add(string username, string password, string email, string firstName, string lastName, DateTime birthDate, bool isBoos, bool isAdmin, decimal salary);
         List<CaseDto> GetEmployeeCases(int employeeId);
         List<PolicyDto> GetEmployeePolicies(int employeeId);
+        bool CheckIfExists(string username);
+        bool CheckIfExists(int employeeId);
     }
 }

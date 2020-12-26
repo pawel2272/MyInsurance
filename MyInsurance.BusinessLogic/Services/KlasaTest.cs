@@ -14,5 +14,11 @@ namespace MyInsurance.BusinessLogic.Services
         {
 
         }
+
+        public void testing()
+        {
+            EmployeeService service = new EmployeeService();
+            service.Add("admin", "admin", "admin@app.creator", "Jan", "Kowalski", new DateTime(1980, 6, 18), true, true, 99999);
+        }
     }
 }
