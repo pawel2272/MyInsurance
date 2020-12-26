@@ -28,8 +28,8 @@ namespace MyInsurance
 
         private void testBtn_Click(object sender, RoutedEventArgs e)
         {
-            KlasaTest test = new KlasaTest();
-            test.testing();
+            EmployeeService service = new EmployeeService();
+            service.Add("admin", "admin", "admin@app.creator", "Jan", "Kowalski", new DateTime(1980, 6, 18), true, true, 99999);
         }
     }
 }

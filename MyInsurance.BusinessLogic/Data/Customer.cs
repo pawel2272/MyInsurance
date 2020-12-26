@@ -17,8 +17,8 @@ namespace MyInsurance.BusinessLogic.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
-            this.Policies = new HashSet<Policy>();
             this.Cases = new HashSet<Case>();
+            this.Policies = new HashSet<Policy>();
         }
     
         public int Id { get; set; }
@@ -37,8 +37,8 @@ namespace MyInsurance.BusinessLogic.Data
         public decimal Discount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Policy> Policies { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Case> Cases { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Policy> Policies { get; set; }
     }
 }

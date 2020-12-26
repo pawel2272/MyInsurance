@@ -42,7 +42,7 @@ namespace MyInsurance.BusinessLogic.Services
                 _dbContext.SaveChanges();
             }
             else
-                throw new EntityAlreadyExistsException("User: " + username + "already exists!");
+                throw new EntityAlreadyExistsException("User: " + username + " already exists!");
         }
 
         public bool CheckIfExists(string username)

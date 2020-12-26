@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="InsuranceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="InsuranceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Case">
           <Key>
             <PropertyRef Name="Id" />
@@ -162,7 +162,8 @@
             <End Role="Policy" EntitySet="Policy" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="InsuranceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -175,10 +176,10 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Decision" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsEnded" Type="Boolean" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Case_Customer" FromRole="Case" ToRole="Customer" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Case_Employee" FromRole="Case" ToRole="Employee" />
           <NavigationProperty Name="Messages" Relationship="Self.FK_Messages_Case" FromRole="Case" ToRole="Messages" />
-          <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="InsuranceDBModel.FK_Case_Customer" FromRole="Case" ToRole="Customer" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -198,8 +199,8 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Discount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Cases" Relationship="Self.FK_Case_Customer" FromRole="Customer" ToRole="Case" />
           <NavigationProperty Name="Policies" Relationship="Self.FK_Policy_Customer" FromRole="Customer" ToRole="Policy" />
-          <NavigationProperty Name="Cases" Relationship="InsuranceDBModel.FK_Case_Customer" FromRole="Customer" ToRole="Case" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -213,7 +214,7 @@
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="BirthDate" Type="DateTime" Precision="7" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -246,6 +247,18 @@
           <NavigationProperty Name="Customer" Relationship="Self.FK_Policy_Customer" FromRole="Policy" ToRole="Customer" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Policy_Employee" FromRole="Policy" ToRole="Employee" />
         </EntityType>
+        <Association Name="FK_Case_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Case" Type="Self.Case" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Case">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Case_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Case" Type="Self.Case" Multiplicity="*" />
@@ -300,6 +313,10 @@
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="Messages" EntityType="Self.Message" />
           <EntitySet Name="Policies" EntityType="Self.Policy" />
+          <AssociationSet Name="FK_Case_Customer" Association="Self.FK_Case_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Case" EntitySet="Cases" />
+          </AssociationSet>
           <AssociationSet Name="FK_Case_Employee" Association="Self.FK_Case_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Case" EntitySet="Cases" />
@@ -316,23 +333,7 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Policy" EntitySet="Policies" />
           </AssociationSet>
-          <AssociationSet Name="FK_Case_Customer" Association="InsuranceDBModel.FK_Case_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Case" EntitySet="Cases" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_Case_Customer">
-          <End Type="InsuranceDBModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="InsuranceDBModel.Case" Role="Case" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Case">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -342,12 +343,12 @@
           <EntitySetMapping Name="Cases">
             <EntityTypeMapping TypeName="InsuranceDBModel.Case">
               <MappingFragment StoreEntitySet="Case">
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Decision" ColumnName="Decision" />
                 <ScalarProperty Name="IsEnded" ColumnName="IsEnded" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
