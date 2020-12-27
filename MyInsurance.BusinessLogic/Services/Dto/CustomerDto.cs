@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyInsurance.BusinessLogic.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyInsurance.BusinessLogic.Services.Dto
 {
-    public class CustomerDto
+    public class CustomerDto : ILoginable
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

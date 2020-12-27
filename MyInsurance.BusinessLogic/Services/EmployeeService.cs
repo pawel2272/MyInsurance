@@ -1,4 +1,5 @@
 ﻿using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Interfaces;
 using MyInsurance.BusinessLogic.Services.Dto;
 using MyInsurance.BusinessLogic.Services.Exceptions;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
 {
-    public class EmployeeService : IEmployeeService, IDisposable
+    public class EmployeeService : IEmployeeService, IDisposable, IPerson
     {
         private readonly InsuranceDBEntities _dbContext;
 
@@ -68,6 +69,68 @@ namespace MyInsurance.BusinessLogic.Services
             _dbContext.Dispose();
         }
 
+        public EmployeeDto GetEmployee(int customerId)
+        {
+            try
+            {
+                Employee employee = _dbContext.Employees.First(e => e.Id == customerId);
+                return new EmployeeDto()
+                {
+                    Id = employee.Id,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    Street = employee.Street,
+                    HouseNumber = employee.HouseNumber,
+                    City = employee.City,
+                    ZipCode = employee.ZipCode,
+                    Salary = employee.Salary,
+                    BirthDate = new DateTime(employee.BirthDate.Year, employee.BirthDate.Month, employee.BirthDate.Day),
+                    EmailAddress = employee.EmailAddress,
+                    Login = employee.Login,
+                    Password = employee.Password,
+                    IsAdmin = employee.IsAdmin,
+                    IsBoss = employee.IsBoss,
+                    PhoneNumber = employee.PhoneNumber
+                };
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
+
+        public EmployeeDto GetEmployee(string username)
+        {
+            try
+            {
+                Employee employee = _dbContext.Employees.First(e => e.Login == username);
+                return new EmployeeDto()
+                {
+                    Id = employee.Id,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    Street = employee.Street,
+                    HouseNumber = employee.HouseNumber,
+                    City = employee.City,
+                    ZipCode = employee.ZipCode,
+                    Salary = employee.Salary,
+                    BirthDate = new DateTime(employee.BirthDate.Year, employee.BirthDate.Month, employee.BirthDate.Day),
+                    EmailAddress = employee.EmailAddress,
+                    Login = employee.Login,
+                    Password = employee.Password,
+                    IsAdmin = employee.IsAdmin,
+                    IsBoss = employee.IsBoss,
+                    PhoneNumber = employee.PhoneNumber
+                };
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
+
         public List<CaseDto> GetEmployeeCases(int employeeId)
         {
             try
@@ -117,6 +180,11 @@ namespace MyInsurance.BusinessLogic.Services
 
             }
             return new List<PolicyDto>();
+        }
+
+        public ILoginable GetPerson(string username)
+        {
+            return GetEmployee(username);
         }
     }
 }

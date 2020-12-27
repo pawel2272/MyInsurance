@@ -1,4 +1,5 @@
 ﻿using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Interfaces;
 using MyInsurance.BusinessLogic.Services.Dto;
 using MyInsurance.BusinessLogic.Services.Exceptions;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
 {
-    public class CustomerService : ICustomerService, IDisposable
+    public class CustomerService : ICustomerService, IDisposable, IPerson
     {
         private readonly InsuranceDBEntities _dbContext;
 
@@ -97,6 +98,36 @@ namespace MyInsurance.BusinessLogic.Services
             }
             catch (Exception ex)
             {
+                
+            }
+            return null;
+        }
+
+        public CustomerDto GetCustomer(string username)
+        {
+            try
+            {
+                Customer customer = _dbContext.Customers.First(cust => cust.Login == username);
+                return new CustomerDto()
+                {
+                    Id = customer.Id,
+                    FirstName = customer.FirstName,
+                    LastName = customer.LastName,
+                    Street = customer.Street,
+                    HouseNumber = customer.HouseNumber,
+                    City = customer.City,
+                    ZipCode = customer.ZipCode,
+                    CompanyName = customer.CompanyName,
+                    PhoneNumber = customer.PhoneNumber,
+                    NIPNumber = customer.NIPNumber,
+                    Login = customer.Login,
+                    Password = customer.Password,
+                    EmailAddress = customer.EmailAddress,
+                    Discount = customer.Discount
+                };
+            }
+            catch (Exception ex)
+            {
 
             }
             return null;
@@ -151,6 +182,11 @@ namespace MyInsurance.BusinessLogic.Services
 
             }
             return new List<PolicyDto>();
+        }
+
+        public ILoginable GetPerson(string username)
+        {
+            return GetCustomer(username);
         }
     }
 }
