@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyInsurance.BusinessLogic.Services
 {
-    internal class CryptoService : IDisposable
+    public class CryptoService : IDisposable
     {
         private readonly byte[] keys;
         private readonly MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();

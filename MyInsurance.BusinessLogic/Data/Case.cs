@@ -27,9 +27,9 @@ namespace MyInsurance.BusinessLogic.Data
         public bool IsEnded { get; set; }
         public int CustomerId { get; set; }
     
+        public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }
-        public virtual Customer Customer { get; set; }
     }
 }

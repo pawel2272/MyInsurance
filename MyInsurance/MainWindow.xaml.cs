@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MyInsurance.BusinessLogic.Services;
+using MyInsurance.BusinessLogic.Services.Dto;
 
 namespace MyInsurance
 {
@@ -28,6 +29,11 @@ namespace MyInsurance
 
         private void testBtn_Click(object sender, RoutedEventArgs e)
         {
+            EmployeeService service = new EmployeeService();
+            using (LoginService<EmployeeDto, EmployeeService> loginService = new LoginService<EmployeeDto, EmployeeService>(service, new CryptoService()))
+            {
+                tbResult.Text = loginService.Login("admin", "admin").ToString();
+            }
         }
     }
 }

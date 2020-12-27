@@ -1,5 +1,7 @@
 ﻿using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Interfaces;
 using MyInsurance.BusinessLogic.Services.Dto;
+using MyInsurance.BusinessLogic.Services.Exceptions;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
 {
-    public class CustomerService : ICustomerService, IDisposable
+    public class CustomerService : ICustomerService, IDisposable, IPerson
     {
         private readonly InsuranceDBEntities _dbContext;
 
@@ -16,9 +18,54 @@ namespace MyInsurance.BusinessLogic.Services
             _dbContext = new InsuranceDBEntities();
         }
 
-        public void Add(CustomerDto customer)
+        public void Add(string username, string password, string email, string firstName, string lastName, string street, int houseNumber, string city, string zipCode, string companyName, string phoneNumber, string nipNumber = "00000000000", decimal discount = 0)
         {
-            throw new NotImplementedException();
+            if (!this.CheckIfExists(username))
+            {
+                string passEncrypted;
+                using (CryptoService crypto = new CryptoService())
+                {
+                    passEncrypted = crypto.Encrypt(password);
+                }
+                Customer customer = new Customer()
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Street = street,
+                    HouseNumber = houseNumber,
+                    City = city,
+                    ZipCode = zipCode,
+                    CompanyName = companyName,
+                    PhoneNumber = phoneNumber,
+                    NIPNumber = nipNumber,
+                    Login = username,
+                    Password = passEncrypted,
+                    EmailAddress = email,
+                    Discount = discount
+                };
+                _dbContext.Customers.Add(customer);
+                _dbContext.SaveChanges();
+            }
+            else
+                throw new EntityAlreadyExistsException("User: " + username + "already exists!");
+        }
+
+        public bool CheckIfExists(string username)
+        {
+            Customer customer = _dbContext.Customers.FirstOrDefault(c => c.Login == username);
+            if (customer == null)
+                return false;
+            else
+                return true;
+        }
+
+        public bool CheckIfExists(int customerId)
+        {
+            Customer customer = _dbContext.Customers.FirstOrDefault(c => c.Id == customerId);
+            if (customer == null)
+                return false;
+            else
+                return true;
         }
 
         public void Dispose()
@@ -31,6 +78,36 @@ namespace MyInsurance.BusinessLogic.Services
             try
             {
                 Customer customer = _dbContext.Customers.First(cust => cust.Id == customerId);
+                return new CustomerDto()
+                {
+                    Id = customer.Id,
+                    FirstName = customer.FirstName,
+                    LastName = customer.LastName,
+                    Street = customer.Street,
+                    HouseNumber = customer.HouseNumber,
+                    City = customer.City,
+                    ZipCode = customer.ZipCode,
+                    CompanyName = customer.CompanyName,
+                    PhoneNumber = customer.PhoneNumber,
+                    NIPNumber = customer.NIPNumber,
+                    Login = customer.Login,
+                    Password = customer.Password,
+                    EmailAddress = customer.EmailAddress,
+                    Discount = customer.Discount
+                };
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return null;
+        }
+
+        public CustomerDto GetCustomer(string username)
+        {
+            try
+            {
+                Customer customer = _dbContext.Customers.First(cust => cust.Login == username);
                 return new CustomerDto()
                 {
                     Id = customer.Id,
@@ -105,6 +182,11 @@ namespace MyInsurance.BusinessLogic.Services
 
             }
             return new List<PolicyDto>();
+        }
+
+        public ILoginable GetPerson(string username)
+        {
+            return GetCustomer(username);
         }
     }
 }
