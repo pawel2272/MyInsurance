@@ -1,5 +1,4 @@
 ﻿using MyInsurance.BusinessLogic.Interfaces;
-using MyInsurance.BusinessLogic.Services.Exceptions;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
 
