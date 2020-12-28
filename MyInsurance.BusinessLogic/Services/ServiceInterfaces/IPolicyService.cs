@@ -1,11 +1,13 @@
-﻿using MyInsurance.BusinessLogic.Services.Dto;
+﻿using MyInsurance.BusinessLogic.Data;
+using System;
 
 namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
     public interface IPolicyService
     {
-        void Add(PolicyDto policy);
-        CustomerDto GetPolicyCustomer(int policyId);
-        EmployeeDto GetPolicyEmployee(int policyId);
+        void Add(int customerId, int employeeId, decimal amount, string type, string name, DateTime dateOfEnding);
+        Policy GetPolicy(int policyId);
+        Customer GetPolicyCustomer(int policyId);
+        Employee GetPolicyEmployee(int policyId);
     }
 }

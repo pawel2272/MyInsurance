@@ -1,5 +1,4 @@
 ﻿using MyInsurance.BusinessLogic.Data;
-using MyInsurance.BusinessLogic.Services.Dto;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
@@ -16,163 +15,75 @@ namespace MyInsurance.BusinessLogic.Services
             _dbContext = new InsuranceDBEntities();
         }
 
-        public List<CaseDto> GetAllCases(int customerId)
+        public List<Case> GetAllCases(int customerId)
         {
             try
             {
                 return _dbContext.Cases
                     .Where(cas => cas.CustomerId == customerId)
-                    .Select(cas => new CaseDto()
-                    {
-                        Id = cas.Id,
-                        EmployeeId = cas.EmployeeId,
-                        Description = cas.Description,
-                        Decision = cas.Decision,
-                        IsEnded = cas.IsEnded,
-                        CustomerId = cas.CustomerId,
-                    })
                     .ToList();
             }
             catch (Exception ex)
             {
                 //LOGGER
-
             }
-            return new List<CaseDto>();
+            return new List<Case>();
         }
 
-        public List<CaseDto> GetOpenedCases()
+        public List<Case> GetOpenedCases()
         {
             try
             {
                 return _dbContext.Cases
-                    .Where(cas => cas.IsEnded == false)
-                    .Select(cas => new CaseDto()
-                    {
-                        Id = cas.Id,
-                        EmployeeId = cas.EmployeeId,
-                        Description = cas.Description,
-                        Decision = cas.Decision,
-                        IsEnded = cas.IsEnded,
-                        CustomerId = cas.CustomerId,
-                    })
+                    .Where(cas => !cas.IsEnded)
                     .ToList();
             }
             catch (Exception ex)
             {
                 //LOGGER
-
             }
-            return new List<CaseDto>();
+            return new List<Case>();
         }
 
-        public List<CaseDto> GetClosedCases()
+        public List<Case> GetClosedCases()
         {
             try
             {
                 return _dbContext.Cases
-                    .Where(cas => cas.IsEnded == true)
-                    .Select(cas => new CaseDto()
-                    {
-                        Id = cas.Id,
-                        EmployeeId = cas.EmployeeId,
-                        Description = cas.Description,
-                        Decision = cas.Decision,
-                        IsEnded = cas.IsEnded,
-                        CustomerId = cas.CustomerId
-                    })
+                    .Where(cas => cas.IsEnded)
                     .ToList();
             }
             catch (Exception ex)
             {
                 //LOGGER
-
             }
-            return new List<CaseDto>();
+            return new List<Case>();
         }
 
-        public List<MessageDto> GetCaseMessages(int caseId)
+        public List<Message> GetCaseMessages(int caseId)
         {
             try
             {
-                Case cas = _dbContext.Cases.First(Case => Case.Id == caseId);
-                return cas.Messages
-                    .Select(mess => new MessageDto()
-                    {
-                        Id = mess.Id,
-                        CaseId = mess.CaseId,
-                        Text = mess.Text,
-                    })
-                    .ToList();
+                return GetCase(caseId).Messages.ToList();
             }
             catch (Exception ex)
             {
                 //LOGGER
 
             }
-            return new List<MessageDto>();
+            return new List<Message>();
         }
 
-        public CustomerDto GetCaseCustomer(int caseId)
+        public Customer GetCaseCustomer(int caseId)
         {
-            try
-            {
-                Customer customer = _dbContext.Cases.First(cas => cas.Id == caseId).Customer;
-                return new CustomerDto()
-                {
-                    Id = customer.Id,
-                    FirstName = customer.FirstName,
-                    LastName = customer.LastName,
-                    Street = customer.Street,
-                    HouseNumber = customer.HouseNumber,
-                    City = customer.City,
-                    ZipCode = customer.ZipCode,
-                    CompanyName = customer.CompanyName,
-                    PhoneNumber = customer.PhoneNumber,
-                    NIPNumber = customer.NIPNumber,
-                    Login = customer.Login,
-                    Password = customer.Password,
-                    EmailAddress = customer.EmailAddress,
-                    Discount = customer.Discount
-                };
-            }
-            catch (Exception ex)
-            {
-                //LOGGER
-            }
-            return null;
+            Customer customer = GetCase(caseId).Customer;
+            return customer;
         }
 
-        public EmployeeDto GetCaseEmployee(int caseId)
+        public Employee GetCaseEmployee(int caseId)
         {
-            try
-            {
-                Employee employee = _dbContext.Cases.First(cas => cas.Id == caseId).Employee;
-                return new EmployeeDto()
-                {
-                    Id = employee.Id,
-                    FirstName = employee.FirstName,
-                    LastName = employee.LastName,
-                    Street = employee.Street,
-                    HouseNumber = employee.HouseNumber,
-                    City = employee.City,
-                    ZipCode = employee.ZipCode,
-                    Salary = employee.Salary,
-                    BirthDate = new DateTime(employee.BirthDate.Year, employee.BirthDate.Month, employee.BirthDate.Year),
-                    EmailAddress = employee.EmailAddress,
-                    Login = employee.Login,
-                    Password = employee.Password,
-                    IsAdmin = employee.IsAdmin,
-                    IsBoss = employee.IsBoss,
-                    PhoneNumber = employee.PhoneNumber,
-                };
-            }
-
-            catch (Exception ex)
-            {
-                //LOGGER
-            }
-            return null;
+            Employee employee = GetCase(caseId).Employee;
+            return employee;
         }
 
         public void Dispose()
@@ -180,9 +91,42 @@ namespace MyInsurance.BusinessLogic.Services
             _dbContext.Dispose();
         }
 
-        public void Add(CaseDto casee)
+        private Customer GetCustomer(int customerId)
         {
-            throw new NotImplementedException();
+            using (CustomerService customerService = new CustomerService())
+            {
+                return customerService.GetCustomer(customerId);
+            }
+        }
+
+        private Employee GetEmployee(int employeeId)
+        {
+            using (EmployeeService employeeService = new EmployeeService())
+            {
+                return employeeService.GetEmployee(employeeId);
+            }
+        }
+
+        public void Add(int employeeId, string description, string decision, int customerId, bool isEnded = false)
+        {
+            Case newCase = new Case()
+            {
+                EmployeeId = employeeId,
+                Description = description,
+                Decision = decision,
+                IsEnded = isEnded,
+                CustomerId = customerId,
+                Customer = GetCustomer(customerId),
+                Employee = GetEmployee(employeeId)
+            };
+
+            _dbContext.Cases.Add(newCase);
+            _dbContext.SaveChanges();
+        }
+
+        public Case GetCase(int caseId)
+        {
+                return _dbContext.Cases.FirstOrDefault(cas => cas.Id == caseId);
         }
     }
 }

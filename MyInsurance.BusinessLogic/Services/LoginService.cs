@@ -29,7 +29,7 @@ namespace MyInsurance.BusinessLogic.Services
         {
             get
             {
-                if (isLogged == true)
+                if (isLogged)
                 {
                     if (person != null)
                         return person;

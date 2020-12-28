@@ -1,10 +1,11 @@
-﻿using MyInsurance.BusinessLogic.Services.Dto;
+﻿using MyInsurance.BusinessLogic.Data;
 
 namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
     public interface IMessageService
     {
-        void Add(MessageDto message);
-        CaseDto GetMessageCase(int messageId);
+        void Add(int caseId, string messageText);
+        Message GetMessage(int messageId);
+        Case GetMessageCase(int messageId);
     }
 }

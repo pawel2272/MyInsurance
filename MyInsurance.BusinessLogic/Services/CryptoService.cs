@@ -7,11 +7,12 @@ namespace MyInsurance.BusinessLogic.Services
     public class CryptoService : IDisposable
     {
         private readonly byte[] keys;
-        private readonly MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+        private readonly MD5CryptoServiceProvider md5;
 
-        public CryptoService(string cryptoKey = "projekt2k21crypto")
+        public CryptoService(string cryptoKey)
         {
-            this.keys = md5.ComputeHash(Encoding.UTF8.GetBytes(cryptoKey));
+            md5 = new MD5CryptoServiceProvider();
+            keys = md5.ComputeHash(Encoding.UTF8.GetBytes(cryptoKey));
         }
 
         public string Encrypt(string toBeEncrypted)

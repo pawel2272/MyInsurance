@@ -1,17 +1,18 @@
-﻿using MyInsurance.BusinessLogic.Services.Dto;
+﻿using MyInsurance.BusinessLogic.Data;
 using System.Collections.Generic;
 
 namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
     public interface ICaseService
     {
-        void Add(CaseDto casee);
-        List<CaseDto> GetAllCases(int customerId);
-        List<CaseDto> GetOpenedCases();
-        List<CaseDto> GetClosedCases();
-        List<MessageDto> GetCaseMessages(int caseId);
+        void Add(int employeeId, string description, string decision, int customerId, bool isEnded = false);
+        Case GetCase(int caseId);
+        List<Case> GetAllCases(int customerId);
+        List<Case> GetOpenedCases();
+        List<Case> GetClosedCases();
+        List<Message> GetCaseMessages(int caseId);
 
-        CustomerDto GetCaseCustomer(int caseId);
-        EmployeeDto GetCaseEmployee(int caseId);
+        Customer GetCaseCustomer(int caseId);
+        Employee GetCaseEmployee(int caseId);
     }
 }
