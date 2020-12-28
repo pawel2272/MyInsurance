@@ -2,7 +2,7 @@
 
 namespace MyInsurance.BusinessLogic.Constants
 {
-    internal static class CryptoConstants
+    public static class CryptoConstants
     {
         public static readonly Dictionary<string, string> ENCRYPTION_KEYS = new Dictionary<string, string>
         {

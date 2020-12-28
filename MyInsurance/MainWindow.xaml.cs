@@ -1,6 +1,10 @@
 ﻿using System.Windows;
+using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Services;
-using MyInsurance.BusinessLogic.Services.Dto;
+using MyInsurance.BusinessLogic.Constants;
+using System.Threading;
+using System;
+using System.Threading.Tasks;
 
 namespace MyInsurance
 {
@@ -14,12 +18,22 @@ namespace MyInsurance
             InitializeComponent();
         }
 
-        private void testBtn_Click(object sender, RoutedEventArgs e)
+        private async void testBtn_Click(object sender, RoutedEventArgs e)
         {
-            EmployeeService service = new EmployeeService();
-            using (LoginService<EmployeeDto, EmployeeService> loginService = new LoginService<EmployeeDto, EmployeeService>(service, new CryptoService()))
+            Dispatcher.Invoke(new Action(() => Login()));
+        }
+
+        private void Login()
+        {
+            using (EmployeeService service = new EmployeeService())
             {
-                tbResult.Text = loginService.Login("admin", "admin").ToString();
+                using (LoginService<Employee, EmployeeService> loginService = new LoginService<Employee, EmployeeService>(service, new CryptoService(CryptoConstants.ENCRYPTION_KEYS["user"])))
+                {
+                    if (loginService.Login("admin", "admin"))
+                    {
+                        tbResult.Text = loginService.GetLoggedPerson.Login;
+                    }
+                }
             }
         }
     }

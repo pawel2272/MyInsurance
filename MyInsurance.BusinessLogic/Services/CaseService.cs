@@ -6,15 +6,29 @@ using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
 {
-    public class CaseService : ICaseService, IDisposable
+    /// <summary>
+    /// serwis obsługujący tabelę Case
+    /// </summary>
+    public class CaseService : ICaseService
     {
+        /// <summary>
+        /// połączenie z bazą danych
+        /// </summary>
         private readonly InsuranceDBEntities _dbContext;
 
+        /// <summary>
+        /// Konstruktor inicjalizujący połączenie z bazą
+        /// </summary>
         public CaseService()
         {
             _dbContext = new InsuranceDBEntities();
         }
 
+        /// <summary>
+        /// zwraca wszystkie zgłoszenia danego klienta lub pustą listę
+        /// </summary>
+        /// <param name="customerId">id klienta</param>
+        /// <returns>lista zgłoszeń klienta</returns>
         public List<Case> GetAllCases(int customerId)
         {
             try
@@ -30,6 +44,10 @@ namespace MyInsurance.BusinessLogic.Services
             return new List<Case>();
         }
 
+        /// <summary>
+        /// zwraca wszystkie otwarte zgłoszenia danego klienta lub pustą listę
+        /// </summary>
+        /// <returns>lista zgłoszeń klienta</returns>
         public List<Case> GetOpenedCases()
         {
             try
@@ -45,6 +63,10 @@ namespace MyInsurance.BusinessLogic.Services
             return new List<Case>();
         }
 
+        /// <summary>
+        /// zwraca wszystkie zamknięte zgłoszenia danego klienta lub pustą listę
+        /// </summary>
+        /// <returns>lista zgłoszeń klienta</returns>
         public List<Case> GetClosedCases()
         {
             try
@@ -60,6 +82,11 @@ namespace MyInsurance.BusinessLogic.Services
             return new List<Case>();
         }
 
+        /// <summary>
+        /// zwraca wszystkie wiadomości dla danego zgłoszenia lub pustą listę
+        /// </summary>
+        /// <param name="caseId">id zgłoszenia</param>
+        /// <returns>lista wiadomości</returns>
         public List<Message> GetCaseMessages(int caseId)
         {
             try
@@ -74,23 +101,57 @@ namespace MyInsurance.BusinessLogic.Services
             return new List<Message>();
         }
 
+        /// <summary>
+        /// zwraca klienta dla danego zgłoszenia lub null
+        /// </summary>
+        /// <param name="caseId">id zgłoszenia</param>
+        /// <returns>klient dla danego zgłoszenia</returns>
         public Customer GetCaseCustomer(int caseId)
         {
-            Customer customer = GetCase(caseId).Customer;
-            return customer;
+            try
+            {
+                Customer customer = GetCase(caseId).Customer;
+                return customer;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
         }
 
+        /// <summary>
+        /// zwraca pracownika zajmującego się daną sprawą
+        /// </summary>
+        /// <param name="caseId"></param>
+        /// <returns></returns>
         public Employee GetCaseEmployee(int caseId)
         {
-            Employee employee = GetCase(caseId).Employee;
-            return employee;
+            try
+            {
+                Employee employee = GetCase(caseId).Employee;
+                return employee;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
         }
 
+        /// <summary>
+        /// implementacja interfejsu IDisposable
+        /// </summary>
         public void Dispose()
         {
             _dbContext.Dispose();
         }
 
+        /// <summary>
+        /// zwraca klienta o podanym id lub null
+        /// </summary>
+        /// <param name="customerId">id kliena</param>
+        /// <returns>klient</returns>
         private Customer GetCustomer(int customerId)
         {
             using (CustomerService customerService = new CustomerService())
@@ -99,6 +160,11 @@ namespace MyInsurance.BusinessLogic.Services
             }
         }
 
+        /// <summary>
+        /// zwraca pracownika o podanym id lub null
+        /// </summary>
+        /// <param name="employeeId">id pracownika</param>
+        /// <returns>pracownik</returns>
         private Employee GetEmployee(int employeeId)
         {
             using (EmployeeService employeeService = new EmployeeService())
@@ -107,6 +173,14 @@ namespace MyInsurance.BusinessLogic.Services
             }
         }
 
+        /// <summary>
+        /// dodaje nowe zgłoszenie
+        /// </summary>
+        /// <param name="employeeId">id pracownika</param>
+        /// <param name="description">opis</param>
+        /// <param name="decision">decyzja</param>
+        /// <param name="customerId">id klienta</param>
+        /// <param name="isEnded">status - czy jest zakończone</param>
         public void Add(int employeeId, string description, string decision, int customerId, bool isEnded = false)
         {
             Case newCase = new Case()
@@ -121,9 +195,14 @@ namespace MyInsurance.BusinessLogic.Services
             };
 
             _dbContext.Cases.Add(newCase);
-            _dbContext.SaveChanges();
+            _dbContext.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// zwraca zgłoszenie o podanym id
+        /// </summary>
+        /// <param name="caseId">id zgłoszenia</param>
+        /// <returns>zgłoszenie</returns>
         public Case GetCase(int caseId)
         {
                 return _dbContext.Cases.FirstOrDefault(cas => cas.Id == caseId);

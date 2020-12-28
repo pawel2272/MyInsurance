@@ -18,6 +18,7 @@ namespace MyInsurance.BusinessLogic.Data
         public int CaseId { get; set; }
         public string Text { get; set; }
         public System.DateTime SendingDate { get; set; }
+        public bool IsFromAgent { get; set; }
     
         public virtual Case Case { get; set; }
     }

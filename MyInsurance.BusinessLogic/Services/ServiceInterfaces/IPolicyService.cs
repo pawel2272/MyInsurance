@@ -3,7 +3,7 @@ using System;
 
 namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
-    public interface IPolicyService
+    public interface IPolicyService : IDisposable
     {
         void Add(int customerId, int employeeId, decimal amount, string type, string name, DateTime dateOfEnding);
         Policy GetPolicy(int policyId);

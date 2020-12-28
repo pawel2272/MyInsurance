@@ -5,10 +5,19 @@ using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
 {
-    public class PolicyService : IPolicyService, IDisposable
+    /// <summary>
+    /// serwis obsługujący tabelę Policy
+    /// </summary>
+    public class PolicyService : IPolicyService
     {
+        /// <summary>
+        /// połączenie z bazą danych
+        /// </summary>
         private readonly InsuranceDBEntities _dbContext;
 
+        /// <summary>
+        /// Konstruktor inicjalizujący połączenie z bazą
+        /// </summary>
         public PolicyService()
         {
             _dbContext = new InsuranceDBEntities();
@@ -50,7 +59,7 @@ namespace MyInsurance.BusinessLogic.Services
             };
 
             _dbContext.Policies.Add(newPolicy);
-            _dbContext.SaveChanges();
+            _dbContext.SaveChangesAsync();
         }
 
 

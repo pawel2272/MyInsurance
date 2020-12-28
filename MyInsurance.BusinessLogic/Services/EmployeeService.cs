@@ -9,10 +9,19 @@ using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
 {
-    public class EmployeeService : IEmployeeService, IDisposable, IPerson
+    /// <summary>
+    /// serwis obsługujący tabelę Employee
+    /// </summary>
+    public class EmployeeService : IEmployeeService, IPerson
     {
+        /// <summary>
+        /// połączenie z bazą danych
+        /// </summary>
         private readonly InsuranceDBEntities _dbContext;
 
+        /// <summary>
+        /// Konstruktor inicjalizujący połączenie z bazą
+        /// </summary>
         public EmployeeService()
         {
             _dbContext = new InsuranceDBEntities();
@@ -40,7 +49,7 @@ namespace MyInsurance.BusinessLogic.Services
                     IsBoss = isBoos
                 };
                 _dbContext.Employees.Add(employee);
-                _dbContext.SaveChanges();
+                _dbContext.SaveChangesAsync();
             }
             else
                 throw new EntityAlreadyExistsException("User: " + username + " already exists!");

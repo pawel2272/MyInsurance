@@ -4,7 +4,7 @@ using System;
 
 namespace MyInsurance.BusinessLogic.Services
 {
-    public class LoginService<DTO, SERVICE> : ILoginService, IDisposable
+    public class LoginService<DTO, SERVICE> : ILoginService
         where DTO : ILoginable
         where SERVICE : IPerson
     {
