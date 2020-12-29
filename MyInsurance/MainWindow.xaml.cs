@@ -31,10 +31,12 @@ namespace MyInsurance
                 {
                     if (loginService.Login("admin", "admin"))
                     {
-                        tbResult.Text = loginService.GetLoggedPerson.Login;
+                        //tbResult.Text = loginService.GetLoggedPerson.Login;
                     }
                 }
             }
         }
+
+
     }
 }
