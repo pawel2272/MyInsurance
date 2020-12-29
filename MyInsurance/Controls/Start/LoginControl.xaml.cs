@@ -54,6 +54,20 @@ namespace MyInsurance.Controls.Start
                 source.btnRegister.Background = value;
             })));
 
+        public RegisterControl RegisterControl
+        {
+            get { return (RegisterControl)GetValue(RegisterControlProperty); }
+            set { SetValue(RegisterControlProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for RegisterControl.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RegisterControlProperty =
+            DependencyProperty.Register("RegisterControl", typeof(RegisterControl), typeof(LoginControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as LoginControl;
+                var value = e.NewValue as RegisterControl;
+                source.RegisterControl = value;
+            })));
+
         public LoginControl()
         {
             InitializeComponent();
@@ -64,20 +78,25 @@ namespace MyInsurance.Controls.Start
             tbLogin.IsEnabled = true;
             pbPassword.IsEnabled = true;
             btnLogin.IsEnabled = true;
-            if (sender == rbCustomer)
-                btnRegister.IsEnabled = true;
-            else
-                btnRegister.IsEnabled = false;
+            btnRegister.IsEnabled = true;
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool) rbEmployee.IsChecked)
-                Dispatcher.Invoke(new Action(() => EmployeeLogin()));
+            if (tbLogin.Text.Length > 0 && pbPassword.Password.Length > 0)
+            {
+                if ((bool)rbEmployee.IsChecked)
+                    Dispatcher.Invoke(new Action(() => EmployeeLogin()));
 
-            if ((bool) rbCustomer.IsChecked)
-                Dispatcher.Invoke(new Action(() => CustomerLogin()));
+                if ((bool)rbCustomer.IsChecked)
+                    Dispatcher.Invoke(new Action(() => CustomerLogin()));
+            }
+            else
+            {
+                MessageBox.Show("Uzupełnij wszystkie pola!", "Brak danych.", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
+
 
         private void EmployeeLogin()
         {
@@ -88,6 +107,10 @@ namespace MyInsurance.Controls.Start
                     if (loginService.Login(tbLogin.Text, pbPassword.Password))
                     {
                         MessageBox.Show("Zalogowano");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }
@@ -103,7 +126,77 @@ namespace MyInsurance.Controls.Start
                     {
                         MessageBox.Show("Zalogowano");
                     }
+                    else
+                    {
+                        MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
+            }
+
+        }
+
+        private void HideControl()
+        {
+            this.Visibility = Visibility.Hidden;
+            this.RegisterControl.Visibility = Visibility.Visible;
+        }
+
+        private void SetRegistrationType()
+        {
+            if ((bool)this.rbCustomer.IsChecked)
+            {
+                this.RegisterControl.CustomerRegister = true;
+            }
+            if ((bool)this.rbEmployee.IsChecked)
+            {
+                this.RegisterControl.CustomerRegister = false;
+            }
+        }
+
+        private void SendDataToRegistrationControl()
+        {
+            RegisterControl.NewUserLogin = tbLogin.Text;
+            RegisterControl.NewUserPassword = pbPassword.Password;
+        }
+
+        private bool CheckIfUserExists()
+        {
+            if ((bool)this.rbCustomer.IsChecked)
+            {
+                using (CustomerService customerService = new CustomerService())
+                {
+                    return customerService.CheckIfExists(tbLogin.Text);
+                }
+            }
+            if ((bool)this.rbEmployee.IsChecked)
+            {
+                using (EmployeeService employeeService = new EmployeeService())
+                {
+                    return employeeService.CheckIfExists(tbLogin.Text);
+                }
+            }
+            return false;
+        }
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbLogin.Text.Length > 0 && pbPassword.Password.Length > 8)
+            {
+                if (!CheckIfUserExists())
+                {
+                    HideControl();
+                    SetRegistrationType();
+                    SendDataToRegistrationControl();
+                    MessageBox.Show(RegisterControl.NewUserLogin + " " + RegisterControl.NewUserPassword);
+                }
+                else
+                {
+                    MessageBox.Show("Użytkownik o podanej nazwie już istnieje! Proszę podać inną nazwę.", "Użytkownik już istnieje.", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Uzupełnij login i hasło! Hasło nie może być krótsze niż 8 znaków.", "Uzupełnij dane.", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

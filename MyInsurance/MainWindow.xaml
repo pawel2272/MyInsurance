@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" ResizeMode="NoResize" Height="450" Width="700">
     <Grid>
-        <start:LoginControl Background="DarkOrange" ButtonsForeground="Orange" ButtonsBackground="Black" FontFamily="Century Gothic"/>
+        <start:LoginControl x:Name="lcLogin" Background="DarkOrange" ButtonsForeground="Orange" ButtonsBackground="Black" FontFamily="Century Gothic" RegisterControl="{Binding ElementName=rcRegister}"/>
+        <start:RegisterControl x:Name="rcRegister" Background="DarkOrange" ButtonsForeground="Orange" ButtonsBackground="Black" FontFamily="Century Gothic" Visibility="Hidden" LoginControl="{Binding ElementName=lcLogin}"/>
     </Grid>
 </Window>

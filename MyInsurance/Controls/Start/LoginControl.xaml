@@ -22,7 +22,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="titleLbl" Content="Witaj. Chcesz się zalogować jako:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Style="{StaticResource startLbl}"/>
+        <Label x:Name="titleLbl" Content="Witaj. Wpisz dane logowania." Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Style="{StaticResource startLbl}"/>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Center">
             <RadioButton x:Name="rbCustomer" GroupName="rbChoose" Style="{StaticResource startRb}" Click="rbChoose_Click"/>
@@ -40,7 +40,7 @@
         <Label Content="Hasło" Style="{StaticResource startLbl}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" FontWeight="Bold" FontSize="40"/>
         <PasswordBox x:Name="pbPassword" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" Margin="10" FontSize="40" IsEnabled="False"/>
 
-        <Button x:Name="btnRegister" Content="Zarejestruj" Style="{StaticResource btnStyl}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" IsEnabled="False"/>
+        <Button x:Name="btnRegister" Content="Zarejestruj" Style="{StaticResource btnStyl}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" IsEnabled="False" Click="btnRegister_Click"/>
 
         <Button x:Name="btnLogin" Content="Zaloguj" Style="{StaticResource btnStyl}" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Margin="10" IsEnabled="False" Click="btnLogin_Click"/>
     </Grid>

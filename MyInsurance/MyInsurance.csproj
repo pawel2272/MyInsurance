@@ -69,6 +69,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Start\RegisterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -79,6 +83,9 @@
     </Compile>
     <Compile Include="Controls\Start\LoginControl.xaml.cs">
       <DependentUpon>LoginControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Start\RegisterControl.xaml.cs">
+      <DependentUpon>RegisterControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
