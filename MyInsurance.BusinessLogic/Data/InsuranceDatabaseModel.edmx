@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="InsuranceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="InsuranceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Case">
           <Key>
             <PropertyRef Name="Id" />
@@ -62,6 +62,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CaseId" Type="int" Nullable="false" />
           <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="SendingDate" Type="datetime" Nullable="false" />
+          <Property Name="IsFromAgent" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Policy">
           <Key>
@@ -70,7 +72,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
-          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="DateOfEnding" Type="datetime2" Precision="7" Nullable="false" />
@@ -162,8 +164,7 @@
             <End Role="Policy" EntitySet="Policy" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="InsuranceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -231,7 +232,9 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CaseId" Type="Int32" Nullable="false" />
           <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SendingDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Case" Relationship="Self.FK_Messages_Case" FromRole="Messages" ToRole="Case" />
+          <Property Name="IsFromAgent" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Policy">
           <Key>
@@ -240,7 +243,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateOfEnding" Type="DateTime" Nullable="false" Precision="7" />
@@ -396,9 +399,11 @@
           <EntitySetMapping Name="Messages">
             <EntityTypeMapping TypeName="InsuranceDBModel.Message">
               <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="IsFromAgent" ColumnName="IsFromAgent" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CaseId" ColumnName="CaseId" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="SendingDate" ColumnName="SendingDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

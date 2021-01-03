@@ -9,10 +9,11 @@
 
 namespace MyInsurance.BusinessLogic.Data
 {
+    using MyInsurance.BusinessLogic.Interfaces;
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class Employee : ILoginable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()

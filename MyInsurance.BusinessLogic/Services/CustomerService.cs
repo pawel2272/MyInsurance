@@ -1,6 +1,6 @@
-﻿using MyInsurance.BusinessLogic.Data;
+﻿using MyInsurance.BusinessLogic.Constants;
+using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Interfaces;
-using MyInsurance.BusinessLogic.Services.Dto;
 using MyInsurance.BusinessLogic.Services.Exceptions;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
@@ -9,10 +9,19 @@ using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
 {
-    public class CustomerService : ICustomerService, IDisposable, IPerson
+    /// <summary>
+    /// serwis obsługujący tabelę Customer
+    /// </summary>
+    public class CustomerService : ICustomerService, IPerson
     {
+        /// <summary>
+        /// połączenie z bazą danych
+        /// </summary>
         private readonly InsuranceDBEntities _dbContext;
 
+        /// <summary>
+        /// Konstruktor inicjalizujący połączenie z bazą
+        /// </summary>
         public CustomerService()
         {
             _dbContext = new InsuranceDBEntities();
@@ -23,7 +32,7 @@ namespace MyInsurance.BusinessLogic.Services
             if (!this.CheckIfExists(username))
             {
                 string passEncrypted;
-                using (CryptoService crypto = new CryptoService())
+                using (CryptoService crypto = new CryptoService(CryptoConstants.ENCRYPTION_KEYS["customer"]))
                 {
                     passEncrypted = crypto.Encrypt(password);
                 }
@@ -44,7 +53,7 @@ namespace MyInsurance.BusinessLogic.Services
                     Discount = discount
                 };
                 _dbContext.Customers.Add(customer);
-                _dbContext.SaveChanges();
+                _dbContext.SaveChangesAsync();
             }
             else
                 throw new EntityAlreadyExistsException("User: " + username + "already exists!");
@@ -61,8 +70,7 @@ namespace MyInsurance.BusinessLogic.Services
 
         public bool CheckIfExists(int customerId)
         {
-            Customer customer = _dbContext.Customers.FirstOrDefault(c => c.Id == customerId);
-            if (customer == null)
+            if (GetCustomer(customerId) == null)
                 return false;
             else
                 return true;
@@ -73,115 +81,46 @@ namespace MyInsurance.BusinessLogic.Services
             _dbContext.Dispose();
         }
 
-        public CustomerDto GetCustomer(int customerId)
+        public Customer GetCustomer(int customerId)
         {
-            try
-            {
-                Customer customer = _dbContext.Customers.First(cust => cust.Id == customerId);
-                return new CustomerDto()
-                {
-                    Id = customer.Id,
-                    FirstName = customer.FirstName,
-                    LastName = customer.LastName,
-                    Street = customer.Street,
-                    HouseNumber = customer.HouseNumber,
-                    City = customer.City,
-                    ZipCode = customer.ZipCode,
-                    CompanyName = customer.CompanyName,
-                    PhoneNumber = customer.PhoneNumber,
-                    NIPNumber = customer.NIPNumber,
-                    Login = customer.Login,
-                    Password = customer.Password,
-                    EmailAddress = customer.EmailAddress,
-                    Discount = customer.Discount
-                };
-            }
-            catch (Exception ex)
-            {
-                
-            }
-            return null;
+            return _dbContext.Customers.FirstOrDefault(cust => cust.Id == customerId);
         }
 
-        public CustomerDto GetCustomer(string username)
+        public Customer GetCustomer(string username)
         {
-            try
-            {
-                Customer customer = _dbContext.Customers.First(cust => cust.Login == username);
-                return new CustomerDto()
-                {
-                    Id = customer.Id,
-                    FirstName = customer.FirstName,
-                    LastName = customer.LastName,
-                    Street = customer.Street,
-                    HouseNumber = customer.HouseNumber,
-                    City = customer.City,
-                    ZipCode = customer.ZipCode,
-                    CompanyName = customer.CompanyName,
-                    PhoneNumber = customer.PhoneNumber,
-                    NIPNumber = customer.NIPNumber,
-                    Login = customer.Login,
-                    Password = customer.Password,
-                    EmailAddress = customer.EmailAddress,
-                    Discount = customer.Discount
-                };
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return null;
+            return _dbContext.Customers.FirstOrDefault(cust => cust.Login == username);
         }
 
-        public List<CaseDto> GetCustomerCases(int customerId)
+        public List<Case> GetCustomerCases(int customerId)
         {
             try
             {
                 Customer customer = _dbContext.Customers.First(cust => cust.Id == customerId);
                 return customer.Cases
-                    .Select(cas => new CaseDto()
-                    {
-                        Id = cas.Id,
-                        EmployeeId = cas.EmployeeId,
-                        Description = cas.Description,
-                        Decision = cas.Decision,
-                        IsEnded = cas.IsEnded,
-                        CustomerId = cas.CustomerId,
-                    })
-                    .ToList();
+                               .ToList();
             }
             catch (Exception ex)
             {
                 //LOGGER
 
             }
-            return new List<CaseDto>();
+            return new List<Case>();
         }
 
-        public List<PolicyDto> GetCustomerPolicies(int customerId)
+        public List<Policy> GetCustomerPolicies(int customerId)
         {
             try
             {
                 Customer customer = _dbContext.Customers.First(cust => cust.Id == customerId);
                 return customer.Policies
-                    .Select(pol => new PolicyDto()
-                    {
-                        Id = pol.Id,
-                        CustomerId = pol.CustomerId,
-                        EmployeeId = pol.EmployeeId,
-                        Amount = pol.Amount,
-                        Type = pol.Type,
-                        Name = pol.Name,
-                        DateOfEnding = new DateTime(pol.DateOfEnding.Year, pol.DateOfEnding.Month, pol.DateOfEnding.Year)
-                    })
-                    .ToList();
+                               .ToList();
             }
             catch (Exception ex)
             {
                 //LOGGER
 
             }
-            return new List<PolicyDto>();
+            return new List<Policy>();
         }
 
         public ILoginable GetPerson(string username)

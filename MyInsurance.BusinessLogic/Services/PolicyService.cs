@@ -1,37 +1,81 @@
 ﻿using MyInsurance.BusinessLogic.Data;
-using MyInsurance.BusinessLogic.Services.Dto;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
+using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
 {
-    public class PolicyService : IPolicyService, IDisposable
+    /// <summary>
+    /// serwis obsługujący tabelę Policy
+    /// </summary>
+    public class PolicyService : IPolicyService
     {
+        /// <summary>
+        /// połączenie z bazą danych
+        /// </summary>
         private readonly InsuranceDBEntities _dbContext;
 
+        /// <summary>
+        /// Konstruktor inicjalizujący połączenie z bazą
+        /// </summary>
         public PolicyService()
         {
             _dbContext = new InsuranceDBEntities();
         }
 
-        public void Add(PolicyDto policy)
+        public Policy GetPolicy(int policyId)
         {
-            throw new NotImplementedException();
+            return _dbContext.Policies.FirstOrDefault(p => p.Id == policyId);
         }
+
+        private Customer GetCustomer(int customerId)
+        {
+            using (CustomerService customerService = new CustomerService())
+            {
+                return customerService.GetCustomer(customerId);
+            }
+        }
+
+        private Employee GetEmployee(int employeeId)
+        {
+            using (EmployeeService employeeService = new EmployeeService())
+            {
+                return employeeService.GetEmployee(employeeId);
+            }
+        }
+
+        public void Add(int customerId, int employeeId, decimal amount, string type, string name, DateTime dateOfEnding)
+        {
+            Policy newPolicy = new Policy()
+            {
+                CustomerId = customerId,
+                EmployeeId = employeeId,
+                Amount = amount,
+                Type = type,
+                Name = name,
+                DateOfEnding = dateOfEnding,
+                Customer = GetCustomer(customerId),
+                Employee = GetEmployee(employeeId)
+            };
+
+            _dbContext.Policies.Add(newPolicy);
+            _dbContext.SaveChangesAsync();
+        }
+
 
         public void Dispose()
         {
             _dbContext.Dispose();
         }
 
-        public CustomerDto GetPolicyCustomer(int policyId)
+        public Customer GetPolicyCustomer(int policyId)
         {
-            throw new NotImplementedException();
+            return GetPolicy(policyId).Customer;
         }
 
-        public EmployeeDto GetPolicyEmployee(int policyId)
+        public Employee GetPolicyEmployee(int policyId)
         {
-            throw new NotImplementedException();
+            return GetPolicy(policyId).Employee;
         }
     }
 }

@@ -1,11 +1,12 @@
-﻿using MyInsurance.BusinessLogic.Services.Dto;
-using System.Collections.Generic;
+﻿using MyInsurance.BusinessLogic.Data;
+using System;
 
 namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
-    public interface IMessageService
+    public interface IMessageService : IDisposable
     {
-        void Add(MessageDto message);
-        CaseDto GetMessageCase(int messageId);
+        void Add(int caseId, string messageText, bool isFromAgent);
+        Message GetMessage(int messageId);
+        Case GetMessageCase(int messageId);
     }
 }

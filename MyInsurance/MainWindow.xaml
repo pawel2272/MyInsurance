@@ -3,15 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MyInsurance"
+        xmlns:local="clr-namespace:MyInsurance" xmlns:start="clr-namespace:MyInsurance.Controls.Start"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" ResizeMode="NoResize" Height="450" Width="700">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Button x:Name="testBtn" Content="Testuj skurwola" FontSize="35" Click="testBtn_Click"/>
-        <TextBox x:Name="tbResult" Grid.Row="1" FontSize="35"/>
+        <start:LoginControl x:Name="lcLogin" Background="DarkOrange" ButtonsForeground="Orange" ButtonsBackground="Black" FontFamily="Century Gothic" RegisterControl="{Binding ElementName=rcRegister}"/>
+        <start:RegisterControl x:Name="rcRegister" Background="DarkOrange" ButtonsForeground="Orange" ButtonsBackground="Black" FontFamily="Century Gothic" Visibility="Hidden" LoginControl="{Binding ElementName=lcLogin}"/>
     </Grid>
 </Window>

@@ -1,6 +1,6 @@
-﻿using MyInsurance.BusinessLogic.Data;
+﻿using MyInsurance.BusinessLogic.Constants;
+using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Interfaces;
-using MyInsurance.BusinessLogic.Services.Dto;
 using MyInsurance.BusinessLogic.Services.Exceptions;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
@@ -9,10 +9,19 @@ using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
 {
-    public class EmployeeService : IEmployeeService, IDisposable, IPerson
+    /// <summary>
+    /// serwis obsługujący tabelę Employee
+    /// </summary>
+    public class EmployeeService : IEmployeeService, IPerson
     {
+        /// <summary>
+        /// połączenie z bazą danych
+        /// </summary>
         private readonly InsuranceDBEntities _dbContext;
 
+        /// <summary>
+        /// Konstruktor inicjalizujący połączenie z bazą
+        /// </summary>
         public EmployeeService()
         {
             _dbContext = new InsuranceDBEntities();
@@ -23,7 +32,7 @@ namespace MyInsurance.BusinessLogic.Services
             if (!this.CheckIfExists(username))
             {
                 string passEncrypted;
-                using (CryptoService crypto = new CryptoService())
+                using (CryptoService crypto = new CryptoService(CryptoConstants.ENCRYPTION_KEYS["user"]))
                 {
                     passEncrypted = crypto.Encrypt(password);
                 }
@@ -40,7 +49,7 @@ namespace MyInsurance.BusinessLogic.Services
                     IsBoss = isBoos
                 };
                 _dbContext.Employees.Add(employee);
-                _dbContext.SaveChanges();
+                _dbContext.SaveChangesAsync();
             }
             else
                 throw new EntityAlreadyExistsException("User: " + username + " already exists!");
@@ -57,8 +66,7 @@ namespace MyInsurance.BusinessLogic.Services
 
         public bool CheckIfExists(int employeeId)
         {
-            Employee employee = _dbContext.Employees.FirstOrDefault(e => e.Id == employeeId);
-            if (employee == null)
+            if (GetEmployee(employeeId) == null)
                 return false;
             else
                 return true;
@@ -69,117 +77,45 @@ namespace MyInsurance.BusinessLogic.Services
             _dbContext.Dispose();
         }
 
-        public EmployeeDto GetEmployee(int customerId)
+        public Employee GetEmployee(int employeeId)
         {
-            try
-            {
-                Employee employee = _dbContext.Employees.First(e => e.Id == customerId);
-                return new EmployeeDto()
-                {
-                    Id = employee.Id,
-                    FirstName = employee.FirstName,
-                    LastName = employee.LastName,
-                    Street = employee.Street,
-                    HouseNumber = employee.HouseNumber,
-                    City = employee.City,
-                    ZipCode = employee.ZipCode,
-                    Salary = employee.Salary,
-                    BirthDate = new DateTime(employee.BirthDate.Year, employee.BirthDate.Month, employee.BirthDate.Day),
-                    EmailAddress = employee.EmailAddress,
-                    Login = employee.Login,
-                    Password = employee.Password,
-                    IsAdmin = employee.IsAdmin,
-                    IsBoss = employee.IsBoss,
-                    PhoneNumber = employee.PhoneNumber
-                };
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return null;
+            return _dbContext.Employees.FirstOrDefault(e => e.Id == employeeId);
         }
 
-        public EmployeeDto GetEmployee(string username)
+        public Employee GetEmployee(string username)
         {
-            try
-            {
-                Employee employee = _dbContext.Employees.First(e => e.Login == username);
-                return new EmployeeDto()
-                {
-                    Id = employee.Id,
-                    FirstName = employee.FirstName,
-                    LastName = employee.LastName,
-                    Street = employee.Street,
-                    HouseNumber = employee.HouseNumber,
-                    City = employee.City,
-                    ZipCode = employee.ZipCode,
-                    Salary = employee.Salary,
-                    BirthDate = new DateTime(employee.BirthDate.Year, employee.BirthDate.Month, employee.BirthDate.Day),
-                    EmailAddress = employee.EmailAddress,
-                    Login = employee.Login,
-                    Password = employee.Password,
-                    IsAdmin = employee.IsAdmin,
-                    IsBoss = employee.IsBoss,
-                    PhoneNumber = employee.PhoneNumber
-                };
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return null;
+            return _dbContext.Employees.FirstOrDefault(e => e.Login == username);
         }
 
-        public List<CaseDto> GetEmployeeCases(int employeeId)
+        public List<Case> GetEmployeeCases(int employeeId)
         {
             try
             {
                 Employee employee = _dbContext.Employees.First(emp => emp.Id == employeeId);
                 return employee.Cases
-                    .Select(cas => new CaseDto()
-                    {
-                        Id = cas.Id,
-                        EmployeeId = cas.EmployeeId,
-                        Description = cas.Description,
-                        Decision = cas.Decision,
-                        IsEnded = cas.IsEnded,
-                        CustomerId = cas.CustomerId,
-                    })
-                    .ToList();
+                               .ToList();
             }
             catch (Exception ex)
             {
                 //LOGGER
-
             }
-            return new List<CaseDto>();
+            return new List<Case>();
         }
 
-        public List<PolicyDto> GetEmployeePolicies(int employeeId)
+        public List<Policy> GetEmployeePolicies(int employeeId)
         {
             try
             {
                 Employee employee = _dbContext.Employees.First(emp => emp.Id == employeeId);
                 return employee.Policies
-                    .Select(pol => new PolicyDto()
-                    {
-                        Id = pol.Id,
-                        CustomerId = pol.CustomerId,
-                        EmployeeId = pol.EmployeeId,
-                        Amount = pol.Amount,
-                        Type = pol.Type,
-                        Name = pol.Name,
-                        DateOfEnding = new DateTime(pol.DateOfEnding.Year, pol.DateOfEnding.Month, pol.DateOfEnding.Year)
-                    })
-                    .ToList();
+                               .ToList();
             }
             catch (Exception ex)
             {
                 //LOGGER
 
             }
-            return new List<PolicyDto>();
+            return new List<Policy>();
         }
 
         public ILoginable GetPerson(string username)

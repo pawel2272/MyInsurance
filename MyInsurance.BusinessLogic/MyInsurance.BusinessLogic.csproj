@@ -91,6 +91,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\CryptoConstants.cs" />
     <Compile Include="Data\Case.cs">
       <DependentUpon>InsuranceDatabaseModel.tt</DependentUpon>
     </Compile>
@@ -126,18 +127,13 @@
     <Compile Include="Services\CryptoService.cs" />
     <Compile Include="Services\Exceptions\EntityAlreadyExistsException.cs" />
     <Compile Include="Services\Exceptions\EntityDoesNotExistsException.cs" />
-    <Compile Include="Services\KlasaTest.cs" />
+    <Compile Include="Services\MainService.cs" />
     <Compile Include="Services\LoginService.cs" />
     <Compile Include="Services\PolicyService.cs" />
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\CaseService.cs" />
-    <Compile Include="Services\Dto\CaseDto.cs" />
-    <Compile Include="Services\Dto\CustomerDto.cs" />
-    <Compile Include="Services\Dto\EmployeeDto.cs" />
-    <Compile Include="Services\Dto\MessageDto.cs" />
-    <Compile Include="Services\Dto\PolicyDto.cs" />
     <Compile Include="Services\ServiceInterfaces\ILoginService.cs" />
     <Compile Include="Services\ServiceInterfaces\IPolicyService.cs" />
     <Compile Include="Services\ServiceInterfaces\IMessageService.cs" />
@@ -145,7 +141,6 @@
     <Compile Include="Services\ServiceInterfaces\ICustomerService.cs" />
     <Compile Include="Services\ServiceInterfaces\ICaseService.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Data\InsuranceDatabaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

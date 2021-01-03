@@ -1,11 +1,10 @@
 ﻿using MyInsurance.BusinessLogic.Interfaces;
-using MyInsurance.BusinessLogic.Services.Exceptions;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
 
 namespace MyInsurance.BusinessLogic.Services
 {
-    public class LoginService<DTO, SERVICE> : ILoginService, IDisposable
+    public class LoginService<DTO, SERVICE> : ILoginService
         where DTO : ILoginable
         where SERVICE : IPerson
     {
@@ -30,7 +29,7 @@ namespace MyInsurance.BusinessLogic.Services
         {
             get
             {
-                if (isLogged == true)
+                if (isLogged)
                 {
                     if (person != null)
                         return person;

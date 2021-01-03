@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
-    public interface ILoginService
+    public interface ILoginService : IDisposable
     {
         bool Login(string username, string password);
     }
