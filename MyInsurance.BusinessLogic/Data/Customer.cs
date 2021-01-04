@@ -38,6 +38,27 @@ namespace MyInsurance.BusinessLogic.Data
             this.IsActive = false;
         }
 
+        public Customer(Customer old)
+        {
+            this.Id = old.Id;
+            this.FirstName = old.FirstName;
+            this.LastName = old.LastName;
+            this.Street = old.Street;
+            this.HouseNumber = old.HouseNumber;
+            this.City = old.City;
+            this.ZipCode = old.ZipCode;
+            this.CompanyName = old.CompanyName;
+            this.PhoneNumber = old.PhoneNumber;
+            this.NIPNumber = old.NIPNumber;
+            this.Login = old.Login;
+            this.Password = old.Password;
+            this.EmailAddress = old.EmailAddress;
+            this.Discount = old.Discount;
+            this.IsActive = old.IsActive;
+            this.Cases = old.Cases;
+            this.Policies = old.Policies;
+        }
+
         public string this[string propertyName]
         {
             get

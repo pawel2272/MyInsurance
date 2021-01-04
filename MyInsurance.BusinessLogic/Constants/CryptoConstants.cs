@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MyInsurance.BusinessLogic.Constants
+﻿namespace MyInsurance.BusinessLogic.Constants
 {
     public static class CryptoConstants
     {
