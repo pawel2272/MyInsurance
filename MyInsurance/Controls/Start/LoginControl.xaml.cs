@@ -75,10 +75,7 @@ namespace MyInsurance.Controls.Start
 
         private void rbChoose_Click(object sender, RoutedEventArgs e)
         {
-            tbLogin.IsEnabled = true;
-            pbPassword.IsEnabled = true;
-            btnLogin.IsEnabled = true;
-            btnRegister.IsEnabled = true;
+            grdLoginData.IsEnabled = true;
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -149,6 +146,7 @@ namespace MyInsurance.Controls.Start
             }
             if ((bool)this.rbEmployee.IsChecked)
             {
+                this.RegisterControl.CustomerRegister = true;
                 this.RegisterControl.CustomerRegister = false;
             }
         }
@@ -187,6 +185,7 @@ namespace MyInsurance.Controls.Start
                     HideControl();
                     SetRegistrationType();
                     SendDataToRegistrationControl();
+                    grdLoginData.IsEnabled = false;
                     MessageBox.Show(RegisterControl.NewUserLogin + " " + RegisterControl.NewUserPassword);
                 }
                 else

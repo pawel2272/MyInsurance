@@ -67,6 +67,10 @@ namespace MyInsurance.Controls.Start
                     source.spCustomer.IsEnabled = true;
                     source.rbCustomer.IsChecked = true;
                     source.rbEmployee.IsChecked = false;
+                    source.lblNIPNumber.Visibility = Visibility.Visible;
+                    source.tbNIPNumber.Visibility = Visibility.Visible;
+                    source.lblCompanyName.Visibility = Visibility.Visible;
+                    source.tbCompanyName.Visibility = Visibility.Visible;
                 }
                 if (!value)
                 {
@@ -74,6 +78,10 @@ namespace MyInsurance.Controls.Start
                     source.spCustomer.IsEnabled = false;
                     source.rbCustomer.IsChecked = false;
                     source.rbEmployee.IsChecked = true;
+                    source.lblNIPNumber.Visibility = Visibility.Hidden;
+                    source.tbNIPNumber.Visibility = Visibility.Hidden;
+                    source.lblCompanyName.Visibility = Visibility.Hidden;
+                    source.tbCompanyName.Visibility = Visibility.Hidden;
                 }
             })));
 
