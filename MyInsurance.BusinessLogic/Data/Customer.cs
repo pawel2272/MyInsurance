@@ -50,30 +50,48 @@ namespace MyInsurance.BusinessLogic.Data
                             errorMessage = "Imiê musi byæ wpisane!";
                         else if (FirstName.Length < 3)
                             errorMessage = "Imiê musi mieæ minimum 3 znaki!";
-                        else if (!Regexes.PERSON_VALIDATION["name"].IsMatch(FirstName))
+                        else if (!Regexes.NAME_REGEX.IsMatch(FirstName))
                             errorMessage = "Imiê mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
                         break;
                     case "LastName":
+                        if (string.IsNullOrEmpty(LastName))
+                            errorMessage = "Nazwisko musi byæ wpisane!";
+                        else if (LastName.Length < 3)
+                            errorMessage = "Nazwisko musi mieæ minimum 3 znaki!";
+                        else if (!Regexes.NAME_REGEX.IsMatch(LastName))
+                            errorMessage = "Nazwisko mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
                         break;
                     case "Street":
-                        break;
-                    case "HouseNumber":
+                        if (string.IsNullOrEmpty(Street))
+                            errorMessage = "Nazwa ulicy musi byæ wpisana!";
+                        else if (Street.Length < 3)
+                            errorMessage = "Nazwa ulicy musi mieæ minimum 3 znaki!";
+                        else if (!Regexes.CITY_REGEX.IsMatch(Street))
+                            errorMessage = "Nazwa ulicy mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
                         break;
                     case "City":
+                        if (string.IsNullOrEmpty(City))
+                            errorMessage = "Nazwa miasta musi byæ wpisana!";
+                        else if (City.Length < 3)
+                            errorMessage = "Nazwa miasta mieæ minimum 3 znaki!";
+                        else if (!Regexes.CITY_REGEX.IsMatch(City))
+                            errorMessage = "Nazwa miasta mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
                         break;
                     case "ZipCode":
-                        if (!Regexes.PERSON_VALIDATION["zipcode"].IsMatch(ZipCode))
+                        if (!Regexes.ZIPCODE_REGEX.IsMatch(ZipCode))
                             errorMessage = "Wpisz prawid³owy kod pocztowy!";
                         break;
-                    case "BirthDate":
-                        break;
-                    case "Pesel":
+                    case "NIPNumber":
+                        if (!Regexes.NIP_REGEX.IsMatch(NIPNumber) || !Regexes.PESEL_REGEX.IsMatch(NIPNumber))
+                            errorMessage = "Wpisz prawid³owy numer NIP lub PESEL!";
                         break;
                     case "EmailAddress":
-                        if (!Regexes.PERSON_VALIDATION["email"].IsMatch(EmailAddress))
+                        if (!Regexes.EMAIL_REGEX.IsMatch(EmailAddress))
                             errorMessage = "Wpisz prawid³owy adres e-mail!";
                         break;
                     case "PhoneNumber":
+                        if (!Regexes.PHONENUMBER_REGEX.IsMatch(PhoneNumber))
+                            errorMessage = "Wpisz prawid³owy numer telefonu!";
                         break;
                 };
                 return errorMessage;
