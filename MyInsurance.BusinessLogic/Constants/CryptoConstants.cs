@@ -4,11 +4,8 @@ namespace MyInsurance.BusinessLogic.Constants
 {
     public static class CryptoConstants
     {
-        public static readonly Dictionary<string, string> ENCRYPTION_KEYS = new Dictionary<string, string>
-        {
-            { "user", "projekt2k21crypto" },
-            { "message", "projekt2k21cryptomess" },
-            { "customer", "projekt2k21cryptocust" }
-        };
+        public static readonly string USER_KEY = "projekt2k21crypto";
+        public static readonly string MESSAGE_KEY = "projekt2k21cryptomess";
+        public static readonly string CUSTOMER_KEY = "projekt2k21cryptocust";
     }
 }

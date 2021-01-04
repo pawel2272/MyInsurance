@@ -23,7 +23,7 @@ namespace MyInsurance.BusinessLogic.Services
         public MessageService()
         {
             _dbContext = new InsuranceDBEntities();
-            crypto = new CryptoService(CryptoConstants.ENCRYPTION_KEYS["message"]);
+            crypto = new CryptoService(CryptoConstants.MESSAGE_KEY);
         }
 
         public void Add(int caseId, string messageText, bool isFromAgent)

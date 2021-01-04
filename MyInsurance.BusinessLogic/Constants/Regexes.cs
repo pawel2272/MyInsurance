@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace MyInsurance.BusinessLogic.Constants
 {
@@ -11,6 +10,6 @@ namespace MyInsurance.BusinessLogic.Constants
         public static readonly Regex PHONENUMBER_REGEX = new Regex(@"^(?:\(?\?)?(?:[-\.\(\)\s]*(\d)){9}\)?$");
         public static readonly Regex PESEL_REGEX = new Regex(@"^\d{11}$");
         public static readonly Regex NIP_REGEX = new Regex(@"^\d{10}$");
-        public static readonly Regex CITY_REGEX = new Regex(@"[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+[\s]?[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]*");
+        public static readonly Regex CITY_REGEX = new Regex(@"^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+[\s]?[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+[\s]?[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]*?$");
     }
 }

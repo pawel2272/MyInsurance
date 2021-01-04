@@ -32,7 +32,7 @@ namespace MyInsurance.BusinessLogic.Services
             if (!this.CheckIfExists(username))
             {
                 string passEncrypted;
-                using (CryptoService crypto = new CryptoService(CryptoConstants.ENCRYPTION_KEYS["customer"]))
+                using (CryptoService crypto = new CryptoService(CryptoConstants.CUSTOMER_KEY))
                 {
                     passEncrypted = crypto.Encrypt(password);
                 }
