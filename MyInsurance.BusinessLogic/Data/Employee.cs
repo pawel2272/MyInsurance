@@ -37,6 +37,7 @@ namespace MyInsurance.BusinessLogic.Data
         public bool IsAdmin { get; set; }
         public bool IsBoss { get; set; }
         public string PhoneNumber { get; set; }
+        public bool IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Case> Cases { get; set; }
