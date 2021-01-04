@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyInsurance.BusinessLogic.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -71,6 +72,7 @@ namespace MyInsurance.Controls.Start
                     source.tbNIPNumber.Visibility = Visibility.Visible;
                     source.lblCompanyName.Visibility = Visibility.Visible;
                     source.tbCompanyName.Visibility = Visibility.Visible;
+                    source.DataContext = new Customer();
                 }
                 if (!value)
                 {
@@ -82,6 +84,7 @@ namespace MyInsurance.Controls.Start
                     source.tbNIPNumber.Visibility = Visibility.Hidden;
                     source.lblCompanyName.Visibility = Visibility.Hidden;
                     source.tbCompanyName.Visibility = Visibility.Hidden;
+                    source.DataContext = new Employee();
                 }
             })));
 

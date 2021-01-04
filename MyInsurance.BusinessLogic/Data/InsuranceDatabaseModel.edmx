@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="InsuranceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="InsuranceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Case">
           <Key>
             <PropertyRef Name="Id" />
@@ -49,6 +49,7 @@
           <Property Name="ZipCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Salary" Type="money" Nullable="false" />
           <Property Name="BirthDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Pesel" Type="nvarchar" MaxLength="50" />
           <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
           <Property Name="Login" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
@@ -166,7 +167,8 @@
             <End Role="Policy" EntitySet="Policy" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="InsuranceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -202,9 +204,9 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Discount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Cases" Relationship="Self.FK_Case_Customer" FromRole="Customer" ToRole="Case" />
           <NavigationProperty Name="Policies" Relationship="Self.FK_Policy_Customer" FromRole="Customer" ToRole="Policy" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -219,15 +221,16 @@
           <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Pesel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
           <Property Name="IsBoss" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cases" Relationship="Self.FK_Case_Employee" FromRole="Employee" ToRole="Case" />
           <NavigationProperty Name="Policies" Relationship="Self.FK_Policy_Employee" FromRole="Employee" ToRole="Policy" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
@@ -237,8 +240,8 @@
           <Property Name="CaseId" Type="Int32" Nullable="false" />
           <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SendingDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Case" Relationship="Self.FK_Messages_Case" FromRole="Messages" ToRole="Case" />
           <Property Name="IsFromAgent" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Case" Relationship="Self.FK_Messages_Case" FromRole="Messages" ToRole="Case" />
         </EntityType>
         <EntityType Name="Policy">
           <Key>
@@ -362,7 +365,6 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="InsuranceDBModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -377,13 +379,13 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="InsuranceDBModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -393,11 +395,13 @@
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
                 <ScalarProperty Name="Salary" ColumnName="Salary" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Pesel" ColumnName="Pesel" />
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="IsBoss" ColumnName="IsBoss" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -405,11 +409,11 @@
           <EntitySetMapping Name="Messages">
             <EntityTypeMapping TypeName="InsuranceDBModel.Message">
               <MappingFragment StoreEntitySet="Messages">
-                <ScalarProperty Name="IsFromAgent" ColumnName="IsFromAgent" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CaseId" ColumnName="CaseId" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="SendingDate" ColumnName="SendingDate" />
+                <ScalarProperty Name="IsFromAgent" ColumnName="IsFromAgent" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

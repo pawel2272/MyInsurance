@@ -12,8 +12,9 @@ namespace MyInsurance.BusinessLogic.Data
     using MyInsurance.BusinessLogic.Interfaces;
     using System;
     using System.Collections.Generic;
-    
-    public partial class Employee : ILoginable
+    using System.ComponentModel;
+
+    public partial class Employee : ILoginable, IDataErrorInfo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
@@ -21,7 +22,43 @@ namespace MyInsurance.BusinessLogic.Data
             this.Cases = new HashSet<Case>();
             this.Policies = new HashSet<Policy>();
         }
-    
+
+        public string this[string propertyName]
+        {
+            get
+            {
+                string errorMessage = String.Empty;
+                switch (propertyName)
+                {
+                    case "FirstName":
+                        if (string.IsNullOrEmpty(FirstName))
+                            errorMessage = "Nazwa musi byæ wpisana!";
+                        else if (FirstName.Length < 3)
+                            errorMessage = "Nazwa musi mieæ minimum 3 znaki!";
+                        break;
+                    case "LastName":
+                        break;
+                    case "Street":
+                        break;
+                    case "HouseNumber":
+                        break;
+                    case "City":
+                        break;
+                    case "ZipCode":
+                        break;
+                    case "BirthDate":
+                        break;
+                    case "Pesel":
+                        break;
+                    case "EmailAddress":
+                        break;
+                    case "PhoneNumber":
+                        break;
+                };
+                return errorMessage;
+            }
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -31,17 +68,20 @@ namespace MyInsurance.BusinessLogic.Data
         public string ZipCode { get; set; }
         public decimal Salary { get; set; }
         public System.DateTime BirthDate { get; set; }
+        public string Pesel { get; set; }
         public string EmailAddress { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsBoss { get; set; }
-        public string PhoneNumber { get; set; }
         public bool IsActive { get; set; }
+        public string PhoneNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Case> Cases { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Policy> Policies { get; set; }
+
+        public string Error => throw new NotImplementedException();
     }
 }
