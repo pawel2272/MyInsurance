@@ -1,18 +1,10 @@
 ﻿using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Services;
+using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MyInsurance.Controls.Start
 {
@@ -117,6 +109,27 @@ namespace MyInsurance.Controls.Start
             this.LoginControl.Visibility = Visibility.Visible;
             this.LoginControl.tbLogin.Text = String.Empty;
             this.LoginControl.pbPassword.Password = String.Empty;
+        }
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.CustomerRegister)
+            {
+                using (ICustomerService service = new CustomerService())
+                {
+                    service.Add(customerData.DataContext as Customer);
+                }
+            }
+
+            if (!this.CustomerRegister)
+            {
+                using (IEmployeeService service = new EmployeeService())
+                {
+                    service.Add(employeeData.DataContext as Employee);
+                }
+            }
+
+            MessageBox.Show("Użytkownik zostanie dodany po zatwierdzeniu przez administratora.", "Rejestracja zakończona pomyślnie.", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

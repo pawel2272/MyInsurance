@@ -60,7 +60,7 @@
                 </Grid.RowDefinitions>
                 <userdata:CustomerData x:Name="customerData" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" Visibility="Hidden"/>
                 <userdata:EmployeeData x:Name="employeeData" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" Visibility="Hidden"/>
-                <Button x:Name="btnRegister" Content="Zarejestruj" Style="{StaticResource btnSmallest}" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Margin="5"/>
+                <Button x:Name="btnRegister" Content="Zarejestruj" Style="{StaticResource btnSmallest}" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Margin="5" Click="btnRegister_Click"/>
                 <Button x:Name="btnCancel" Content="Anuluj" Style="{StaticResource btnSmallest}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Click="btnCancel_Click" />
             </Grid>
         </GroupBox>

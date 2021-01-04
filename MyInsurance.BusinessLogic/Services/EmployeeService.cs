@@ -55,6 +55,16 @@ namespace MyInsurance.BusinessLogic.Services
                 throw new EntityAlreadyExistsException("User: " + username + " already exists!");
         }
 
+        public void Add(Employee employee)
+        {
+            using (CryptoService crypto = new CryptoService(CryptoConstants.USER_KEY))
+            {
+                employee.Password = crypto.Encrypt(employee.Password);
+            }
+            _dbContext.Employees.Add(employee);
+            _dbContext.SaveChangesAsync();
+        }
+
         public bool CheckIfExists(string username)
         {
             Employee employee = _dbContext.Employees.FirstOrDefault(e => e.Login == username);
