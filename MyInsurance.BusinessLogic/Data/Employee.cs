@@ -22,7 +22,22 @@ namespace MyInsurance.BusinessLogic.Data
         {
             this.Cases = new HashSet<Case>();
             this.Policies = new HashSet<Policy>();
+            this.FirstName = String.Empty;
+            this.LastName = String.Empty;
+            this.Street = String.Empty;
+            this.HouseNumber = 0;
+            this.City = String.Empty;
+            this.ZipCode = String.Empty;
+            this.Salary = 0;
             this.BirthDate = DateTime.Now;
+            this.Pesel = String.Empty;
+            this.EmailAddress = String.Empty;
+            this.Login = String.Empty;
+            this.Password = String.Empty;
+            this.IsAdmin = false;
+            this.IsBoss = false;
+            this.IsActive = false;
+            this.PhoneNumber = String.Empty;
         }
 
         public string this[string propertyName]

@@ -82,7 +82,7 @@ namespace MyInsurance.BusinessLogic.Data
                             errorMessage = "Wpisz prawid³owy kod pocztowy!";
                         break;
                     case "NIPNumber":
-                        if (!Regexes.NIP_REGEX.IsMatch(NIPNumber) || !Regexes.PESEL_REGEX.IsMatch(NIPNumber))
+                        if (!Regexes.NIP_REGEX.IsMatch(NIPNumber) && !Regexes.PESEL_REGEX.IsMatch(NIPNumber))
                             errorMessage = "Wpisz prawid³owy numer NIP lub PESEL!";
                         break;
                     case "EmailAddress":
