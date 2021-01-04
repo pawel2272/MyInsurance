@@ -99,7 +99,7 @@ namespace MyInsurance.Controls.Start
         {
             using (EmployeeService service = new EmployeeService())
             {
-                using (LoginService<Employee, EmployeeService> loginService = new LoginService<Employee, EmployeeService>(service, new CryptoService(CryptoConstants.ENCRYPTION_KEYS["user"])))
+                using (LoginService<Employee, EmployeeService> loginService = new LoginService<Employee, EmployeeService>(service, new CryptoService(CryptoConstants.USER_KEY)))
                 {
                     if (loginService.Login(tbLogin.Text, pbPassword.Password))
                     {
@@ -117,7 +117,7 @@ namespace MyInsurance.Controls.Start
         {
             using (CustomerService service = new CustomerService())
             {
-                using (LoginService<Customer, CustomerService> loginService = new LoginService<Customer, CustomerService>(service, new CryptoService(CryptoConstants.ENCRYPTION_KEYS["customer"])))
+                using (LoginService<Customer, CustomerService> loginService = new LoginService<Customer, CustomerService>(service, new CryptoService(CryptoConstants.CUSTOMER_KEY)))
                 {
                     if (loginService.Login(tbLogin.Text, pbPassword.Password))
                     {

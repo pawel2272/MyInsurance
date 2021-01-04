@@ -73,6 +73,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\UserData\CustomerData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserData\EmployeeData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -86,6 +94,12 @@
     </Compile>
     <Compile Include="Controls\Start\RegisterControl.xaml.cs">
       <DependentUpon>RegisterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserData\CustomerData.xaml.cs">
+      <DependentUpon>CustomerData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserData\EmployeeData.xaml.cs">
+      <DependentUpon>EmployeeData.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

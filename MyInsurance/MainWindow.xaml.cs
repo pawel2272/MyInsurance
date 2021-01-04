@@ -27,7 +27,7 @@ namespace MyInsurance
         {
             using (EmployeeService service = new EmployeeService())
             {
-                using (LoginService<Employee, EmployeeService> loginService = new LoginService<Employee, EmployeeService>(service, new CryptoService(CryptoConstants.ENCRYPTION_KEYS["user"])))
+                using (LoginService<Employee, EmployeeService> loginService = new LoginService<Employee, EmployeeService>(service, new CryptoService(CryptoConstants.USER_KEY)))
                 {
                     if (loginService.Login("admin", "admin"))
                     {

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MyInsurance.Controls.Start" xmlns:data="clr-namespace:MyInsurance.BusinessLogic.Data;assembly=MyInsurance.BusinessLogic"
+             xmlns:local="clr-namespace:MyInsurance.Controls.Start" xmlns:data="clr-namespace:MyInsurance.BusinessLogic.Data;assembly=MyInsurance.BusinessLogic" xmlns:userdata="clr-namespace:MyInsurance.Controls.UserData"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="700">
     <Grid Background="DarkOrange">
@@ -55,45 +55,13 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Label x:Name="lblLastName" Content="Nazwisko" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource commonLbl}"/>
-                <TextBox x:Name="tbLastName" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="10"/>
-
-                <Label x:Name="lblFirstName" Content="Imię" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" Style="{StaticResource commonLbl}"/>
-                <TextBox x:Name="tbFirstName" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" Margin="10"/>
-
-                <Label x:Name="lblEmail" Content="Adres e-mail" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource commonLbl}"/>
-                <TextBox x:Name="tbEmail" Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="10"/>
-
-                <Label x:Name="lblStreet" Content="Ulica" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Style="{StaticResource commonLbl}"/>
-                <TextBox x:Name="tbStreet" Text="{Binding Street, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Margin="10"/>
-
-                <Label x:Name="lblHouseNumber" Content="Numer domu" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource commonLbl}"/>
-                <TextBox x:Name="tbHouseNumber" Text="{Binding HouseNumber, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:D}}" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="10"/>
-
-                <Label x:Name="lblCity" Content="Miejscowość" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Style="{StaticResource commonLbl}"/>
-                <TextBox x:Name="tbCity" Text="{Binding City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Margin="10"/>
-
-                <Label x:Name="lblZipCode" Content="Kod pocztowy" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource commonLbl}"/>
-                <TextBox x:Name="tbZipCode" Text="{Binding ZipCode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="10"/>
-
-                <Label x:Name="lblCompanyName" Content="Nazwa firmy" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Style="{StaticResource commonLbl}"/>
-                <TextBox x:Name="tbCompanyName" Text="{Binding CompanyName}" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Margin="10"/>
-
-                <Label x:Name="lblPhoneNumber" Content="Numer telefonu" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource commonLbl}"/>
-                <TextBox x:Name="tbPhoneNumber" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="10"/>
-
-                <Label x:Name="lblNIPNumber" Content="NIP (PESEL)" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2" Style="{StaticResource commonLbl}"/>
-                <TextBox x:Name="tbNIPNumber" Text="{Binding NIPNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Margin="10"/>
-
-                <Button x:Name="btnRegister" Content="Zarejestruj" Style="{StaticResource btnSmallest}" Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="2" Margin="5"/>
-                <Button x:Name="btnCancel" Content="Anuluj" Style="{StaticResource btnSmallest}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Click="btnCancel_Click" />
+                <userdata:CustomerData x:Name="customerData" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" Visibility="Hidden"/>
+                <userdata:EmployeeData x:Name="employeeData" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" Visibility="Hidden"/>
+                <Button x:Name="btnRegister" Content="Zarejestruj" Style="{StaticResource btnSmallest}" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Margin="5"/>
+                <Button x:Name="btnCancel" Content="Anuluj" Style="{StaticResource btnSmallest}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Click="btnCancel_Click" />
             </Grid>
         </GroupBox>
     </Grid>
