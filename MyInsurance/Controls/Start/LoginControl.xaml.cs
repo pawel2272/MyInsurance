@@ -191,14 +191,17 @@ namespace MyInsurance.Controls.Start
 
         private void UserControl_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
+            if (this.Visibility == Visibility.Visible)
             {
-                case Key.Enter:
-                    if (e.Key == Key.Enter)
-                    {
-                        btnLogin_Click(sender, e);
-                    }
-                    break;
+                switch (e.Key)
+                {
+                    case Key.Enter:
+                        if (e.Key == Key.Enter)
+                        {
+                            btnLogin_Click(sender, e);
+                        }
+                        break;
+                }
             }
         }
     }

@@ -108,8 +108,25 @@ namespace MyInsurance.Controls.Start
             this.LoginControl.pbPassword.Password = String.Empty;
         }
 
+        private bool CheckIfTextFieldsAreNotEmpty(UIElementCollection children)
+        {
+            foreach (Control ctl in children)
+            {
+                if (ctl.GetType() == typeof(TextBox))
+                {
+                    if (((TextBox)ctl).Text == String.Empty)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
+            if (!CheckIfTextFieldsAreNotEmpty(grdRegister.Children))
+                return;
             bool isRegistered = false;
             if (this.CustomerRegister)
             {
@@ -143,14 +160,17 @@ namespace MyInsurance.Controls.Start
 
         private void UserControl_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
+            if (this.Visibility == Visibility.Visible)
             {
-                case Key.Enter:
-                    btnRegister_Click(sender, e);
-                    break;
-                case Key.Escape:
-                    btnCancel_Click(sender, e);
-                    break;
+                switch (e.Key)
+                {
+                    case Key.Enter:
+                        btnRegister_Click(sender, e);
+                        break;
+                    case Key.Escape:
+                        btnCancel_Click(sender, e);
+                        break;
+                }
             }
         }
     }
