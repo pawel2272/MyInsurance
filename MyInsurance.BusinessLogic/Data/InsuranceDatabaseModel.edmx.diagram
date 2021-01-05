@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="eb2589a1b9cc44c8bbc20cb0bd70450d" Name="Diagram1">
+      <Diagram DiagramId="605f76a835114f7ba2bb3b0e26008c47" Name="Diagram1">
         <EntityTypeShape EntityType="InsuranceDBModel.Case" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceDBModel.Customer" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceDBModel.Employee" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceDBModel.Message" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceDBModel.Customer" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceDBModel.Employee" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceDBModel.Message" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="InsuranceDBModel.Policy" Width="1.5" PointX="6" PointY="2.875" IsExpanded="true" />
         <AssociationConnector Association="InsuranceDBModel.FK_Case_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceDBModel.FK_Case_Employee" ManuallyRouted="false" />

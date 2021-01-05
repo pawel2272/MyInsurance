@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Services;
+using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MyInsurance.Controls.Start
 {
@@ -63,25 +57,19 @@ namespace MyInsurance.Controls.Start
                 var value = (bool) e.NewValue;
                 if (value)
                 {
-                    source.spEmployee.IsEnabled = false;
-                    source.spCustomer.IsEnabled = true;
                     source.rbCustomer.IsChecked = true;
                     source.rbEmployee.IsChecked = false;
-                    source.lblNIPNumber.Visibility = Visibility.Visible;
-                    source.tbNIPNumber.Visibility = Visibility.Visible;
-                    source.lblCompanyName.Visibility = Visibility.Visible;
-                    source.tbCompanyName.Visibility = Visibility.Visible;
+                    source.customerData.Visibility = Visibility.Visible;
+                    source.employeeData.Visibility = Visibility.Hidden;
+                    source.customerData.DataContext = new Customer();
                 }
                 if (!value)
                 {
-                    source.spEmployee.IsEnabled = true;
-                    source.spCustomer.IsEnabled = false;
                     source.rbCustomer.IsChecked = false;
                     source.rbEmployee.IsChecked = true;
-                    source.lblNIPNumber.Visibility = Visibility.Hidden;
-                    source.tbNIPNumber.Visibility = Visibility.Hidden;
-                    source.lblCompanyName.Visibility = Visibility.Hidden;
-                    source.tbCompanyName.Visibility = Visibility.Hidden;
+                    source.customerData.Visibility = Visibility.Hidden;
+                    source.employeeData.Visibility = Visibility.Visible;
+                    source.employeeData.DataContext = new Employee();
                 }
             })));
 
@@ -118,6 +106,61 @@ namespace MyInsurance.Controls.Start
             this.LoginControl.Visibility = Visibility.Visible;
             this.LoginControl.tbLogin.Text = String.Empty;
             this.LoginControl.pbPassword.Password = String.Empty;
+        }
+
+        private bool CheckIfTextFieldsAreNotEmpty(UIElementCollection children)
+        {
+            foreach (Control ctl in children)
+            {
+                if (ctl.GetType() == typeof(TextBox))
+                {
+                    if (((TextBox)ctl).Text == String.Empty)
+                    {
+                        MessageBox.Show("Uzupełnij wszystkie pola.", "Brak danych.", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            bool isRegistered = false;
+            if (this.CustomerRegister)
+            {
+                if (!CheckIfTextFieldsAreNotEmpty(customerData.grdCustomerData.Children))
+                    return;
+
+                using (ICustomerService service = new CustomerService())
+                {
+                    Customer customer = customerData.DataContext as Customer;
+                    customer.Login = NewUserLogin;
+                    customer.Password = NewUserPassword;
+                    service.Add(customer);
+                    isRegistered = true;
+                }
+            }
+
+            if (!this.CustomerRegister)
+            {
+                if (!CheckIfTextFieldsAreNotEmpty(employeeData.grdEmployeeData.Children))
+                    return;
+
+                using (IEmployeeService service = new EmployeeService())
+                {
+                    Employee employee = employeeData.DataContext as Employee;
+                    employee.Login = NewUserLogin;
+                    employee.Password = NewUserPassword;
+                    service.Add(employee);
+                    isRegistered = true;
+                }
+            }
+
+            if (isRegistered)
+                MessageBox.Show("Użytkownik zostanie dodany po zatwierdzeniu przez administratora.", "Rejestracja zakończona pomyślnie.", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show("Rejestracja zakończona niepowodzeniem. Skontaktuj się z administratorem.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

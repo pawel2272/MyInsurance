@@ -32,7 +32,7 @@ namespace MyInsurance.BusinessLogic.Services
             if (!this.CheckIfExists(username))
             {
                 string passEncrypted;
-                using (CryptoService crypto = new CryptoService(CryptoConstants.ENCRYPTION_KEYS["customer"]))
+                using (CryptoService crypto = new CryptoService(CryptoConstants.CUSTOMER_KEY))
                 {
                     passEncrypted = crypto.Encrypt(password);
                 }
@@ -53,10 +53,20 @@ namespace MyInsurance.BusinessLogic.Services
                     Discount = discount
                 };
                 _dbContext.Customers.Add(customer);
-                _dbContext.SaveChangesAsync();
+                _dbContext.SaveChanges();
             }
             else
                 throw new EntityAlreadyExistsException("User: " + username + "already exists!");
+        }
+
+        public void Add(Customer customer)
+        {
+            using (CryptoService crypto = new CryptoService(CryptoConstants.CUSTOMER_KEY))
+            {
+                customer.Password = crypto.Encrypt(customer.Password);
+            }
+            _dbContext.Customers.Add(customer);
+            _dbContext.SaveChanges();
         }
 
         public bool CheckIfExists(string username)

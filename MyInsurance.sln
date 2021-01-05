@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyInsurance", "MyInsurance\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyInsurance.BusinessLogic", "MyInsurance.BusinessLogic\MyInsurance.BusinessLogic.csproj", "{DE49FDAA-587F-48FD-9075-0ECC9249498C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyInsurance.CustomerGui", "MyInsurance.CustomerGui\MyInsurance.CustomerGui.csproj", "{A990EE99-6C5B-40F3-AB3B-DD997DA24BFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyInsurance.EmployeeGui", "MyInsurance.EmployeeGui\MyInsurance.EmployeeGui.csproj", "{048939E8-3789-4D8B-A67E-53883CA96965}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{DE49FDAA-587F-48FD-9075-0ECC9249498C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE49FDAA-587F-48FD-9075-0ECC9249498C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE49FDAA-587F-48FD-9075-0ECC9249498C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A990EE99-6C5B-40F3-AB3B-DD997DA24BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A990EE99-6C5B-40F3-AB3B-DD997DA24BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A990EE99-6C5B-40F3-AB3B-DD997DA24BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A990EE99-6C5B-40F3-AB3B-DD997DA24BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{048939E8-3789-4D8B-A67E-53883CA96965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{048939E8-3789-4D8B-A67E-53883CA96965}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{048939E8-3789-4D8B-A67E-53883CA96965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{048939E8-3789-4D8B-A67E-53883CA96965}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

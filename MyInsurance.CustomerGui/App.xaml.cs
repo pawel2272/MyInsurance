@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyInsurance.BusinessLogic.Data;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -6,13 +7,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace MyInsurance
+namespace MyInsurance.CustomerGui
 {
     /// <summary>
-    /// Logika interakcji dla klasy App.xaml
+    /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
-        public static readonly List<Window> openedWindows = new List<Window>();
+        public static Customer loggedPerson;
+        public static List<Window> openedWindows;
     }
 }

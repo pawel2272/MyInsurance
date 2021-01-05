@@ -1,21 +1,11 @@
 ﻿using MyInsurance.BusinessLogic.Constants;
 using MyInsurance.BusinessLogic.Data;
-using MyInsurance.BusinessLogic.Interfaces;
 using MyInsurance.BusinessLogic.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MyInsurance.Controls.Start
 {
@@ -83,10 +73,10 @@ namespace MyInsurance.Controls.Start
             if (tbLogin.Text.Length > 0 && pbPassword.Password.Length > 0)
             {
                 if ((bool)rbEmployee.IsChecked)
-                    Dispatcher.Invoke(new Action(() => EmployeeLogin()));
+                    EmployeeLogin();
 
                 if ((bool)rbCustomer.IsChecked)
-                    Dispatcher.Invoke(new Action(() => CustomerLogin()));
+                    CustomerLogin();
             }
             else
             {
@@ -94,20 +84,31 @@ namespace MyInsurance.Controls.Start
             }
         }
 
+        private void HideParentWindow()
+        {
+            foreach (Window window in App.openedWindows)
+            {
+                if (window is MainWindow)
+                    window.Hide();
+            }
+        }
 
         private void EmployeeLogin()
         {
             using (EmployeeService service = new EmployeeService())
             {
-                using (LoginService<Employee, EmployeeService> loginService = new LoginService<Employee, EmployeeService>(service, new CryptoService(CryptoConstants.ENCRYPTION_KEYS["user"])))
+                using (LoginService<Employee, EmployeeService> loginService = new LoginService<Employee, EmployeeService>(service, new CryptoService(CryptoConstants.USER_KEY)))
                 {
-                    if (loginService.Login(tbLogin.Text, pbPassword.Password))
+                    if (!loginService.Login(tbLogin.Text, pbPassword.Password))
                     {
-                        MessageBox.Show("Zalogowano");
+                        MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
+                        new EmployeeGui.MainWindow(loginService.GetLoggedPerson, App.openedWindows).Show();
+                        this.tbLogin.Text = String.Empty;
+                        this.pbPassword.Password = String.Empty;
+                        HideParentWindow();
                     }
                 }
             }
@@ -117,15 +118,16 @@ namespace MyInsurance.Controls.Start
         {
             using (CustomerService service = new CustomerService())
             {
-                using (LoginService<Customer, CustomerService> loginService = new LoginService<Customer, CustomerService>(service, new CryptoService(CryptoConstants.ENCRYPTION_KEYS["customer"])))
+                using (LoginService<Customer, CustomerService> loginService = new LoginService<Customer, CustomerService>(service, new CryptoService(CryptoConstants.CUSTOMER_KEY)))
                 {
-                    if (loginService.Login(tbLogin.Text, pbPassword.Password))
+                    if (!loginService.Login(tbLogin.Text, pbPassword.Password))
                     {
-                        MessageBox.Show("Zalogowano");
+                        MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
+                        new CustomerGui.MainWindow(loginService.GetLoggedPerson, App.openedWindows).Show();
+                        HideParentWindow();
                     }
                 }
             }
@@ -142,6 +144,7 @@ namespace MyInsurance.Controls.Start
         {
             if ((bool)this.rbCustomer.IsChecked)
             {
+                this.RegisterControl.CustomerRegister = false;
                 this.RegisterControl.CustomerRegister = true;
             }
             if ((bool)this.rbEmployee.IsChecked)
@@ -186,7 +189,6 @@ namespace MyInsurance.Controls.Start
                     SetRegistrationType();
                     SendDataToRegistrationControl();
                     grdLoginData.IsEnabled = false;
-                    MessageBox.Show(RegisterControl.NewUserLogin + " " + RegisterControl.NewUserPassword);
                 }
                 else
                 {
@@ -196,6 +198,22 @@ namespace MyInsurance.Controls.Start
             else
             {
                 MessageBox.Show("Uzupełnij login i hasło! Hasło nie może być krótsze niż 8 znaków.", "Uzupełnij dane.", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (this.Visibility == Visibility.Visible)
+            {
+                switch (e.Key)
+                {
+                    case Key.Enter:
+                        if (e.Key == Key.Enter)
+                        {
+                            btnLogin_Click(sender, e);
+                        }
+                        break;
+                }
             }
         }
     }
