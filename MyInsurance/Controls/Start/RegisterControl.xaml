@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyInsurance.Controls.Start" xmlns:data="clr-namespace:MyInsurance.BusinessLogic.Data;assembly=MyInsurance.BusinessLogic" xmlns:userdata="clr-namespace:MyInsurance.Controls.UserData"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="700">
-    <Grid Background="DarkOrange">
+             d:DesignHeight="450" d:DesignWidth="700" KeyDown="UserControl_KeyDown">
+    <Grid>
         <Grid.Resources>
             <Style TargetType="TextBox">
                 <Style.Triggers>

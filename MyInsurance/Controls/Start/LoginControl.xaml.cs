@@ -4,6 +4,7 @@ using MyInsurance.BusinessLogic.Services;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace MyInsurance.Controls.Start
@@ -94,6 +95,10 @@ namespace MyInsurance.Controls.Start
                     {
                         MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
+                    else
+                    {
+                        new MyInsurance.EmployeeGui.MainWindow().Show();
+                    }
                 }
             }
         }
@@ -104,9 +109,13 @@ namespace MyInsurance.Controls.Start
             {
                 using (LoginService<Customer, CustomerService> loginService = new LoginService<Customer, CustomerService>(service, new CryptoService(CryptoConstants.CUSTOMER_KEY)))
                 {
-                    if (loginService.Login(tbLogin.Text, pbPassword.Password))
+                    if (!loginService.Login(tbLogin.Text, pbPassword.Password))
                     {
                         MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        new MyInsurance.CustomerGui.MainWindow().Show();
                     }
                 }
             }
@@ -177,6 +186,19 @@ namespace MyInsurance.Controls.Start
             else
             {
                 MessageBox.Show("Uzupełnij login i hasło! Hasło nie może być krótsze niż 8 znaków.", "Uzupełnij dane.", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    if (e.Key == Key.Enter)
+                    {
+                        btnLogin_Click(sender, e);
+                    }
+                    break;
             }
         }
     }

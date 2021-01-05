@@ -4,6 +4,7 @@ using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace MyInsurance.Controls.Start
@@ -138,6 +139,19 @@ namespace MyInsurance.Controls.Start
                 MessageBox.Show("Użytkownik zostanie dodany po zatwierdzeniu przez administratora.", "Rejestracja zakończona pomyślnie.", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show("Rejestracja zakończona niepowodzeniem. Skontaktuj się z administratorem.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    btnRegister_Click(sender, e);
+                    break;
+                case Key.Escape:
+                    btnCancel_Click(sender, e);
+                    break;
+            }
         }
     }
 }
