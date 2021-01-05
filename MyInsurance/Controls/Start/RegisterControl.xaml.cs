@@ -116,6 +116,7 @@ namespace MyInsurance.Controls.Start
                 {
                     if (((TextBox)ctl).Text == String.Empty)
                     {
+                        MessageBox.Show("Uzupełnij wszystkie pola.", "Brak danych.", MessageBoxButton.OK, MessageBoxImage.Information);
                         return false;
                     }
                 }
@@ -125,11 +126,12 @@ namespace MyInsurance.Controls.Start
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            if (!CheckIfTextFieldsAreNotEmpty(grdRegister.Children))
-                return;
             bool isRegistered = false;
             if (this.CustomerRegister)
             {
+                if (!CheckIfTextFieldsAreNotEmpty(customerData.grdCustomerData.Children))
+                    return;
+
                 using (ICustomerService service = new CustomerService())
                 {
                     Customer customer = customerData.DataContext as Customer;
@@ -142,6 +144,9 @@ namespace MyInsurance.Controls.Start
 
             if (!this.CustomerRegister)
             {
+                if (!CheckIfTextFieldsAreNotEmpty(employeeData.grdEmployeeData.Children))
+                    return;
+
                 using (IEmployeeService service = new EmployeeService())
                 {
                     Employee employee = employeeData.DataContext as Employee;
@@ -156,22 +161,6 @@ namespace MyInsurance.Controls.Start
                 MessageBox.Show("Użytkownik zostanie dodany po zatwierdzeniu przez administratora.", "Rejestracja zakończona pomyślnie.", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show("Rejestracja zakończona niepowodzeniem. Skontaktuj się z administratorem.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        private void UserControl_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (this.Visibility == Visibility.Visible)
-            {
-                switch (e.Key)
-                {
-                    case Key.Enter:
-                        btnRegister_Click(sender, e);
-                        break;
-                    case Key.Escape:
-                        btnCancel_Click(sender, e);
-                        break;
-                }
-            }
         }
     }
 }
