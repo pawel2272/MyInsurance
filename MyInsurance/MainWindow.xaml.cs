@@ -15,26 +15,5 @@ namespace MyInsurance
         {
             InitializeComponent();
         }
-
-        private async void testBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Dispatcher.Invoke(new Action(() => Login()));
-        }
-
-        private void Login()
-        {
-            using (EmployeeService service = new EmployeeService())
-            {
-                using (LoginService<Employee, EmployeeService> loginService = new LoginService<Employee, EmployeeService>(service, new CryptoService(CryptoConstants.USER_KEY)))
-                {
-                    if (loginService.Login("admin", "admin"))
-                    {
-                        //tbResult.Text = loginService.GetLoggedPerson.Login;
-                    }
-                }
-            }
-        }
-
-
     }
 }
