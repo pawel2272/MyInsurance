@@ -14,6 +14,7 @@ namespace MyInsurance
         public MainWindow()
         {
             InitializeComponent();
+            App.openedWindows.Add(this);
         }
     }
 }

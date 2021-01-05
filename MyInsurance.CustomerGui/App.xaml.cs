@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyInsurance.BusinessLogic.Data;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,7 @@ namespace MyInsurance.CustomerGui
     /// </summary>
     public partial class App : Application
     {
+        public static Customer loggedPerson;
+        public static List<Window> openedWindows;
     }
 }

@@ -73,10 +73,10 @@ namespace MyInsurance.Controls.Start
             if (tbLogin.Text.Length > 0 && pbPassword.Password.Length > 0)
             {
                 if ((bool)rbEmployee.IsChecked)
-                    Dispatcher.Invoke(new Action(() => EmployeeLogin()));
+                    EmployeeLogin();
 
                 if ((bool)rbCustomer.IsChecked)
-                    Dispatcher.Invoke(new Action(() => CustomerLogin()));
+                    CustomerLogin();
             }
             else
             {
@@ -84,6 +84,14 @@ namespace MyInsurance.Controls.Start
             }
         }
 
+        private void HideParentWindow()
+        {
+            foreach (Window window in App.openedWindows)
+            {
+                if (window is MainWindow)
+                    window.Hide();
+            }
+        }
 
         private void EmployeeLogin()
         {
@@ -97,7 +105,10 @@ namespace MyInsurance.Controls.Start
                     }
                     else
                     {
-                        new MyInsurance.EmployeeGui.MainWindow().Show();
+                        new EmployeeGui.MainWindow(loginService.GetLoggedPerson, App.openedWindows).Show();
+                        this.tbLogin.Text = String.Empty;
+                        this.pbPassword.Password = String.Empty;
+                        HideParentWindow();
                     }
                 }
             }
@@ -115,7 +126,8 @@ namespace MyInsurance.Controls.Start
                     }
                     else
                     {
-                        new MyInsurance.CustomerGui.MainWindow().Show();
+                        new CustomerGui.MainWindow(loginService.GetLoggedPerson, App.openedWindows).Show();
+                        HideParentWindow();
                     }
                 }
             }

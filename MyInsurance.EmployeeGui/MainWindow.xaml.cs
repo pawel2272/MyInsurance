@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyInsurance.BusinessLogic.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,24 @@ namespace MyInsurance.EmployeeGui
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public MainWindow(Employee employee, List<Window> openedWindows)
+        {
+            InitializeComponent();
+            App.loggedPerson = employee;
+            App.openedWindows = openedWindows;
+            openedWindows.Add(this);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            App.openedWindows.Remove(this);
+            foreach (Window window in App.openedWindows)
+            {
+                if (!window.IsVisible)
+                    window.Show();
+            }
         }
     }
 }
