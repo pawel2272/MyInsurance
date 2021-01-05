@@ -138,6 +138,14 @@
       <Project>{de49fdaa-587f-48fd-9075-0ecc9249498c}</Project>
       <Name>MyInsurance.BusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyInsurance.CustomerGui\MyInsurance.CustomerGui.csproj">
+      <Project>{a990ee99-6c5b-40f3-ab3b-dd997da24bfc}</Project>
+      <Name>MyInsurance.CustomerGui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyInsurance.EmployeeGui\MyInsurance.EmployeeGui.csproj">
+      <Project>{048939e8-3789-4d8b-a67e-53883ca96965}</Project>
+      <Name>MyInsurance.EmployeeGui</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Windows\Start\" />
