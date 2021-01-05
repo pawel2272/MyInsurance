@@ -59,7 +59,7 @@ namespace MyInsurance.BusinessLogic.Services
             };
 
             _dbContext.Policies.Add(newPolicy);
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
 

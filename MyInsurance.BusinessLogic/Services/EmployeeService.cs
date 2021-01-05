@@ -49,7 +49,7 @@ namespace MyInsurance.BusinessLogic.Services
                     IsBoss = isBoos
                 };
                 _dbContext.Employees.Add(employee);
-                _dbContext.SaveChangesAsync();
+                _dbContext.SaveChanges();
             }
             else
                 throw new EntityAlreadyExistsException("User: " + username + " already exists!");
@@ -62,7 +62,7 @@ namespace MyInsurance.BusinessLogic.Services
                 employee.Password = crypto.Encrypt(employee.Password);
             }
             _dbContext.Employees.Add(employee);
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
         public bool CheckIfExists(string username)

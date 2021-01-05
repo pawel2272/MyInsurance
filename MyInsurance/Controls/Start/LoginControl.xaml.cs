@@ -1,21 +1,10 @@
 ﻿using MyInsurance.BusinessLogic.Constants;
 using MyInsurance.BusinessLogic.Data;
-using MyInsurance.BusinessLogic.Interfaces;
 using MyInsurance.BusinessLogic.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MyInsurance.Controls.Start
 {
@@ -101,11 +90,7 @@ namespace MyInsurance.Controls.Start
             {
                 using (LoginService<Employee, EmployeeService> loginService = new LoginService<Employee, EmployeeService>(service, new CryptoService(CryptoConstants.USER_KEY)))
                 {
-                    if (loginService.Login(tbLogin.Text, pbPassword.Password))
-                    {
-                        MessageBox.Show("Zalogowano");
-                    }
-                    else
+                    if (!loginService.Login(tbLogin.Text, pbPassword.Password))
                     {
                         MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
@@ -120,10 +105,6 @@ namespace MyInsurance.Controls.Start
                 using (LoginService<Customer, CustomerService> loginService = new LoginService<Customer, CustomerService>(service, new CryptoService(CryptoConstants.CUSTOMER_KEY)))
                 {
                     if (loginService.Login(tbLogin.Text, pbPassword.Password))
-                    {
-                        MessageBox.Show("Zalogowano");
-                    }
-                    else
                     {
                         MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
@@ -142,6 +123,7 @@ namespace MyInsurance.Controls.Start
         {
             if ((bool)this.rbCustomer.IsChecked)
             {
+                this.RegisterControl.CustomerRegister = false;
                 this.RegisterControl.CustomerRegister = true;
             }
             if ((bool)this.rbEmployee.IsChecked)
@@ -186,7 +168,6 @@ namespace MyInsurance.Controls.Start
                     SetRegistrationType();
                     SendDataToRegistrationControl();
                     grdLoginData.IsEnabled = false;
-                    MessageBox.Show(RegisterControl.NewUserLogin + " " + RegisterControl.NewUserPassword);
                 }
                 else
                 {

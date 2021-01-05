@@ -53,7 +53,7 @@ namespace MyInsurance.BusinessLogic.Services
                     Discount = discount
                 };
                 _dbContext.Customers.Add(customer);
-                _dbContext.SaveChangesAsync();
+                _dbContext.SaveChanges();
             }
             else
                 throw new EntityAlreadyExistsException("User: " + username + "already exists!");
@@ -66,7 +66,7 @@ namespace MyInsurance.BusinessLogic.Services
                 customer.Password = crypto.Encrypt(customer.Password);
             }
             _dbContext.Customers.Add(customer);
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
         public bool CheckIfExists(string username)

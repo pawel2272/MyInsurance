@@ -56,8 +56,6 @@ namespace MyInsurance.Controls.Start
                 var value = (bool) e.NewValue;
                 if (value)
                 {
-                    source.spEmployee.IsEnabled = false;
-                    source.spCustomer.IsEnabled = true;
                     source.rbCustomer.IsChecked = true;
                     source.rbEmployee.IsChecked = false;
                     source.customerData.Visibility = Visibility.Visible;
@@ -66,8 +64,6 @@ namespace MyInsurance.Controls.Start
                 }
                 if (!value)
                 {
-                    source.spEmployee.IsEnabled = true;
-                    source.spCustomer.IsEnabled = false;
                     source.rbCustomer.IsChecked = false;
                     source.rbEmployee.IsChecked = true;
                     source.customerData.Visibility = Visibility.Hidden;
@@ -113,11 +109,16 @@ namespace MyInsurance.Controls.Start
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
+            bool isRegistered = false;
             if (this.CustomerRegister)
             {
                 using (ICustomerService service = new CustomerService())
                 {
-                    service.Add(customerData.DataContext as Customer);
+                    Customer customer = customerData.DataContext as Customer;
+                    customer.Login = NewUserLogin;
+                    customer.Password = NewUserPassword;
+                    service.Add(customer);
+                    isRegistered = true;
                 }
             }
 
@@ -125,11 +126,18 @@ namespace MyInsurance.Controls.Start
             {
                 using (IEmployeeService service = new EmployeeService())
                 {
-                    service.Add(employeeData.DataContext as Employee);
+                    Employee employee = employeeData.DataContext as Employee;
+                    employee.Login = NewUserLogin;
+                    employee.Password = NewUserPassword;
+                    service.Add(employee);
+                    isRegistered = true;
                 }
             }
 
-            MessageBox.Show("Użytkownik zostanie dodany po zatwierdzeniu przez administratora.", "Rejestracja zakończona pomyślnie.", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (isRegistered)
+                MessageBox.Show("Użytkownik zostanie dodany po zatwierdzeniu przez administratora.", "Rejestracja zakończona pomyślnie.", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show("Rejestracja zakończona niepowodzeniem. Skontaktuj się z administratorem.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

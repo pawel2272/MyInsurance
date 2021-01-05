@@ -37,7 +37,7 @@ namespace MyInsurance.BusinessLogic.Services
                 SendingDate = DateTime.Now
             };
             _dbContext.Messages.Add(message);
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
         public void Dispose()

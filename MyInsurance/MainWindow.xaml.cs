@@ -2,9 +2,7 @@
 using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Services;
 using MyInsurance.BusinessLogic.Constants;
-using System.Threading;
 using System;
-using System.Threading.Tasks;
 
 namespace MyInsurance
 {

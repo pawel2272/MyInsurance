@@ -32,12 +32,12 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label x:Name="titleLbl" Content="Rejestracja nowego użytkownika." Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Style="{StaticResource startLbl}"/>
-        <StackPanel x:Name="spCustomer" Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+        <StackPanel x:Name="spCustomer" Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Center" IsEnabled="False">
             <RadioButton x:Name="rbCustomer" GroupName="rbChoose" Style="{StaticResource startRb}"/>
             <Label Content="Klient" Style="{StaticResource startLbl}"/>
         </StackPanel>
 
-        <StackPanel x:Name="spEmployee" Grid.Row="1" Grid.Column="3" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+        <StackPanel x:Name="spEmployee" Grid.Row="1" Grid.Column="3" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Center" IsEnabled="False">
             <RadioButton x:Name="rbEmployee" GroupName="rbChoose" Style="{StaticResource startRb}"/>
             <Label Content="Pracownik" Style="{StaticResource startLbl}"/>
         </StackPanel>
