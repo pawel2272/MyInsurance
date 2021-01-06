@@ -37,6 +37,7 @@ namespace MyInsurance.CustomerGui
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            App.loggedPerson = null;
             App.openedWindows.Remove(this);
             foreach (Window window in App.openedWindows)
             {

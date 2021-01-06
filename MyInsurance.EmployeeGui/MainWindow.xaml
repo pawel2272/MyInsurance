@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyInsurance.EmployeeGui"
+        xmlns:management="clr-namespace:MyInsurance.EmployeeGui.Controls.Start"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closed="Window_Closed">
-    <Grid>
-        
+    <Grid x:Name="grdMain">
+        <management:MainControl/>
     </Grid>
 </Window>

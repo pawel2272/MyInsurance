@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="MyInsurance.EmployeeGui.Controls.Management.Menus.CrudMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls.Management.Menus"
+             xmlns:controls="clr-namespace:MyInsurance.EmployeeGui.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="ucCrud">
+    <Menu x:Name="crudMenu">
+        <MenuItem Header="Plik">
+            <MenuItem Header="Otwórz" Command="Open">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Icons/file_open.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="Zapisz" Command="Save">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Icons/file_save.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Zapisz jako..." Command="SaveAs">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Icons/file_save.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="Wyloguj" Command="controls:CustomCommands.Logout">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Icons/exit.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Zamknij program" Command="controls:CustomCommands.Exit">
+                <MenuItem.Icon>
+                    <Image Source="/Resources/Icons/exit.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+        </MenuItem>
+        <MenuItem Header="Edycja">
+            <MenuItem Header="Dodaj" Command="controls:CustomCommands.New"/>
+            <MenuItem Header="Edytuj" Command="controls:CustomCommands.Edit"/>
+            <MenuItem Header="Usuń" Command="controls:CustomCommands.Delete"/>
+        </MenuItem>
+        <MenuItem Header="Opcje">
+            <MenuItem Header="Ustawienia konta" Command="controls:CustomCommands.ManageAcc"/>
+            <MenuItem Header="Zarządzaj pracownikami" Command="controls:CustomCommands.ManageEmp"/>
+            <MenuItem Header="O programie..." Command="controls:CustomCommands.About"/>
+        </MenuItem>
+    </Menu>
+</UserControl>
