@@ -26,10 +26,11 @@ namespace MyInsurance.EmployeeGui
             InitializeComponent();
         }
 
-        public MainWindow(Employee employee, List<Window> openedWindows)
+        public MainWindow(Employee employee, List<Window> openedWindows, Window loginWindow)
         {
             InitializeComponent();
             App.loggedPerson = employee;
+            App.loginWindow = loginWindow;
             App.openedWindows = openedWindows;
             openedWindows.Add(this);
         }
@@ -39,7 +40,7 @@ namespace MyInsurance.EmployeeGui
             App.openedWindows.Remove(this);
             foreach (Window window in App.openedWindows)
             {
-                if (!window.IsVisible)
+                if (window == App.loginWindow)
                     window.Show();
             }
         }

@@ -73,10 +73,10 @@ namespace MyInsurance.Controls.Start
             if (tbLogin.Text.Length > 0 && pbPassword.Password.Length > 0)
             {
                 if ((bool)rbEmployee.IsChecked)
-                    EmployeeLogin();
+                    this.EmployeeLogin();
 
                 if ((bool)rbCustomer.IsChecked)
-                    CustomerLogin();
+                    this.CustomerLogin();
             }
             else
             {
@@ -93,6 +93,12 @@ namespace MyInsurance.Controls.Start
             }
         }
 
+        private void ClearLoginAndPasswordTb()
+        {
+            this.tbLogin.Text = String.Empty;
+            this.pbPassword.Password = String.Empty;
+        }
+
         private void EmployeeLogin()
         {
             using (EmployeeService service = new EmployeeService())
@@ -105,11 +111,10 @@ namespace MyInsurance.Controls.Start
                     }
                     else
                     {
-                        new EmployeeGui.MainWindow(loginService.GetLoggedPerson, App.openedWindows).Show();
-                        this.tbLogin.Text = String.Empty;
-                        this.pbPassword.Password = String.Empty;
-                        HideParentWindow();
+                        new EmployeeGui.MainWindow(loginService.GetLoggedPerson, App.openedWindows, App.loginWindow).Show();
+                        this.HideParentWindow();
                     }
+                    this.ClearLoginAndPasswordTb();
                 }
             }
         }
@@ -126,9 +131,10 @@ namespace MyInsurance.Controls.Start
                     }
                     else
                     {
-                        new CustomerGui.MainWindow(loginService.GetLoggedPerson, App.openedWindows).Show();
-                        HideParentWindow();
+                        new CustomerGui.MainWindow(loginService.GetLoggedPerson, App.openedWindows, App.loginWindow).Show();
+                        this.HideParentWindow();
                     }
+                    this.ClearLoginAndPasswordTb();
                 }
             }
 
@@ -156,8 +162,8 @@ namespace MyInsurance.Controls.Start
 
         private void SendDataToRegistrationControl()
         {
-            RegisterControl.NewUserLogin = tbLogin.Text;
-            RegisterControl.NewUserPassword = pbPassword.Password;
+            this.RegisterControl.NewUserLogin = tbLogin.Text;
+            this.RegisterControl.NewUserPassword = pbPassword.Password;
         }
 
         private bool CheckIfUserExists()
@@ -185,9 +191,9 @@ namespace MyInsurance.Controls.Start
             {
                 if (!CheckIfUserExists())
                 {
-                    HideControl();
-                    SetRegistrationType();
-                    SendDataToRegistrationControl();
+                    this.HideControl();
+                    this.SetRegistrationType();
+                    this.SendDataToRegistrationControl();
                     grdLoginData.IsEnabled = false;
                 }
                 else
@@ -210,7 +216,7 @@ namespace MyInsurance.Controls.Start
                     case Key.Enter:
                         if (e.Key == Key.Enter)
                         {
-                            btnLogin_Click(sender, e);
+                            this.btnLogin_Click(sender, e);
                         }
                         break;
                 }
