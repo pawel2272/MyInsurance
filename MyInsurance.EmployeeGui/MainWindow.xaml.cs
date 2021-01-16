@@ -21,6 +21,7 @@ namespace MyInsurance.EmployeeGui
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool isLoggingOut = true;
         public MainWindow()
         {
             InitializeComponent();
@@ -38,10 +39,16 @@ namespace MyInsurance.EmployeeGui
         private void Window_Closed(object sender, EventArgs e)
         {
             App.openedWindows.Remove(this);
-            foreach (Window window in App.openedWindows)
+            if (isLoggingOut)
             {
-                if (window == App.loginWindow)
-                    window.Show();
+                foreach (Window window in App.openedWindows)
+                {
+                    if (window == App.loginWindow)
+                    {
+                        if (window.IsActive)
+                            window.Show();
+                    }
+                }
             }
         }
     }

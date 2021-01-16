@@ -11,29 +11,29 @@
         <MenuItem Header="Plik">
             <MenuItem Header="Otwórz" Command="Open">
                 <MenuItem.Icon>
-                    <Image Source="/Resources/Icons/file_open.png"/>
+                    <Image Source="/MyInsurance.BusinessLogic;component/Resources/Icons/file_open.png"/>
                 </MenuItem.Icon>
             </MenuItem>
             <Separator/>
             <MenuItem Header="Zapisz" Command="Save">
                 <MenuItem.Icon>
-                    <Image Source="/Resources/Icons/file_save.png"/>
+                    <Image Source="/MyInsurance.BusinessLogic;component/Resources/Icons/file_save.png"/>
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Header="Zapisz jako..." Command="SaveAs">
                 <MenuItem.Icon>
-                    <Image Source="/Resources/Icons/file_save.png"/>
+                    <Image Source="/MyInsurance.BusinessLogic;component/Resources/Icons/file_save.png"/>
                 </MenuItem.Icon>
             </MenuItem>
             <Separator/>
             <MenuItem Header="Wyloguj" Command="controls:CustomCommands.Logout">
                 <MenuItem.Icon>
-                    <Image Source="/Resources/Icons/exit.png"/>
+                    <Image Source="/MyInsurance.BusinessLogic;component/Resources/Icons/exit.png"/>
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Header="Zamknij program" Command="controls:CustomCommands.Exit">
                 <MenuItem.Icon>
-                    <Image Source="/Resources/Icons/exit.png"/>
+                    <Image Source="/MyInsurance.BusinessLogic;component/Resources/Icons/exit.png"/>
                 </MenuItem.Icon>
             </MenuItem>
         </MenuItem>

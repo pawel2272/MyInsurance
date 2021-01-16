@@ -6,6 +6,13 @@
              xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls.Management"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/MyInsurance.EmployeeGui;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -18,9 +25,9 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnRegister" Content="Zarejestruj pacjenta" Style="{StaticResource hugeButton}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"/>
-        <Button x:Name="btnPatients" Content="Zarządzaj pacjentami" Style="{StaticResource hugeButton}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"/>
-        <Button x:Name="btnAppointments" Content="Zarządzaj wizytami" Style="{StaticResource hugeButton}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"/>
-        <Button x:Name="btnEmployees" Content="Zarządzaj pracownikami" Style="{StaticResource hugeButton}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" />
+        <Button x:Name="btnPolicies" Content="Polisy" Style="{StaticResource btnHuge}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"/>
+        <Button x:Name="btnCases" Content="Sprawy" Style="{StaticResource btnHuge}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"/>
+        <Button x:Name="btnMessages" Content="Wiadomości" Style="{StaticResource btnHuge}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"/>
+        <Button x:Name="btnEmployees" Content="Pracownicy" Style="{StaticResource btnHuge}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" />
     </Grid>
 </UserControl>

@@ -11,12 +11,12 @@
         <MenuItem Header="Plik">
             <MenuItem Header="Wyloguj" Command="controls:CustomCommands.Logout">
                 <MenuItem.Icon>
-                    <Image Source="/Resources/Icons/exit.png"/>
+                    <Image Source="/MyInsurance.BusinessLogic;component/Resources/Icons/exit.png"/>
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Header="Zamknij program" Command="controls:CustomCommands.Exit">
                 <MenuItem.Icon>
-                    <Image Source="/Resources/Icons/exit.png"/>
+                    <Image Source="/MyInsurance.BusinessLogic;component/Resources/Icons/exit.png"/>
                 </MenuItem.Icon>
             </MenuItem>
         </MenuItem>
