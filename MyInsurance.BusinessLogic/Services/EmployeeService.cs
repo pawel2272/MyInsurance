@@ -87,6 +87,11 @@ namespace MyInsurance.BusinessLogic.Services
             _dbContext.Dispose();
         }
 
+        public List<Employee> GetAllEmployees()
+        {
+            return _dbContext.Employees.ToList();
+        }
+
         public Employee GetEmployee(int employeeId)
         {
             return _dbContext.Employees.FirstOrDefault(e => e.Id == employeeId);

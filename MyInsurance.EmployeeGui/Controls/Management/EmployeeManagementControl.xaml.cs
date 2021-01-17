@@ -20,14 +20,100 @@ namespace MyInsurance.EmployeeGui.Controls.Management
     /// </summary>
     public partial class EmployeeManagementControl : UserControl
     {
+        public ICommand CommandBack
+        {
+            get { return (ICommand)GetValue(CommandBackProperty); }
+            set { SetValue(CommandBackProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandBack.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandBackProperty =
+            DependencyProperty.Register("CommandBack", typeof(ICommand), typeof(EmployeeManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as EmployeeManagementControl;
+                var value = e.NewValue as CommandBinding;
+                source.cbButtons.CommandBindings.Add(value);
+            })));
+
+        public ICommand CommandNew
+        {
+            get { return (ICommand)GetValue(CommandNewProperty); }
+            set { SetValue(CommandNewProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandExit.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandNewProperty =
+            DependencyProperty.Register("CommandNew", typeof(ICommand), typeof(EmployeeManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as EmployeeManagementControl;
+                var value = e.NewValue as CommandBinding;
+                source.cbButtons.CommandBindings.Add(value);
+            })));
+
+        public ICommand CommandEdit
+        {
+            get { return (ICommand)GetValue(CommandEditProperty); }
+            set { SetValue(CommandEditProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandExit.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandEditProperty =
+            DependencyProperty.Register("CommandEdit", typeof(ICommand), typeof(EmployeeManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as EmployeeManagementControl;
+                var value = e.NewValue as CommandBinding;
+                source.cbButtons.CommandBindings.Add(value);
+            })));
+
+        public ICommand CommandDelete
+        {
+            get { return (ICommand)GetValue(CommandDeleteProperty); }
+            set { SetValue(CommandDeleteProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandExit.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandDeleteProperty =
+            DependencyProperty.Register("CommandDelete", typeof(ICommand), typeof(EmployeeManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as EmployeeManagementControl;
+                var value = e.NewValue as CommandBinding;
+                source.cbButtons.CommandBindings.Add(value);
+            })));
+
+        public Brush ButtonsForeground
+        {
+            get { return (Brush)GetValue(ButtonsForegroundProperty); }
+            set { SetValue(ButtonsForegroundProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ButtonsForeground.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ButtonsForegroundProperty =
+            DependencyProperty.Register("ButtonsForeground", typeof(Brush), typeof(EmployeeManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as EmployeeManagementControl;
+                var value = e.NewValue as Brush;
+                source.cbButtons.btnBack.Foreground = value;
+                source.cbButtons.btnNew.Foreground = value;
+                source.cbButtons.btnEdit.Foreground = value;
+                source.cbButtons.btnDelete.Foreground = value;
+            })));
+
+        public Brush ButtonsBackground
+        {
+            get { return (Brush)GetValue(ButtonsBackgroundProperty); }
+            set { SetValue(ButtonsBackgroundProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ButtonsBackground.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ButtonsBackgroundProperty =
+            DependencyProperty.Register("ButtonsBackground", typeof(Brush), typeof(EmployeeManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as EmployeeManagementControl;
+                var value = e.NewValue as Brush;
+                source.cbButtons.btnBack.Background = value;
+                source.cbButtons.btnNew.Background = value;
+                source.cbButtons.btnEdit.Background = value;
+                source.cbButtons.btnDelete.Background = value;
+            })));
+
+
         public EmployeeManagementControl()
         {
             InitializeComponent();
-        }
-
-        private void dgEmployees_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
         }
     }
 }

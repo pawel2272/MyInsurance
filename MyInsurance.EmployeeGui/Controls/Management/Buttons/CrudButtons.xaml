@@ -4,17 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls.Management.Buttons"
+             xmlns:controls="clr-namespace:MyInsurance.EmployeeGui.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="100" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/MyInsurance.EmployeeGui;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -22,9 +22,11 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnNew" Content="Nowy" Style="{StaticResource hugeButton}" Grid.Row="5" Grid.Column="1"/>
-        <Button x:Name="btnEdit" Content="Edytuj" Style="{StaticResource hugeButton}" Grid.Row="5" Grid.Column="3"/>
-        <Button x:Name="btnDelete" Content="Usuń" Style="{StaticResource hugeButton}" Grid.Row="5" Grid.Column="5"/>
+        <Button x:Name="btnBack" Content="Wstecz" Style="{StaticResource btnSmall}" Grid.Column="0" FontSize="30" Command="controls:CustomCommands.Back"/>
+        <Button x:Name="btnNew" Content="Nowy" Style="{StaticResource btnSmall}" Grid.Column="2" FontSize="30" Command="controls:CustomCommands.New"/>
+        <Button x:Name="btnEdit" Content="Edytuj" Style="{StaticResource btnSmall}" Grid.Column="4" FontSize="30" Command="controls:CustomCommands.Edit"/>
+        <Button x:Name="btnDelete" Content="Usuń" Style="{StaticResource btnSmall}" Grid.Column="6" FontSize="30" Command="controls:CustomCommands.Delete"/>
     </Grid>
 </UserControl>

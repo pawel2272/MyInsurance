@@ -95,9 +95,12 @@
     <Compile Include="Controls\Management\Buttons\CrudButtons.xaml.cs">
       <DependentUpon>CrudButtons.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Management\Buttons\NavigableButton.cs" />
     <Compile Include="Controls\Management\EmployeeManagementControl.xaml.cs">
       <DependentUpon>EmployeeManagementControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Management\Enums\NavigationMode.cs" />
+    <Compile Include="Controls\Management\Interfaces\INavigable.cs" />
     <Compile Include="Controls\Management\MainMenuControl.xaml.cs">
       <DependentUpon>MainMenuControl.xaml</DependentUpon>
     </Compile>

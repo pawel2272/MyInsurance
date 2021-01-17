@@ -7,12 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <ResourceDictionary >
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries >
                 <ResourceDictionary Source="/MyInsurance.EmployeeGui;component/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <data:Employee x:Key="currentEmployee"/>
         </ResourceDictionary>
-        <data:Employee x:Key="currentEmployee"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

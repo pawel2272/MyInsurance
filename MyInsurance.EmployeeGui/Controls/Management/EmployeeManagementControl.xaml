@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls.Management"
+             xmlns:buttons="clr-namespace:MyInsurance.EmployeeGui.Controls.Management.Buttons"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -30,16 +31,20 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dgEmployees" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="5" Margin="3"
-                              CanUserAddRows="False"
-                              CanUserDeleteRows="False"
-                              CanUserReorderColumns="False"
-                              IsReadOnly="True"
-                              FrozenColumnCount="3"
-                              AutoGenerateColumns="False"
-                              MouseDoubleClick="dgEmployees_MouseDoubleClick"
-                              SelectionMode="Single"
-                              SelectionUnit="FullRow">
+        <DataGrid x:Name="dgEmployees"
+                  Grid.Row="0"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="6"
+                  Grid.RowSpan="5"
+                  Margin="3"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  IsReadOnly="True"
+                  FrozenColumnCount="3"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
                 <DataGridTextColumn Header="Imię" Binding="{Binding Path=FirstName}"/>
@@ -48,40 +53,41 @@
                 <DataGridTextColumn Header="Numer domu" Binding="{Binding Path=HouseNumber}"/>
                 <DataGridTextColumn Header="Miejscowość" Binding="{Binding Path=City}"/>
                 <DataGridTextColumn Header="Kod pocztowy" Binding="{Binding Path=ZipCode}"/>
-                <DataGridTextColumn Header="Numer telefonu" Binding="{Binding Path=PhoneNumber}"/>
                 <DataGridTextColumn Header="Pensja" Binding="{Binding Path=Salary}"/>
                 <DataGridTextColumn Header="Data urodzenia" Binding="{Binding Path=BirthDate, StringFormat=dd.MM.yyyy}"/>
+                <DataGridTextColumn Header="PESEL" Binding="{Binding Path=Pesel}"/>
                 <DataGridTextColumn Header="Adres e-mail" Binding="{Binding Path=EmailAddress}"/>
                 <DataGridTextColumn Header="Login" Binding="{Binding Path=Login}"/>
                 <DataGridTextColumn Header="Hasło" Binding="{Binding Path=Password}"/>
                 <DataGridCheckBoxColumn Header="Administrator?" Binding="{Binding Path=IsAdmin}"/>
                 <DataGridCheckBoxColumn Header="Szef?" Binding="{Binding Path=IsBoss}"/>
-                <DataGridCheckBoxColumn Header="Lekarz?" Binding="{Binding Path=IsDoctor}"/>
+                <DataGridCheckBoxColumn Header="Aktywny?" Binding="{Binding Path=IsActive}"/>
+                <DataGridTextColumn Header="Numer telefonu" Binding="{Binding Path=PhoneNumber}"/>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-                    <DataGrid CanUserAddRows="False"
-                                          CanUserDeleteRows="False"
-                                          CanUserReorderColumns="False"
-                                          IsReadOnly="True"
-                                          FrozenColumnCount="3"
-                                          AutoGenerateColumns="False"
-                                          SelectionMode="Single"
-                                          SelectionUnit="FullRow"
-                                          ItemsSource="{Binding Path=Appointments}">
+                    <DataGrid x:Name="dgCaseDetails"
+                              ItemsSource="{Binding Path=Cases}"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              CanUserReorderColumns="False"
+                              IsReadOnly="True"
+                              FrozenColumnCount="3"
+                              AutoGenerateColumns="False"
+                              SelectionMode="Single"
+                              SelectionUnit="FullRow">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
-                            <DataGridTextColumn Header="Id pacjenta" Binding="{Binding Path=PatientId}"/>
-                            <DataGridTextColumn Header="Id lekarza" Binding="{Binding Path=EmployeeId}"/>
-                            <DataGridTextColumn Header="Data wizyty" Binding="{Binding Path=AppointmentDate, ConverterCulture='pl-PL'}"/>
-                            <DataGridTextColumn Header="Data rejestracji" Binding="{Binding Path=RegistrationDate, ConverterCulture='pl-PL'}"/>
+                            <DataGridTextColumn Header="Decyzja" Binding="{Binding Path=Decision}"/>
+                            <DataGridCheckBoxColumn Header="Jest zakończona?" Binding="{Binding Path=IsEnded}"/>
+                            <DataGridTextColumn Header="Id klienta" Binding="{Binding Path=CustomerId}"/>
                         </DataGrid.Columns>
                         <DataGrid.RowDetailsTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Powód: "/>
-                                        <TextBlock Text="{Binding Path=Reason}"/>
+                                        <TextBlock Text="Decyzja: "/>
+                                        <TextBlock Text="{Binding Path=Decision}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Opis: "/>
@@ -94,5 +100,6 @@
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>
+        <buttons:CrudButtons x:Name="cbButtons" Grid.Row="6" Grid.ColumnSpan="6"/>
     </Grid>
 </UserControl>

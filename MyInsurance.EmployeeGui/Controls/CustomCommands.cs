@@ -68,5 +68,12 @@ namespace MyInsurance.EmployeeGui.Controls
         {
             new KeyGesture(Key.D, ModifierKeys.Control)
         });
+        /// <summary>
+        /// Komenda Back.
+        /// </summary>
+        public static readonly RoutedUICommand Back = new RoutedUICommand("Przejdź wstecz", "Back", typeof(CustomCommands), new InputGestureCollection
+        {
+            new KeyGesture(Key.B, ModifierKeys.Control)
+        });
     }
 }

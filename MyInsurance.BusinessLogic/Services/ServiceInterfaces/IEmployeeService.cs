@@ -10,6 +10,7 @@ namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
         void Add(Employee employee);
         Employee GetEmployee(int employeeId);
         Employee GetEmployee(string username);
+        List<Employee> GetAllEmployees();
         List<Case> GetEmployeeCases(int employeeId);
         List<Policy> GetEmployeePolicies(int employeeId);
         bool CheckIfExists(string username);

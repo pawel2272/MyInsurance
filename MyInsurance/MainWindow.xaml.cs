@@ -16,6 +16,10 @@ namespace MyInsurance
             InitializeComponent();
             App.loginWindow = this;
             App.openedWindows.Add(this);
+            lcLogin.tbLogin.Text = "admin";
+            lcLogin.pbPassword.Password = "admin";
+            lcLogin.rbEmployee.IsChecked = true;
+            lcLogin.LogIn();
         }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MyInsurance.EmployeeGui"
         xmlns:management="clr-namespace:MyInsurance.EmployeeGui.Controls.Start"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Closed="Window_Closed">
+        Title="MainWindow" Height="450" Width="800" Closed="Window_Closed" Background="DarkBlue">
     <Grid x:Name="grdMain">
         <management:MainControl x:Name="mcControl"/>
     </Grid>

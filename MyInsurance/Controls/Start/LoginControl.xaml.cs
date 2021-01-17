@@ -68,6 +68,11 @@ namespace MyInsurance.Controls.Start
             grdLoginData.IsEnabled = true;
         }
 
+        public void LogIn()
+        {
+            this.btnLogin_Click(new object(), new RoutedEventArgs());
+        }
+
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             if (tbLogin.Text.Length > 0 && pbPassword.Password.Length > 0)

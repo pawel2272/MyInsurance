@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls.Management"
+             xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls.Management" xmlns:buttons="clr-namespace:MyInsurance.EmployeeGui.Controls.Management.Buttons"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -24,10 +24,14 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnPolicies" Content="Polisy" Style="{StaticResource btnHuge}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"/>
-        <Button x:Name="btnCases" Content="Sprawy" Style="{StaticResource btnHuge}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"/>
-        <Button x:Name="btnMessages" Content="Wiadomości" Style="{StaticResource btnHuge}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"/>
-        <Button x:Name="btnEmployees" Content="Pracownicy" Style="{StaticResource btnHuge}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" />
+        <buttons:NavigableButton x:Name="btnPolicies" Content="Polisy" Style="{StaticResource btnHuge}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Click="btnNavigation_Click"/>
+        <buttons:NavigableButton x:Name="btnCases" Content="Sprawy" Style="{StaticResource btnHuge}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Click="btnNavigation_Click"/>
+        <buttons:NavigableButton x:Name="btnMessages" Content="Wiadomości" Style="{StaticResource btnHuge}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Click="btnNavigation_Click"/>
+        <buttons:NavigableButton x:Name="btnEmployees" Content="Pracownicy" Style="{StaticResource btnHuge}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Click="btnNavigation_Click"/>
+
+        <buttons:NavigableButton x:Name="btnAccount" Content="Konto" Style="{StaticResource btnHuge}" Grid.Row="2" Grid.Column="0" Margin="10" Click="btnNavigation_Click"/>
+        <buttons:NavigableButton x:Name="btnLogout" Content="Wyloguj" Style="{StaticResource btnHuge}" Grid.Row="2" Grid.Column="3" Margin="10" Click="btnNavigation_Click"/>
     </Grid>
 </UserControl>
