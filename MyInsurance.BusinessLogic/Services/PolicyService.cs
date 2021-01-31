@@ -77,5 +77,31 @@ namespace MyInsurance.BusinessLogic.Services
         {
             return GetPolicy(policyId).Employee;
         }
+
+        public bool RemovePolicy(int policyId)
+        {
+            try
+            {
+                return this.RemovePolicy(this._dbContext.Policies.First(p => p.Id == policyId));
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool RemovePolicy(Policy policy)
+        {
+            try
+            {
+                this._dbContext.Policies.Remove(policy);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            this._dbContext.SaveChanges();
+            return true;
+        }
     }
 }

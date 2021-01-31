@@ -14,5 +14,7 @@ namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
         List<Case> GetCustomerCases(int customerId);
         bool CheckIfExists(string username);
         bool CheckIfExists(int customerId);
+        bool RemoveCustomer(int customerId);
+        bool RemoveCustomer(Customer customer);
     }
 }

@@ -9,5 +9,7 @@ namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
         Policy GetPolicy(int policyId);
         Customer GetPolicyCustomer(int policyId);
         Employee GetPolicyEmployee(int policyId);
+        bool RemovePolicy(int policyId);
+        bool RemovePolicy(Policy policy);
     }
 }

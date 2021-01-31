@@ -20,6 +20,9 @@
         <CommandBinding x:Name="cmdSave" Command="Save" CanExecute="cmdSave_CanExecute" Executed="cmdSave_Executed"/>
         <CommandBinding x:Name="cmdSaveAs" Command="SaveAs" CanExecute="cmdSaveAs_CanExecute" Executed="cmdSaveAs_Executed"/>
         <CommandBinding x:Name="cmdBack" Command="local:CustomCommands.Back" CanExecute="cmdBack_CanExecute"  Executed="cmdBack_Executed"/>
+        <CommandBinding x:Name="cmdCases" Command="local:CustomCommands.Cases" CanExecute="cmdCases_CanExecute"  Executed="cmdCases_Executed"/>
+        <CommandBinding x:Name="cmdMessages" Command="local:CustomCommands.Messages" CanExecute="cmdMessages_CanExecute"  Executed="cmdMessages_Executed"/>
+        <CommandBinding x:Name="cmdPolicies" Command="local:CustomCommands.Policies" CanExecute="cmdPolicies_CanExecute"  Executed="cmdPolicies_Executed"/>
     </UserControl.CommandBindings>
     <UserControl.Resources>
         <TabItem x:Key="tiEmployeeManagement" Header="Pracownicy">
@@ -71,12 +74,18 @@
                             CommandManageEmp="{Binding cmdManageEmp}"
                             />
         </Grid>
-        <TabControl x:Name="tcControl" DockPanel.Dock="Bottom" SelectionChanged="tcControl_SelectionChanged">
+        <TabControl x:Name="tcControl" DockPanel.Dock="Bottom" SelectionChanged="tcControl_SelectionChanged" Background="DarkBlue">
             <TabItem Header="Menu główne" x:Name="tiMainMenu">
                 <management:MainMenuControl x:Name="mainMenu"
-                                        ButtonsForeground="Red"
-                                        ButtonsBackground="Black"
-                                        BtnNavigationClick="btnNavigation_Click"/>
+                                            ButtonsForeground="Red"
+                                            ButtonsBackground="Black"
+                                            CommandAccount="{Binding cmdManageAcc}"
+                                            CommandCases="{Binding cmdCases}"
+                                            CommandEmployees="{Binding cmdManageEmp}"
+                                            CommandLogout="{Binding cmdLogout}"
+                                            CommandMessages="{Binding cmdMessages}"
+                                            CommandPolicies="{Binding cmdPolicies}"
+                                            BtnNavigationClick="btnNavigation_Click"/>
             </TabItem>
         </TabControl>
     </DockPanel>

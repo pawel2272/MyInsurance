@@ -75,5 +75,26 @@ namespace MyInsurance.EmployeeGui.Controls
         {
             new KeyGesture(Key.B, ModifierKeys.Control)
         });
+        /// <summary>
+        /// Komenda Policies.
+        /// </summary>
+        public static readonly RoutedUICommand Policies = new RoutedUICommand("Przejdź do polis", "Policies", typeof(CustomCommands), new InputGestureCollection
+        {
+            new KeyGesture(Key.P, ModifierKeys.Control)
+        });
+        /// <summary>
+        /// Komenda Messages.
+        /// </summary>
+        public static readonly RoutedUICommand Messages = new RoutedUICommand("Przejdź do wiadomości", "Messages", typeof(CustomCommands), new InputGestureCollection
+        {
+            new KeyGesture(Key.R, ModifierKeys.Control)
+        });
+        /// <summary>
+        /// Komenda Cases.
+        /// </summary>
+        public static readonly RoutedUICommand Cases = new RoutedUICommand("Przejdź do zgłoszeń", "Cases", typeof(CustomCommands), new InputGestureCollection
+        {
+            new KeyGesture(Key.Q, ModifierKeys.Control)
+        });
     }
 }

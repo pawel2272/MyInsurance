@@ -15,5 +15,7 @@ namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
         List<Policy> GetEmployeePolicies(int employeeId);
         bool CheckIfExists(string username);
         bool CheckIfExists(int employeeId);
+        bool RemoveEmployee(int employeeId);
+        bool RemoveEmployee(Employee employee);
     }
 }

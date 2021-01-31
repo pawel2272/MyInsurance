@@ -16,5 +16,7 @@ namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 
         Customer GetCaseCustomer(int caseId);
         Employee GetCaseEmployee(int caseId);
+        bool RemoveCase(int caseId);
+        bool RemoveCase(Case casee);
     }
 }

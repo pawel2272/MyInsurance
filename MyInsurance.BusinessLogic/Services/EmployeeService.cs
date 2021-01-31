@@ -137,5 +137,31 @@ namespace MyInsurance.BusinessLogic.Services
         {
             return GetEmployee(username);
         }
+
+        public bool RemoveEmployee(int employeeId)
+        {
+            try
+            {
+                return this.RemoveEmployee(this._dbContext.Employees.First(e => e.Id == employeeId));
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveEmployee(Employee employee)
+        {
+            try
+            {
+                this._dbContext.Employees.Remove(employee);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            this._dbContext.SaveChanges();
+            return true;
+        }
     }
 }

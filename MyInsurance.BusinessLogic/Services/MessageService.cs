@@ -55,5 +55,31 @@ namespace MyInsurance.BusinessLogic.Services
         {
             return GetMessage(messageId).Case;
         }
+
+        public bool RemoveMessage(int messageId)
+        {
+            try
+            {
+                return this.RemoveMessage(this._dbContext.Messages.First(m => m.Id == messageId));
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveMessage(Message message)
+        {
+            try
+            {
+                this._dbContext.Messages.Remove(message);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            this._dbContext.SaveChanges();
+            return true;
+        }
     }
 }

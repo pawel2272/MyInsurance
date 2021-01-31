@@ -222,5 +222,31 @@ namespace MyInsurance.BusinessLogic.Services
             }
             return new List<Case>();
         }
+
+        public bool RemoveCase(int caseId)
+        {
+            try
+            {
+                return this.RemoveCase(this._dbContext.Cases.First(c => c.Id == caseId));
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveCase(Case casee)
+        {
+            try
+            {
+                this._dbContext.Cases.Remove(casee);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            this._dbContext.SaveChanges();
+            return true;
+        }
     }
 }

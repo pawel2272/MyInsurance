@@ -59,23 +59,115 @@ namespace MyInsurance.EmployeeGui.Controls.Management
                 source.btnLogout.Background = value;
             })));
 
+        public ICommand CommandLogout
+        {
+            get { return (ICommand)GetValue(CommandLogoutProperty); }
+            set { SetValue(CommandLogoutProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandLogout.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandLogoutProperty =
+            DependencyProperty.Register("CommandLogout", typeof(ICommand), typeof(MainMenuControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
+            {
+                var source = s as MainMenuControl;
+                var value = e.NewValue as CommandBinding;
+                source.CommandBindings.Add(value);
+            })));
+
+        public ICommand CommandPolicies
+        {
+            get { return (ICommand)GetValue(CommandPoliciesProperty); }
+            set { SetValue(CommandPoliciesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandPolicies.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandPoliciesProperty =
+            DependencyProperty.Register("CommandPolicies", typeof(int), typeof(MainMenuControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
+            {
+                var source = s as MainMenuControl;
+                var value = e.NewValue as CommandBinding;
+                source.CommandBindings.Add(value);
+            })));
+
+        public ICommand CommandEmployees
+        {
+            get { return (ICommand)GetValue(CommandEmployeesProperty); }
+            set { SetValue(CommandEmployeesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandEmployees.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandEmployeesProperty =
+            DependencyProperty.Register("CommandEmployees", typeof(ICommand), typeof(MainMenuControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
+            {
+                var source = s as MainMenuControl;
+                var value = e.NewValue as CommandBinding;
+                source.CommandBindings.Add(value);
+            })));
+
+
+        public ICommand CommandCases
+        {
+            get { return (ICommand)GetValue(CommandCasesProperty); }
+            set { SetValue(CommandCasesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandCases.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandCasesProperty =
+            DependencyProperty.Register("CommandCases", typeof(ICommand), typeof(MainMenuControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
+            {
+                var source = s as MainMenuControl;
+                var value = e.NewValue as CommandBinding;
+                source.CommandBindings.Add(value);
+            })));
+
+        public ICommand CommandMessages
+        {
+            get { return (ICommand)GetValue(CommandMessagesProperty); }
+            set { SetValue(CommandMessagesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandMessages.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandMessagesProperty =
+            DependencyProperty.Register("CommandMessages", typeof(ICommand), typeof(MainMenuControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
+            {
+                var source = s as MainMenuControl;
+                var value = e.NewValue as CommandBinding;
+                source.CommandBindings.Add(value);
+            })));
+
+        public ICommand CommandAccount
+        {
+            get { return (ICommand)GetValue(CommandAccountProperty); }
+            set { SetValue(CommandAccountProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandAccount.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandAccountProperty =
+            DependencyProperty.Register("CommandAccount", typeof(ICommand), typeof(MainMenuControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
+            {
+                var source = s as MainMenuControl;
+                var value = e.NewValue as CommandBinding;
+                source.CommandBindings.Add(value);
+            })));
+
         public RoutedEventHandler BtnNavigationClick
         {
             get { return (RoutedEventHandler)GetValue(BtnNavigationClickProperty); }
             set { SetValue(BtnNavigationClickProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for BtnPoliciesClick.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for BtnNavigationClick.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BtnNavigationClickProperty =
-            DependencyProperty.Register("BtnNavigationClick", typeof(RoutedEventHandler), typeof(MainMenuControl), new PropertyMetadata(new PropertyChangedCallback((s,e) => {
+            DependencyProperty.Register("BtnNavigationClick", typeof(RoutedEventHandler), typeof(MainMenuControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
+            {
                 var source = s as MainMenuControl;
                 var value = e.NewValue as RoutedEventHandler;
-                source.btnPolicies.Click += value;
-                source.btnCases.Click += value;
-                source.btnMessages.Click += value;
-                source.btnEmployees.Click += value;
                 source.btnAccount.Click += value;
+                source.btnCases.Click += value;
+                source.btnEmployees.Click += value;
                 source.btnLogout.Click += value;
+                source.btnMessages.Click += value;
+                source.btnPolicies.Click += value;
             })));
 
         public MainMenuControl()

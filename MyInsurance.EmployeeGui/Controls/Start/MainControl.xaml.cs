@@ -85,12 +85,19 @@ namespace MyInsurance.EmployeeGui.Controls.Start
 
         private void cmdManageEmp_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            if (!tcControl.Items.Contains(this.Resources["tiEmployeeManagement"] as TabItem))
+                e.CanExecute = true;
         }
 
         private void cmdManageEmp_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            TabItem tabItem = this.Resources["tiEmployeeManagement"] as TabItem;
+            using (IEmployeeService service = new EmployeeService())
+            {
+                (tabItem.Content as EmployeeManagementControl).dgEmployees.ItemsSource = service.GetAllEmployees();
+            }
+            tcControl.Items.Add(tabItem);
+            tcControl.SelectedItem = tabItem;
         }
 
         private void cmdNew_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -143,7 +150,16 @@ namespace MyInsurance.EmployeeGui.Controls.Start
 
         private void cmdDelete_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            TabItem tabItem = this.tcControl.SelectedItem as TabItem;
+            if (tabItem.Content is IHasDataGrid)
+            {
+                IHasDataGrid hasDataGrid = tabItem.Content as IHasDataGrid;
+                if (hasDataGrid.MainGrid.SelectedItem != null)
+                {
 
+                    hasDataGrid.MainGrid.ItemsSource as 
+                }
+            }
         }
 
         private void cmdOpen_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -209,48 +225,48 @@ namespace MyInsurance.EmployeeGui.Controls.Start
             App.openedWindows.First(w => w is MainWindow).Close();
         }
 
-        private void btnNavigation_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is INavigable)
-            {
-                INavigable navigable = (INavigable)sender;
-                NavigationMode mode = navigable.WindowMode;
-                this.navigationMode = mode;
-                TabItem tabItem;
-                switch (mode)
-                {
-                    case NavigationMode.NoSelected:
-                        MessageBox.Show("Błąd wewnętrzny aplikacji: " + new Exception().StackTrace, "Błąd!", MessageBoxButton.OK, MessageBoxImage.Error);
-                        break;
-                    case NavigationMode.Policies:
-                        break;
-                    case NavigationMode.Cases:
-                        tabItem = this.Resources["tiCaseManagement"] as TabItem;
-                        using (ICaseService service = new CaseService())
-                        {
-                            (tabItem.Content as CaseManagementControl).dgCases.ItemsSource = service.GetAllCases(App.loggedPerson.Id, App.loggedPerson.FirstName);
-                        }
-                        tcControl.Items.Add(tabItem);
-                        break;
-                    case NavigationMode.Messages:
-                        break;
-                    case NavigationMode.Employees:
-                        tabItem = this.Resources["tiEmployeeManagement"] as TabItem;
-                        using (IEmployeeService service = new EmployeeService())
-                        {
-                            (tabItem.Content as EmployeeManagementControl).dgEmployees.ItemsSource = service.GetAllEmployees();
-                        }
-                        tcControl.Items.Add(tabItem);
-                        break;
-                    case NavigationMode.Account:
+        //private void btnNavigation_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (sender is INavigable)
+        //    {
+        //        INavigable navigable = (INavigable)sender;
+        //        NavigationMode mode = navigable.WindowMode;
+        //        this.navigationMode = mode;
+        //        TabItem tabItem;
+        //        switch (mode)
+        //        {
+        //            case NavigationMode.NoSelected:
+        //                MessageBox.Show("Błąd wewnętrzny aplikacji: " + new Exception().StackTrace, "Błąd!", MessageBoxButton.OK, MessageBoxImage.Error);
+        //                break;
+        //            case NavigationMode.Policies:
+        //                break;
+        //            case NavigationMode.Cases:
+        //                tabItem = this.Resources["tiCaseManagement"] as TabItem;
+        //                using (ICaseService service = new CaseService())
+        //                {
+        //                    (tabItem.Content as CaseManagementControl).dgCases.ItemsSource = service.GetAllCases(App.loggedPerson.Id, App.loggedPerson.FirstName);
+        //                }
+        //                tcControl.Items.Add(tabItem);
+        //                break;
+        //            case NavigationMode.Messages:
+        //                break;
+        //            case NavigationMode.Employees:
+        //                tabItem = this.Resources["tiEmployeeManagement"] as TabItem;
+        //                using (IEmployeeService service = new EmployeeService())
+        //                {
+        //                    (tabItem.Content as EmployeeManagementControl).dgEmployees.ItemsSource = service.GetAllEmployees();
+        //                }
+        //                tcControl.Items.Add(tabItem);
+        //                break;
+        //            case NavigationMode.Account:
                         
-                        break;
-                    case NavigationMode.Logout:
-                        this.Logout();
-                        break;
-                }
-            }
-        }
+        //                break;
+        //            case NavigationMode.Logout:
+        //                this.Logout();
+        //                break;
+        //        }
+        //    }
+        //}
 
         private void cmdBack_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -271,6 +287,44 @@ namespace MyInsurance.EmployeeGui.Controls.Start
                     ShowMainMenu();
                 else
                     ShowCrudMenu();
+            }
+        }
+
+        private void cmdCases_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+
+        }
+
+        private void cmdCases_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void cmdMessages_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+
+        }
+
+        private void cmdMessages_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void cmdPolicies_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+
+        }
+
+        private void cmdPolicies_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void btnNavigation_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is INavigable)
+            {
+                this.navigationMode = ((INavigable)sender).WindowMode;
             }
         }
     }
