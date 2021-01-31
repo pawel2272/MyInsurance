@@ -42,6 +42,8 @@ namespace MyInsurance.BusinessLogic.Data
 
         public Employee(Employee old)
         {
+            this.Cases = new HashSet<Case>();
+            this.Policies = new HashSet<Policy>();
             this.Id = old.Id;
             this.FirstName = old.FirstName;
             this.LastName = old.LastName;
@@ -59,8 +61,28 @@ namespace MyInsurance.BusinessLogic.Data
             this.IsBoss = old.IsBoss;
             this.IsActive = old.IsActive;
             this.PhoneNumber = old.PhoneNumber;
-            this.Cases = old.Cases;
-            this.Policies = old.Policies;
+        }
+
+        public Employee ChangeData(Employee old)
+        {
+            this.Id = old.Id;
+            this.FirstName = old.FirstName;
+            this.LastName = old.LastName;
+            this.Street = old.Street;
+            this.HouseNumber = old.HouseNumber;
+            this.City = old.City;
+            this.ZipCode = old.ZipCode;
+            this.Salary = old.Salary;
+            this.BirthDate = new DateTime(old.BirthDate.Year, old.BirthDate.Month, old.BirthDate.Day);
+            this.Pesel = old.Pesel;
+            this.EmailAddress = old.EmailAddress;
+            this.Login = old.Login;
+            this.Password = old.Password;
+            this.IsAdmin = old.IsAdmin;
+            this.IsBoss = old.IsBoss;
+            this.IsActive = old.IsActive;
+            this.PhoneNumber = old.PhoneNumber;
+            return this;
         }
 
         public string this[string propertyName]

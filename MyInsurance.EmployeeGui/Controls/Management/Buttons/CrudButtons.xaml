@@ -24,7 +24,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnBack" Content="Wstecz" Style="{StaticResource btnSmall}" Grid.Column="0" FontSize="30" Command="controls:CustomCommands.Back"/>
+        <Button x:Name="btnBack" Content="Zamknij" Style="{StaticResource btnSmall}" Grid.Column="0" FontSize="30" Command="controls:CustomCommands.Back"/>
         <Button x:Name="btnNew" Content="Nowy" Style="{StaticResource btnSmall}" Grid.Column="2" FontSize="30" Command="controls:CustomCommands.New"/>
         <Button x:Name="btnEdit" Content="Edytuj" Style="{StaticResource btnSmall}" Grid.Column="4" FontSize="30" Command="controls:CustomCommands.Edit"/>
         <Button x:Name="btnDelete" Content="Usuń" Style="{StaticResource btnSmall}" Grid.Column="6" FontSize="30" Command="controls:CustomCommands.Delete"/>

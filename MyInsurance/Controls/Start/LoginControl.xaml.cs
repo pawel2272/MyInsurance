@@ -107,20 +107,18 @@ namespace MyInsurance.Controls.Start
         private void EmployeeLogin()
         {
             using (EmployeeService service = new EmployeeService())
+            using (LoginService<Employee, EmployeeService> loginService = new LoginService<Employee, EmployeeService>(service, new CryptoService(CryptoConstants.USER_KEY)))
             {
-                using (LoginService<Employee, EmployeeService> loginService = new LoginService<Employee, EmployeeService>(service, new CryptoService(CryptoConstants.USER_KEY)))
+                if (!loginService.Login(tbLogin.Text, pbPassword.Password))
                 {
-                    if (!loginService.Login(tbLogin.Text, pbPassword.Password))
-                    {
-                        MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                    else
-                    {
-                        new EmployeeGui.MainWindow(loginService.GetLoggedPerson, App.openedWindows, App.loginWindow).Show();
-                        this.HideParentWindow();
-                    }
-                    this.ClearLoginAndPasswordTb();
+                    MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
+                else
+                {
+                    new EmployeeGui.MainWindow(loginService.GetLoggedPerson, App.openedWindows, App.loginWindow).Show();
+                    this.HideParentWindow();
+                }
+                this.ClearLoginAndPasswordTb();
             }
         }
 

@@ -55,7 +55,43 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\Edit\CaseEditControl.xaml.cs">
+      <DependentUpon>CaseEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Edit\CustomerEditControl.xaml.cs">
+      <DependentUpon>CustomerEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Edit\EmployeeEditControl.xaml.cs">
+      <DependentUpon>EmployeeEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Management\CaseManagementControl.xaml.cs">
+      <DependentUpon>CaseManagementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Management\Enums\CrudMode.cs" />
+    <Compile Include="Controls\Management\Interfaces\IHasDataGrid.cs" />
+    <Compile Include="Controls\Management\PolicyManagementControl.xaml.cs">
+      <DependentUpon>PolicyManagementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditWindow.xaml.cs">
+      <DependentUpon>EditWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\Edit\CaseEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Edit\CustomerEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Edit\EmployeeEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Management\Buttons\CrudButtons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\CaseManagementControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -72,6 +108,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Management\Menus\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\PolicyManagementControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,6 +164,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\EditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -157,5 +201,6 @@
       <Name>MyInsurance.BusinessLogic</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -37,13 +37,16 @@ namespace MyInsurance.EmployeeGui
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            App.openedWindows.Remove(this);
-            foreach (Window window in App.openedWindows)
+            if (!mcControl.IsExiting)
             {
-                if (window == App.loginWindow)
+                App.openedWindows.Remove(this);
+                foreach (Window window in App.openedWindows)
                 {
-                    if (!window.IsVisible)
-                        window.Show();
+                    if (window == App.loginWindow)
+                    {
+                        if (!window.IsVisible)
+                            window.Show();
+                    }
                 }
             }
         }

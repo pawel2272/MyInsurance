@@ -17,9 +17,9 @@ using System.Windows.Shapes;
 namespace MyInsurance.EmployeeGui.Controls.Management
 {
     /// <summary>
-    /// Interaction logic for EmployeeManagementControl.xaml
+    /// Interaction logic for PolicyManagementControl.xaml
     /// </summary>
-    public partial class EmployeeManagementControl : UserControl, IHasDataGrid
+    public partial class PolicyManagementControl : UserControl, IHasDataGrid
     {
         public ICommand CommandBack
         {
@@ -29,8 +29,8 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for CommandBack.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandBackProperty =
-            DependencyProperty.Register("CommandBack", typeof(ICommand), typeof(EmployeeManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as EmployeeManagementControl;
+            DependencyProperty.Register("CommandBack", typeof(ICommand), typeof(PolicyManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as PolicyManagementControl;
                 var value = e.NewValue as CommandBinding;
                 source.cbButtons.CommandBindings.Add(value);
             })));
@@ -43,8 +43,8 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for CommandExit.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandNewProperty =
-            DependencyProperty.Register("CommandNew", typeof(ICommand), typeof(EmployeeManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as EmployeeManagementControl;
+            DependencyProperty.Register("CommandNew", typeof(ICommand), typeof(PolicyManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as PolicyManagementControl;
                 var value = e.NewValue as CommandBinding;
                 source.cbButtons.CommandBindings.Add(value);
             })));
@@ -57,8 +57,8 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for CommandExit.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandEditProperty =
-            DependencyProperty.Register("CommandEdit", typeof(ICommand), typeof(EmployeeManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as EmployeeManagementControl;
+            DependencyProperty.Register("CommandEdit", typeof(ICommand), typeof(PolicyManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as PolicyManagementControl;
                 var value = e.NewValue as CommandBinding;
                 source.cbButtons.CommandBindings.Add(value);
             })));
@@ -71,8 +71,8 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for CommandExit.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandDeleteProperty =
-            DependencyProperty.Register("CommandDelete", typeof(ICommand), typeof(EmployeeManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as EmployeeManagementControl;
+            DependencyProperty.Register("CommandDelete", typeof(ICommand), typeof(PolicyManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as PolicyManagementControl;
                 var value = e.NewValue as CommandBinding;
                 source.cbButtons.CommandBindings.Add(value);
             })));
@@ -85,8 +85,8 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for ButtonsForeground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ButtonsForegroundProperty =
-            DependencyProperty.Register("ButtonsForeground", typeof(Brush), typeof(EmployeeManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as EmployeeManagementControl;
+            DependencyProperty.Register("ButtonsForeground", typeof(Brush), typeof(PolicyManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as PolicyManagementControl;
                 var value = e.NewValue as Brush;
                 source.cbButtons.btnBack.Foreground = value;
                 source.cbButtons.btnNew.Foreground = value;
@@ -102,8 +102,8 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for ButtonsBackground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ButtonsBackgroundProperty =
-            DependencyProperty.Register("ButtonsBackground", typeof(Brush), typeof(EmployeeManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as EmployeeManagementControl;
+            DependencyProperty.Register("ButtonsBackground", typeof(Brush), typeof(PolicyManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as PolicyManagementControl;
                 var value = e.NewValue as Brush;
                 source.cbButtons.btnBack.Background = value;
                 source.cbButtons.btnNew.Background = value;
@@ -113,10 +113,9 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         public DataGrid MainGrid { get; set; }
 
-        public EmployeeManagementControl()
+        public PolicyManagementControl()
         {
             InitializeComponent();
-            this.MainGrid = this.dgEmployees;
         }
     }
 }

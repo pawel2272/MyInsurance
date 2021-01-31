@@ -9,6 +9,7 @@ namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
         void Add(int employeeId, string description, string decision, int customerId, bool isEnded = false);
         Case GetCase(int caseId);
         List<Case> GetAllCases(int customerId);
+        List<Case> GetAllCases(int agentId, string agentFirstName);
         List<Case> GetOpenedCases();
         List<Case> GetClosedCases();
         List<Message> GetCaseMessages(int caseId);

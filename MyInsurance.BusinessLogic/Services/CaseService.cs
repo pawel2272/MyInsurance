@@ -207,5 +207,20 @@ namespace MyInsurance.BusinessLogic.Services
         {
                 return _dbContext.Cases.FirstOrDefault(cas => cas.Id == caseId);
         }
+
+        public List<Case> GetAllCases(int agentId, string agentFirstName)
+        {
+            try
+            {
+                return _dbContext.Cases
+                    .Where(cas => cas.EmployeeId == agentId && cas.Employee.FirstName.Equals(agentFirstName))
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                //LOGGER
+            }
+            return new List<Case>();
+        }
     }
 }

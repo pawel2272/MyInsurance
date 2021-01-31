@@ -21,6 +21,32 @@
         <CommandBinding x:Name="cmdSaveAs" Command="SaveAs" CanExecute="cmdSaveAs_CanExecute" Executed="cmdSaveAs_Executed"/>
         <CommandBinding x:Name="cmdBack" Command="local:CustomCommands.Back" CanExecute="cmdBack_CanExecute"  Executed="cmdBack_Executed"/>
     </UserControl.CommandBindings>
+    <UserControl.Resources>
+        <TabItem x:Key="tiEmployeeManagement" Header="Pracownicy">
+            <management:EmployeeManagementControl ButtonsForeground="Red"
+                                                  ButtonsBackground="Black"
+                                                  CommandBack="{Binding cmdBack}"
+                                                  CommandNew="{Binding cmdNew}"
+                                                  CommandEdit="{Binding cmdEdit}"
+                                                  CommandDelete="{Binding cmdDelete}"/>
+        </TabItem>
+        <TabItem x:Key="tiCaseManagement" Header="Zgłoszenia">
+            <management:CaseManagementControl ButtonsForeground="Red"
+                                              ButtonsBackground="Black"
+                                              CommandBack="{Binding cmdBack}"
+                                              CommandNew="{Binding cmdNew}"
+                                              CommandEdit="{Binding cmdEdit}"
+                                              CommandDelete="{Binding cmdDelete}"/>
+        </TabItem>
+        <TabItem x:Key="tiPolicyManagement" Header="Zgłoszenia">
+            <management:PolicyManagementControl ButtonsForeground="Red"
+                                                ButtonsBackground="Black"
+                                                CommandBack="{Binding cmdBack}"
+                                                CommandNew="{Binding cmdNew}"
+                                                CommandEdit="{Binding cmdEdit}"
+                                                CommandDelete="{Binding cmdDelete}"/>
+        </TabItem>
+    </UserControl.Resources>
     <DockPanel x:Name="dpMain">
         <Grid x:Name="grdMenu" DockPanel.Dock="Top">
             <menus:CrudMenu x:Name="cmMenu"
@@ -45,19 +71,13 @@
                             CommandManageEmp="{Binding cmdManageEmp}"
                             />
         </Grid>
-        <Grid x:Name="grdWorkspace" DockPanel.Dock="Bottom">
-            <management:MainMenuControl x:Name="mmC"
+        <TabControl x:Name="tcControl" DockPanel.Dock="Bottom" SelectionChanged="tcControl_SelectionChanged">
+            <TabItem Header="Menu główne" x:Name="tiMainMenu">
+                <management:MainMenuControl x:Name="mainMenu"
                                         ButtonsForeground="Red"
                                         ButtonsBackground="Black"
                                         BtnNavigationClick="btnNavigation_Click"/>
-            <management:EmployeeManagementControl x:Name="emcControl"
-                                                  ButtonsForeground="Red"
-                                                  ButtonsBackground="Black"
-                                                  CommandBack="{Binding cmdBack}"
-                                                  CommandNew="{Binding cmdNew}"
-                                                  CommandEdit="{Binding cmdEdit}"
-                                                  CommandDelete="{Binding cmdDelete}"
-                                                  Visibility="Hidden"/>
-        </Grid>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </UserControl>
