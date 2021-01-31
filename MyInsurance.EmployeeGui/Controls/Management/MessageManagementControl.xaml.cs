@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyInsurance.EmployeeGui.Controls.Edit
+namespace MyInsurance.EmployeeGui.Controls.Management
 {
     /// <summary>
-    /// Interaction logic for CustomerEditControl.xaml
+    /// Interaction logic for MessageManagementControl.xaml
     /// </summary>
-    public partial class CustomerEditControl : UserControl
+    public partial class MessageManagementControl : UserControl
     {
-        public CustomerEditControl()
+        public MessageManagementControl()
         {
             InitializeComponent();
         }

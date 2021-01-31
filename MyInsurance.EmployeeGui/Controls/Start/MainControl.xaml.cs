@@ -32,6 +32,7 @@ namespace MyInsurance.EmployeeGui.Controls.Start
         private EmployeeManagementControl employeeManagementControl;
         private CaseManagementControl caseManagementControl;
         private PolicyManagementControl policyManagementControl;
+        private UserAccountControl userAccountControl;
         public MainControl()
         {
             this.IsExiting = false;
@@ -40,6 +41,15 @@ namespace MyInsurance.EmployeeGui.Controls.Start
             this.employeeManagementControl = (EmployeeManagementControl)((TabItem)this.Resources["tiEmployeeManagement"]).Content;
             this.caseManagementControl = (CaseManagementControl)((TabItem)this.Resources["tiCaseManagement"]).Content;
             this.policyManagementControl = (PolicyManagementControl)((TabItem)this.Resources["tiPolicyManagement"]).Content;
+            this.userAccountControl = (UserAccountControl)((TabItem)this.Resources["tiAccountManagement"]).Content;
+        }
+
+        INavigator AddItemFromResourcesToTabControl(string resourceKey)
+        {
+            TabItem tabItem = this.Resources[resourceKey] as TabItem;
+            tcControl.Items.Add(tabItem);
+            tcControl.SelectedItem = tabItem;
+            return (INavigator)tabItem.Content;
         }
 
         private void cmdExit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -75,12 +85,14 @@ namespace MyInsurance.EmployeeGui.Controls.Start
 
         private void cmdManageAcc_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            if (!tcControl.Items.Contains(this.Resources["tiAccountManagement"] as TabItem))
+                e.CanExecute = true;
         }
 
         private void cmdManageAcc_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            this.AddItemFromResourcesToTabControl("tiAccountManagement");
+            userAccountControl.DataContext = App.loggedPerson;
         }
 
         private void cmdManageEmp_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -91,13 +103,10 @@ namespace MyInsurance.EmployeeGui.Controls.Start
 
         private void cmdManageEmp_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            TabItem tabItem = this.Resources["tiEmployeeManagement"] as TabItem;
             using (IEmployeeService service = new EmployeeService())
             {
-                (tabItem.Content as EmployeeManagementControl).dgEmployees.ItemsSource = service.GetAllEmployees();
+                ((IHasDataGrid)this.AddItemFromResourcesToTabControl("tiEmployeeManagement")).MainGrid.ItemsSource = service.GetAllEmployees();
             }
-            tcControl.Items.Add(tabItem);
-            tcControl.SelectedItem = tabItem;
         }
 
         private void cmdNew_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -107,6 +116,23 @@ namespace MyInsurance.EmployeeGui.Controls.Start
 
         private void cmdNew_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            EditWindow editWindow = new EditWindow(this.navigationMode, CrudMode.New);
+            switch (this.navigationMode)
+            {
+                case NavigationMode.Employees:
+                    Employee employee = new Employee(employeeManagementControl.dgEmployees.SelectedItem as Employee);
+                    editWindow.eecEdit.DataContext = employee;
+                    break;
+                case NavigationMode.Cases:
+                    Case casee = new Case();
+                    editWindow.cccEdit.DataContext = casee;
+                    break;
+                case NavigationMode.Policies:
+                    Policy policy = new Policy();
+                    editWindow.pecEdit.DataContext = policy;
+                    break;
+            }
+            editWindow.ShowDialog();
         }
 
         private void cmdEdit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -130,6 +156,14 @@ namespace MyInsurance.EmployeeGui.Controls.Start
                 case NavigationMode.Employees:
                     Employee employee = new Employee(employeeManagementControl.dgEmployees.SelectedItem as Employee);
                     editWindow.eecEdit.DataContext = employee;
+                    break;
+                case NavigationMode.Cases:
+                    Case casee = new Case(caseManagementControl.dgCases.SelectedItem as Case);
+                    editWindow.cccEdit.DataContext = casee;
+                    break;
+                case NavigationMode.Policies:
+                    Policy policy = new Policy(policyManagementControl.dgPolicies.SelectedItem as Policy);
+                    editWindow.pecEdit.DataContext = policy;
                     break;
             }
             editWindow.ShowDialog();
@@ -156,15 +190,49 @@ namespace MyInsurance.EmployeeGui.Controls.Start
                 IHasDataGrid hasDataGrid = tabItem.Content as IHasDataGrid;
                 if (hasDataGrid.MainGrid.SelectedItem != null)
                 {
-
-                    hasDataGrid.MainGrid.ItemsSource as 
+                    if (hasDataGrid is INavigator)
+                    {
+                        INavigator navigator = (INavigator)hasDataGrid;
+                        switch (navigator.ControlMode)
+                        {
+                            case NavigationMode.Cases:
+                                using (ICaseService caseService = new CaseService())
+                                {
+                                    caseService.RemoveCase(hasDataGrid.MainGrid.SelectedItem as Case);
+                                    hasDataGrid.MainGrid.ItemsSource = caseService.GetAllCases(App.loggedPerson.Id, App.loggedPerson.FirstName);
+                                }
+                                break;
+                            case NavigationMode.Employees:
+                                using (IEmployeeService employeeService = new EmployeeService())
+                                {
+                                    employeeService.RemoveEmployee(hasDataGrid.MainGrid.SelectedItem as Employee);
+                                    hasDataGrid.MainGrid.ItemsSource = employeeService.GetAllEmployees();
+                                }
+                                break;
+                            case NavigationMode.Policies:
+                                using (IPolicyService policyService = new PolicyService())
+                                {
+                                    policyService.RemovePolicy(hasDataGrid.MainGrid.SelectedItem as Policy);
+                                    hasDataGrid.MainGrid.ItemsSource = policyService.GetAllPolicies(App.loggedPerson.Id);
+                                }
+                                break;
+                        }
+                    }
                 }
             }
         }
 
         private void cmdOpen_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            TabItem tabItem = this.tcControl.SelectedItem as TabItem;
+            if (tabItem.Content is IHasDataGrid)
+            {
+                IHasDataGrid hasDataGrid = tabItem.Content as IHasDataGrid;
+                if (hasDataGrid.MainGrid.SelectedItem != null)
+                {
+                    e.CanExecute = true;
+                }
+            }
         }
 
         private void cmdOpen_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -225,49 +293,6 @@ namespace MyInsurance.EmployeeGui.Controls.Start
             App.openedWindows.First(w => w is MainWindow).Close();
         }
 
-        //private void btnNavigation_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (sender is INavigable)
-        //    {
-        //        INavigable navigable = (INavigable)sender;
-        //        NavigationMode mode = navigable.WindowMode;
-        //        this.navigationMode = mode;
-        //        TabItem tabItem;
-        //        switch (mode)
-        //        {
-        //            case NavigationMode.NoSelected:
-        //                MessageBox.Show("Błąd wewnętrzny aplikacji: " + new Exception().StackTrace, "Błąd!", MessageBoxButton.OK, MessageBoxImage.Error);
-        //                break;
-        //            case NavigationMode.Policies:
-        //                break;
-        //            case NavigationMode.Cases:
-        //                tabItem = this.Resources["tiCaseManagement"] as TabItem;
-        //                using (ICaseService service = new CaseService())
-        //                {
-        //                    (tabItem.Content as CaseManagementControl).dgCases.ItemsSource = service.GetAllCases(App.loggedPerson.Id, App.loggedPerson.FirstName);
-        //                }
-        //                tcControl.Items.Add(tabItem);
-        //                break;
-        //            case NavigationMode.Messages:
-        //                break;
-        //            case NavigationMode.Employees:
-        //                tabItem = this.Resources["tiEmployeeManagement"] as TabItem;
-        //                using (IEmployeeService service = new EmployeeService())
-        //                {
-        //                    (tabItem.Content as EmployeeManagementControl).dgEmployees.ItemsSource = service.GetAllEmployees();
-        //                }
-        //                tcControl.Items.Add(tabItem);
-        //                break;
-        //            case NavigationMode.Account:
-                        
-        //                break;
-        //            case NavigationMode.Logout:
-        //                this.Logout();
-        //                break;
-        //        }
-        //    }
-        //}
-
         private void cmdBack_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
@@ -283,7 +308,7 @@ namespace MyInsurance.EmployeeGui.Controls.Start
             if ((TabItem)((TabControl)sender).SelectedItem != null)
             {
                 TabItem tabItem = (TabItem)((TabControl)sender).SelectedItem;
-                if (tabItem.Content == mainMenu)
+                if (tabItem.Content == mainMenu || tabItem.Content == userAccountControl)
                     ShowMainMenu();
                 else
                     ShowCrudMenu();
@@ -292,32 +317,35 @@ namespace MyInsurance.EmployeeGui.Controls.Start
 
         private void cmdCases_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-
+            if (!tcControl.Items.Contains(this.Resources["tiCaseManagement"] as TabItem))
+                e.CanExecute = true;
         }
 
         private void cmdCases_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            this.AddItemFromResourcesToTabControl("tiCaseManagement");
         }
 
         private void cmdMessages_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-
+            if (!tcControl.Items.Contains(this.Resources["tiMessageManagement"] as TabItem))
+                e.CanExecute = true;
         }
 
         private void cmdMessages_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            this.AddItemFromResourcesToTabControl("tiMessageManagement");
         }
 
         private void cmdPolicies_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-
+            if (!tcControl.Items.Contains(this.Resources["tiPolicyManagement"] as TabItem))
+                e.CanExecute = true;
         }
 
         private void cmdPolicies_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            this.AddItemFromResourcesToTabControl("tiPolicyManagement");
         }
 
         private void btnNavigation_Click(object sender, RoutedEventArgs e)

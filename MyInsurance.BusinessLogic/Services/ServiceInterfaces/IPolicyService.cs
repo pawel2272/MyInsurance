@@ -1,5 +1,6 @@
 ﻿using MyInsurance.BusinessLogic.Data;
 using System;
+using System.Collections.Generic;
 
 namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
@@ -11,5 +12,6 @@ namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
         Employee GetPolicyEmployee(int policyId);
         bool RemovePolicy(int policyId);
         bool RemovePolicy(Policy policy);
+        List<Policy> GetAllPolicies(int agentId);
     }
 }

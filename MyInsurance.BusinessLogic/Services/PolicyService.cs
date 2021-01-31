@@ -1,6 +1,7 @@
 ﻿using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
@@ -102,6 +103,19 @@ namespace MyInsurance.BusinessLogic.Services
             }
             this._dbContext.SaveChanges();
             return true;
+        }
+
+        public List<Policy> GetAllPolicies(int agentId)
+        {
+            try
+            {
+                return this._dbContext.Employees.First(e => e.Id == agentId).Policies.ToList();
+            }
+            catch (Exception e)
+            {
+                
+            }
+            return new List<Policy>();
         }
     }
 }

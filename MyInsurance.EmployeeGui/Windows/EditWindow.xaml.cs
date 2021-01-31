@@ -41,6 +41,11 @@ namespace MyInsurance.EmployeeGui.Windows
                     this.cccEdit.Mode = crudMode;
                     this.RenderSize = this.cccEdit.DesiredSize;
                     break;
+                case NavigationMode.Policies:
+                    this.pecEdit.Visibility = Visibility.Visible;
+                    this.pecEdit.Mode = crudMode;
+                    this.RenderSize = this.pecEdit.DesiredSize;
+                    break;
             }
         }
     }

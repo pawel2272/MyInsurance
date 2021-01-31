@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Windows" xmlns:edit="clr-namespace:MyInsurance.EmployeeGui.Controls.Edit"
         mc:Ignorable="d"
-        Title="EditWindow" Height="450" Width="800" Background="DarkBlue">
+        Title="EditWindow" Height="500" Width="300" Background="DarkBlue">
     <Window.Resources>
         <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries >
@@ -15,7 +15,7 @@
     </Window.Resources>
     <Grid>
         <edit:EmployeeEditControl x:Name="eecEdit" Visibility="Hidden"/>
-        <edit:CustomerEditControl x:Name="cecEdit" Visibility="Hidden"/>
         <edit:CaseEditControl x:Name="cccEdit" Visibility="Hidden"/>
+        <edit:PolicyEditControl x:Name="pecEdit" Visibility="Hidden"/>
     </Grid>
 </Window>

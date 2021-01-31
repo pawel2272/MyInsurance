@@ -11,7 +11,6 @@
             <ResourceDictionary.MergedDictionaries >
                 <ResourceDictionary Source="/MyInsurance.EmployeeGui;component/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <data:Employee x:Key="currentEmployee"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -35,34 +34,34 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label Style="{StaticResource hugeLabel}" Content="Imię" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Source={StaticResource currentEmployee}, Path=FirstName}" Style="{StaticResource hugeTextBox}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Nazwisko" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Source={StaticResource currentEmployee}, Path=LastName}" Style="{StaticResource hugeTextBox}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Ulica" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Source={StaticResource currentEmployee}, Path=Street}" Style="{StaticResource hugeTextBox}" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Numer domu" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Source={StaticResource currentEmployee}, Path=HouseNumber}" Style="{StaticResource hugeTextBox}" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Miejscowość" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Source={StaticResource currentEmployee}, Path=City}" Style="{StaticResource hugeTextBox}" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Kod pocztowy" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Source={StaticResource currentEmployee}, Path=ZipCode}" Style="{StaticResource hugeTextBox}" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Numer telefonu" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Source={StaticResource currentEmployee}, Path=PhoneNumber}" Style="{StaticResource hugeTextBox}" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Pensja" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Source={StaticResource currentEmployee}, Path=Salary}" Style="{StaticResource hugeTextBox}" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Data urodzenia" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Source={StaticResource currentEmployee}, Path=BirthDate, StringFormat=dd.MM.yyyy}" Style="{StaticResource hugeTextBox}" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Adres e-mail" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Source={StaticResource currentEmployee}, Path=EmailAddress}" Style="{StaticResource middleTextBox}" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Login" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Source={StaticResource currentEmployee}, Path=Login}" Style="{StaticResource hugeTextBox}" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Administrator?" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2"/>
-        <CheckBox IsChecked="{Binding Source={StaticResource currentEmployee}, Path=IsAdmin}" IsEnabled="False" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Szef?" Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="2"/>
-        <CheckBox IsChecked="{Binding Source={StaticResource currentEmployee}, Path=IsBoss}" IsEnabled="False" Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Style="{StaticResource hugeLabel}" Content="Lekarz?" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2"/>
-        <CheckBox IsChecked="{Binding Source={StaticResource currentEmployee}, Path=IsDoctor}" IsEnabled="False" Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button x:Name="btnChangeData" Content="Edytuj" Style="{StaticResource hugeButton}" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" />
+        <Label Style="{StaticResource commonLbl}" Content="Imię" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=FirstName}" Style="{StaticResource middleTextBox}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Nazwisko" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=LastName}" Style="{StaticResource middleTextBox}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Ulica" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=Street}" Style="{StaticResource middleTextBox}" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Numer domu" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=HouseNumber}" Style="{StaticResource middleTextBox}" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Miejscowość" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=City}" Style="{StaticResource middleTextBox}" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Kod pocztowy" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=ZipCode}" Style="{StaticResource middleTextBox}" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Numer telefonu" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=PhoneNumber}" Style="{StaticResource middleTextBox}" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Pensja" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=Salary}" Style="{StaticResource middleTextBox}" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Data urodzenia" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=BirthDate, StringFormat=dd.MM.yyyy}" Style="{StaticResource middleTextBox}" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Adres e-mail" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=EmailAddress}" Style="{StaticResource middleTextBox}" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Login" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=Login}" Style="{StaticResource middleTextBox}" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Administrator?" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2"/>
+        <CheckBox IsChecked="{Binding Path=IsAdmin}" IsEnabled="False" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Style="{StaticResource commonLbl}" Content="Szef?" Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="2"/>
+        <CheckBox IsChecked="{Binding Path=IsBoss}" IsEnabled="False" Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Style="{StaticResource commonLbl}" Content="Aktywny?" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2"/>
+        <CheckBox IsChecked="{Binding Path=IsActive}" IsEnabled="False" Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="btnChangeData" Content="Edytuj" Style="{StaticResource btnSmall}" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" />
     </Grid>
 </UserControl>

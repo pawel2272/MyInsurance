@@ -13,7 +13,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid x:Name="grdEmployees">
+    <Grid x:Name="grdPolicies">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -30,7 +30,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dgEmployees"
+        <DataGrid x:Name="dgPolicies"
                   Grid.Row="0"
                   Grid.Column="0"
                   Grid.ColumnSpan="6"

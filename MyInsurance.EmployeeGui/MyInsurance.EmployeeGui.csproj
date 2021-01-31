@@ -58,17 +58,21 @@
     <Compile Include="Controls\Edit\CaseEditControl.xaml.cs">
       <DependentUpon>CaseEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Edit\CustomerEditControl.xaml.cs">
-      <DependentUpon>CustomerEditControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Edit\EmployeeEditControl.xaml.cs">
       <DependentUpon>EmployeeEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Edit\PolicyEditControl.xaml.cs">
+      <DependentUpon>PolicyEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Management\CaseManagementControl.xaml.cs">
       <DependentUpon>CaseManagementControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Management\Enums\CrudMode.cs" />
     <Compile Include="Controls\Management\Interfaces\IHasDataGrid.cs" />
+    <Compile Include="Controls\Management\Interfaces\INavigator.cs" />
+    <Compile Include="Controls\Management\MessageManagementControl.xaml.cs">
+      <DependentUpon>MessageManagementControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Management\PolicyManagementControl.xaml.cs">
       <DependentUpon>PolicyManagementControl.xaml</DependentUpon>
     </Compile>
@@ -79,11 +83,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Edit\CustomerEditControl.xaml">
+    <Page Include="Controls\Edit\EmployeeEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Edit\EmployeeEditControl.xaml">
+    <Page Include="Controls\Edit\PolicyEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Management\Menus\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\MessageManagementControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -49,6 +49,9 @@
                                                 CommandEdit="{Binding cmdEdit}"
                                                 CommandDelete="{Binding cmdDelete}"/>
         </TabItem>
+        <TabItem x:Key="tiAccountManagement" Header="Twoje konto">
+            <management:UserAccountControl />
+        </TabItem>
     </UserControl.Resources>
     <DockPanel x:Name="dpMain">
         <Grid x:Name="grdMenu" DockPanel.Dock="Top">

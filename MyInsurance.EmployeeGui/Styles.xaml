@@ -34,7 +34,7 @@
     <Style x:Key="middleTextBox" TargetType="{x:Type TextBox}">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
-        <Setter Property="FontSize" Value="40"/>
+        <Setter Property="FontSize" Value="20"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
     </Style>

@@ -1,4 +1,5 @@
-﻿using MyInsurance.EmployeeGui.Controls.Management.Interfaces;
+﻿using MyInsurance.EmployeeGui.Controls.Management.Enums;
+using MyInsurance.EmployeeGui.Controls.Management.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MyInsurance.EmployeeGui.Controls.Management
@@ -19,7 +19,7 @@ namespace MyInsurance.EmployeeGui.Controls.Management
     /// <summary>
     /// Interaction logic for CaseManagementControl.xaml
     /// </summary>
-    public partial class CaseManagementControl : UserControl, IHasDataGrid
+    public partial class CaseManagementControl : UserControl, IHasDataGrid, INavigator
     {
         public ICommand CommandBack
         {
@@ -112,6 +112,14 @@ namespace MyInsurance.EmployeeGui.Controls.Management
             })));
 
         public DataGrid MainGrid { get; set; }
+
+        public Enums.NavigationMode ControlMode
+        {
+            get
+            {
+                return NavigationMode.Policies;
+            }
+        }
 
         public CaseManagementControl()
         {
