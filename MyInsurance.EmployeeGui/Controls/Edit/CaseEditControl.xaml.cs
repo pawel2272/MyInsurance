@@ -1,4 +1,7 @@
-﻿using MyInsurance.EmployeeGui.Controls.Management.Enums;
+﻿using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Services;
+using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
+using MyInsurance.EmployeeGui.Controls.Management.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +83,27 @@ namespace MyInsurance.EmployeeGui.Controls.Edit
         public CaseEditControl()
         {
             InitializeComponent();
+            using (IEmployeeService service = new EmployeeService())
+            {
+                List<Employee> employees = service.GetAllEmployees();
+                cbEmployee.ItemsSource = employees;
+                Case casee;
+                if (this.DataContext != null)
+                {
+                    casee = this.DataContext as Case;
+                    cbEmployee.SelectedItem = employees.FirstOrDefault(e => e.Id == casee.EmployeeId);
+                }
+            }
+        }
+
+        private void cbEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Case casee;
+            if (this.DataContext != null)
+            {
+                casee = this.DataContext as Case;
+                casee.Employee = this.cbEmployee.SelectedItem as Employee;
+            }
         }
     }
 }

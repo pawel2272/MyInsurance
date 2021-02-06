@@ -44,12 +44,12 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Content="Pracownik" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right"/>
-        <ComboBox x:Name="cbEmployee" Grid.Column="1" Grid.Row="0" Margin="3"/>
+        <ComboBox x:Name="cbEmployee" Grid.Column="1" Grid.Row="0" Margin="3" SelectionChanged="cbEmployee_SelectionChanged"/>
 
         <Label Content="Opis" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
         <RichTextBox x:Name="tbDescription" Grid.Column="0" Grid.Row="2" Margin="3" Grid.ColumnSpan="2" Grid.RowSpan="9"/>
 
-        <Label Content="Adres e-mail" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="11" HorizontalAlignment="Right"/>
+        <Label Content="Decyzja" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="11" HorizontalAlignment="Right"/>
         <TextBox x:Name="tbDecision" Grid.Column="1" Grid.Row="11" Margin="3"/>
 
         <Label Content="Zakończona?" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="12" HorizontalAlignment="Right"/>

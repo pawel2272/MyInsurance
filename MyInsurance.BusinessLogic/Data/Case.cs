@@ -59,6 +59,7 @@ namespace MyInsurance.BusinessLogic.Data
             this.CustomerId = temp.CustomerId;
             this.Customer = temp.Customer;
             this.Employee = temp.Employee;
+            this.Messages = temp.Messages;
         }
     }
 }

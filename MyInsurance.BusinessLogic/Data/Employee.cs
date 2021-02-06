@@ -168,5 +168,10 @@ namespace MyInsurance.BusinessLogic.Data
         public virtual ICollection<Policy> Policies { get; set; }
 
         public string Error => throw new NotImplementedException();
+
+        public override string ToString()
+        {
+            return Id + " " + FirstName + " " + LastName;
+        }
     }
 }
