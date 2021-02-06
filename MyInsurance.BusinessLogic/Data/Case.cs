@@ -49,5 +49,16 @@ namespace MyInsurance.BusinessLogic.Data
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }
+
+        public void ChangeData(Case temp)
+        {
+            this.EmployeeId = temp.EmployeeId;
+            this.Description = temp.Description;
+            this.Decision = temp.Decision;
+            this.IsEnded = temp.IsEnded;
+            this.CustomerId = temp.CustomerId;
+            this.Customer = temp.Customer;
+            this.Employee = temp.Employee;
+        }
     }
 }

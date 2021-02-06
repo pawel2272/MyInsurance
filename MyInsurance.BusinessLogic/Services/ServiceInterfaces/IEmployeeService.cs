@@ -6,6 +6,7 @@ namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
     public interface IEmployeeService : IDisposable
     {
+        InsuranceDBEntities DBContext { get; }
         void Add(string username, string password, string email, string firstName, string lastName, DateTime birthDate, bool isBoos, bool isAdmin, decimal salary);
         void Add(Employee employee);
         Employee GetEmployee(int employeeId);

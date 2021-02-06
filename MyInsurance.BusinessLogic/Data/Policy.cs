@@ -47,5 +47,15 @@ namespace MyInsurance.BusinessLogic.Data
     
         public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }
+
+        public void ChangeData(Policy temp)
+        {
+            this.CustomerId = temp.CustomerId;
+            this.EmployeeId = temp.EmployeeId;
+            this.Amount = temp.Amount;
+            this.Type = temp.Type;
+            this.Name = temp.Name;
+            this.DateOfEnding = new DateTime(temp.DateOfEnding.Year, temp.DateOfEnding.Month, temp.DateOfEnding.Day);
+        }
     }
 }

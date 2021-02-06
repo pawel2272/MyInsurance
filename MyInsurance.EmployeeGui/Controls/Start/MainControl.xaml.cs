@@ -33,6 +33,8 @@ namespace MyInsurance.EmployeeGui.Controls.Start
         private CaseManagementControl caseManagementControl;
         private PolicyManagementControl policyManagementControl;
         private UserAccountControl userAccountControl;
+        private MessageManagementControl messageManagementControl;
+
         public MainControl()
         {
             this.IsExiting = false;
@@ -42,6 +44,7 @@ namespace MyInsurance.EmployeeGui.Controls.Start
             this.caseManagementControl = (CaseManagementControl)((TabItem)this.Resources["tiCaseManagement"]).Content;
             this.policyManagementControl = (PolicyManagementControl)((TabItem)this.Resources["tiPolicyManagement"]).Content;
             this.userAccountControl = (UserAccountControl)((TabItem)this.Resources["tiAccountManagement"]).Content;
+            this.messageManagementControl = (MessageManagementControl)((TabItem)this.Resources["tiMessageManagement"]).Content;
         }
 
         INavigator AddItemFromResourcesToTabControl(string resourceKey)
@@ -116,22 +119,7 @@ namespace MyInsurance.EmployeeGui.Controls.Start
 
         private void cmdNew_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            EditWindow editWindow = new EditWindow(this.navigationMode, CrudMode.New);
-            switch (this.navigationMode)
-            {
-                case NavigationMode.Employees:
-                    Employee employee = new Employee(employeeManagementControl.dgEmployees.SelectedItem as Employee);
-                    editWindow.eecEdit.DataContext = employee;
-                    break;
-                case NavigationMode.Cases:
-                    Case casee = new Case();
-                    editWindow.cccEdit.DataContext = casee;
-                    break;
-                case NavigationMode.Policies:
-                    Policy policy = new Policy();
-                    editWindow.pecEdit.DataContext = policy;
-                    break;
-            }
+            EditWindow editWindow = new EditWindow(this.navigationMode, CrudMode.New, ((IHasDataGrid)((TabItem)tcControl.SelectedItem).Content));
             editWindow.ShowDialog();
         }
 
@@ -150,7 +138,7 @@ namespace MyInsurance.EmployeeGui.Controls.Start
 
         private void cmdEdit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            EditWindow editWindow = new EditWindow(this.navigationMode, CrudMode.Edit);
+            EditWindow editWindow = new EditWindow(this.navigationMode, CrudMode.Edit, ((IHasDataGrid)((TabItem)tcControl.SelectedItem).Content));
             switch (this.navigationMode)
             {
                 case NavigationMode.Employees:
@@ -312,6 +300,14 @@ namespace MyInsurance.EmployeeGui.Controls.Start
                     ShowMainMenu();
                 else
                     ShowCrudMenu();
+                if (tabItem.Content == this.caseManagementControl)
+                    this.navigationMode = NavigationMode.Cases;
+                if (tabItem.Content == this.employeeManagementControl)
+                    this.navigationMode = NavigationMode.Employees;
+                if (tabItem.Content == this.messageManagementControl)
+                    this.navigationMode = NavigationMode.Messages;
+                if (tabItem.Content == this.policyManagementControl)
+                    this.navigationMode = NavigationMode.Policies;
             }
         }
 

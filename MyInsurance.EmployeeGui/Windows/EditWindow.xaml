@@ -14,8 +14,20 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-        <edit:EmployeeEditControl x:Name="eecEdit" Visibility="Hidden"/>
-        <edit:CaseEditControl x:Name="cccEdit" Visibility="Hidden"/>
-        <edit:PolicyEditControl x:Name="pecEdit" Visibility="Hidden"/>
+        <edit:EmployeeEditControl x:Name="eecEdit"
+                                  Visibility="Hidden"
+                                  ButtonsForeground="Red"
+                                  ButtonsBackground="Black"
+                                  BtnOKClick="btnOK_Click"/>
+        <edit:CaseEditControl x:Name="cccEdit"
+                              Visibility="Hidden"
+                              ButtonsForeground="Red"
+                              ButtonsBackground="Black"
+                              BtnOKClick="btnOK_Click"/>
+        <edit:PolicyEditControl x:Name="pecEdit"
+                                Visibility="Hidden"
+                                ButtonsForeground="Red"
+                                ButtonsBackground="Black"
+                                BtnOKClick="btnOK_Click"/>
     </Grid>
 </Window>

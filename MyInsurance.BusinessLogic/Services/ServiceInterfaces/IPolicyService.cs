@@ -6,6 +6,7 @@ namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
     public interface IPolicyService : IDisposable
     {
+        InsuranceDBEntities DBContext { get; }
         void Add(int customerId, int employeeId, decimal amount, string type, string name, DateTime dateOfEnding);
         Policy GetPolicy(int policyId);
         Customer GetPolicyCustomer(int policyId);
@@ -13,5 +14,6 @@ namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
         bool RemovePolicy(int policyId);
         bool RemovePolicy(Policy policy);
         List<Policy> GetAllPolicies(int agentId);
+        void Add(Policy policy);
     }
 }

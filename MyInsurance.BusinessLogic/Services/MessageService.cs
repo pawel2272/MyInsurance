@@ -15,6 +15,15 @@ namespace MyInsurance.BusinessLogic.Services
         /// połączenie z bazą danych
         /// </summary>
         private readonly InsuranceDBEntities _dbContext;
+
+        public InsuranceDBEntities DBContext
+        {
+            get
+            {
+                return this._dbContext;
+            }
+        }
+
         private readonly CryptoService crypto;
 
         /// <summary>

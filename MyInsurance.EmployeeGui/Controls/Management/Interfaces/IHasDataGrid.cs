@@ -4,6 +4,6 @@ namespace MyInsurance.EmployeeGui.Controls.Management.Interfaces
 {
     public interface IHasDataGrid
     {
-        DataGrid MainGrid { get; set; }
+        DataGrid MainGrid { get; }
     }
 }

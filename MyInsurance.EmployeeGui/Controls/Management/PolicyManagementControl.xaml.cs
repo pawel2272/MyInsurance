@@ -111,7 +111,13 @@ namespace MyInsurance.EmployeeGui.Controls.Management
                 source.cbButtons.btnDelete.Background = value;
             })));
 
-        public DataGrid MainGrid { get; set; }
+        public DataGrid MainGrid
+        {
+            get
+            {
+                return this.dgPolicies;
+            }
+        }
 
         public Enums.NavigationMode ControlMode
         {

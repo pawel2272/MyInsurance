@@ -61,6 +61,22 @@ namespace MyInsurance.EmployeeGui.Controls.Edit
                 var source = s as PolicyEditControl;
                 var value = (CrudMode)e.NewValue;
             })));
+
+        public RoutedEventHandler BtnOKClick
+        {
+            get { return (RoutedEventHandler)GetValue(BtnOKClickProperty); }
+            set { SetValue(BtnOKClickProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BtnOKClick.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BtnOKClickProperty =
+            DependencyProperty.Register("BtnOKClick", typeof(RoutedEventHandler), typeof(PolicyEditControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
+            {
+                var source = s as PolicyEditControl;
+                var value = e.NewValue as RoutedEventHandler;
+                source.btnOK.Click += value;
+            })));
+
         public PolicyEditControl()
         {
             InitializeComponent();

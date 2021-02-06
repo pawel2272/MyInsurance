@@ -19,6 +19,14 @@ namespace MyInsurance.BusinessLogic.Services
         /// </summary>
         private readonly InsuranceDBEntities _dbContext;
 
+        public InsuranceDBEntities DBContext
+        {
+            get
+            {
+                return this._dbContext;
+            }
+        }
+
         /// <summary>
         /// Konstruktor inicjalizujący połączenie z bazą
         /// </summary>

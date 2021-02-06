@@ -94,6 +94,6 @@
         <Label Content="Aktywny?" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="15" HorizontalAlignment="Right"/>
         <CheckBox x:Name="cbActive" IsChecked="{Binding Path=IsActive}" Grid.Column="1" Grid.Row="15" Margin="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <Button x:Name="btnOK" Style="{StaticResource btnSmall}" Content="OK" Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="2" Width="90" Height="25"/>
+        <Button x:Name="btnOK" Style="{StaticResource btnSmallest}" Content="OK" Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="2" Width="90" Height="25"/>
     </Grid>
 </UserControl>

@@ -41,7 +41,7 @@
                                               CommandEdit="{Binding cmdEdit}"
                                               CommandDelete="{Binding cmdDelete}"/>
         </TabItem>
-        <TabItem x:Key="tiPolicyManagement" Header="Zgłoszenia">
+        <TabItem x:Key="tiPolicyManagement" Header="Polisy">
             <management:PolicyManagementControl ButtonsForeground="Red"
                                                 ButtonsBackground="Black"
                                                 CommandBack="{Binding cmdBack}"
@@ -50,7 +50,12 @@
                                                 CommandDelete="{Binding cmdDelete}"/>
         </TabItem>
         <TabItem x:Key="tiAccountManagement" Header="Twoje konto">
-            <management:UserAccountControl />
+            <management:UserAccountControl ButtonsForeground="Red"
+                                           ButtonsBackground="Black"
+                                           CommandBack="{Binding cmdBack}"/>
+        </TabItem>
+        <TabItem x:Key="tiMessageManagement" Header="Wiadomości">
+            <management:MessageManagementControl />
         </TabItem>
     </UserControl.Resources>
     <DockPanel x:Name="dpMain">

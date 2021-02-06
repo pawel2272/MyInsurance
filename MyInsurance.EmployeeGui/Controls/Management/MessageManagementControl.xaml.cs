@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MyInsurance.EmployeeGui.Controls.Management.Enums;
+using MyInsurance.EmployeeGui.Controls.Management.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +12,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MyInsurance.EmployeeGui.Controls.Management
@@ -18,11 +19,19 @@ namespace MyInsurance.EmployeeGui.Controls.Management
     /// <summary>
     /// Interaction logic for MessageManagementControl.xaml
     /// </summary>
-    public partial class MessageManagementControl : UserControl
+    public partial class MessageManagementControl : UserControl, INavigator
     {
         public MessageManagementControl()
         {
             InitializeComponent();
+        }
+
+        public Enums.NavigationMode ControlMode
+        {
+            get
+            {
+                return NavigationMode.Messages;
+            }
         }
     }
 }

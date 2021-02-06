@@ -65,7 +65,6 @@ namespace MyInsurance.BusinessLogic.Data
 
         public Employee ChangeData(Employee old)
         {
-            this.Id = old.Id;
             this.FirstName = old.FirstName;
             this.LastName = old.LastName;
             this.Street = old.Street;

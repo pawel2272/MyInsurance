@@ -16,6 +16,14 @@ namespace MyInsurance.BusinessLogic.Services
         /// </summary>
         private readonly InsuranceDBEntities _dbContext;
 
+        public InsuranceDBEntities DBContext
+        {
+            get
+            {
+                return this._dbContext;
+            }
+        }
+
         /// <summary>
         /// Konstruktor inicjalizujący połączenie z bazą
         /// </summary>
@@ -195,7 +203,7 @@ namespace MyInsurance.BusinessLogic.Services
             };
 
             _dbContext.Cases.Add(newCase);
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
         /// <summary>
@@ -247,6 +255,12 @@ namespace MyInsurance.BusinessLogic.Services
             }
             this._dbContext.SaveChanges();
             return true;
+        }
+
+        public void Add(Case casee)
+        {
+            _dbContext.Cases.Add(casee);
+            _dbContext.SaveChanges();
         }
     }
 }

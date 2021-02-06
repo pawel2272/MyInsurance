@@ -6,6 +6,8 @@ namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
     public interface ICaseService : IDisposable
     {
+        InsuranceDBEntities DBContext { get; }
+        void Add(Case casee);
         void Add(int employeeId, string description, string decision, int customerId, bool isEnded = false);
         Case GetCase(int caseId);
         List<Case> GetAllCases(int customerId);
