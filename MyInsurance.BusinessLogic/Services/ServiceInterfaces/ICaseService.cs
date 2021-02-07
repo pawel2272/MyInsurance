@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
-    public interface ICaseService : IDisposable
+    public interface ICaseService
     {
         InsuranceDBEntities DBContext { get; }
         void Add(Case casee);

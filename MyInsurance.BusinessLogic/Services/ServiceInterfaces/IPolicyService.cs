@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
-    public interface IPolicyService : IDisposable
+    public interface IPolicyService
     {
         InsuranceDBEntities DBContext { get; }
         void Add(int customerId, int employeeId, decimal amount, string type, string name, DateTime dateOfEnding);

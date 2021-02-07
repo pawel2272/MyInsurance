@@ -1,5 +1,6 @@
 ﻿using MyInsurance.BusinessLogic.Constants;
 using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Services.Base;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
 using System.Linq;
@@ -9,29 +10,20 @@ namespace MyInsurance.BusinessLogic.Services
     /// <summary>
     /// serwis obsługujący tabelę Message
     /// </summary>
-    public class MessageService : IMessageService
+    public class MessageService : CommonDbService, IMessageService
     {
-        /// <summary>
-        /// połączenie z bazą danych
-        /// </summary>
-        private readonly InsuranceDBEntities _dbContext;
-
-        public InsuranceDBEntities DBContext
-        {
-            get
-            {
-                return this._dbContext;
-            }
-        }
-
         private readonly CryptoService crypto;
 
         /// <summary>
         /// Konstruktor inicjalizujący połączenie z bazą
         /// </summary>
-        public MessageService()
+        public MessageService() : base()
         {
-            _dbContext = new InsuranceDBEntities();
+            crypto = new CryptoService(CryptoConstants.MESSAGE_KEY);
+        }
+
+        public MessageService(InsuranceDBEntities dbContext) : base(dbContext)
+        {
             crypto = new CryptoService(CryptoConstants.MESSAGE_KEY);
         }
 
@@ -47,12 +39,6 @@ namespace MyInsurance.BusinessLogic.Services
             };
             _dbContext.Messages.Add(message);
             _dbContext.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            _dbContext.Dispose();
-            crypto.Dispose();
         }
 
         public Message GetMessage(int messageId)

@@ -1,4 +1,5 @@
 ﻿using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Services.Base;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
@@ -9,27 +10,17 @@ namespace MyInsurance.BusinessLogic.Services
     /// <summary>
     /// serwis obsługujący tabelę Policy
     /// </summary>
-    public class PolicyService : IPolicyService
+    public class PolicyService : CommonDbService, IPolicyService
     {
-        /// <summary>
-        /// połączenie z bazą danych
-        /// </summary>
-        private readonly InsuranceDBEntities _dbContext;
-
-        public InsuranceDBEntities DBContext
-        { 
-            get 
-            {
-                return this._dbContext;
-            } 
-        }
-
         /// <summary>
         /// Konstruktor inicjalizujący połączenie z bazą
         /// </summary>
-        public PolicyService()
+        public PolicyService() : base()
         {
-            _dbContext = new InsuranceDBEntities();
+        }
+
+        public PolicyService(InsuranceDBEntities dbContext) : base(dbContext)
+        {
         }
 
         public Policy GetPolicy(int policyId)
@@ -69,12 +60,6 @@ namespace MyInsurance.BusinessLogic.Services
 
             _dbContext.Policies.Add(newPolicy);
             _dbContext.SaveChanges();
-        }
-
-
-        public void Dispose()
-        {
-            _dbContext.Dispose();
         }
 
         public Customer GetPolicyCustomer(int policyId)

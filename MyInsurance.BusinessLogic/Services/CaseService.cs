@@ -1,4 +1,5 @@
 ﻿using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Services.Base;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
@@ -9,27 +10,17 @@ namespace MyInsurance.BusinessLogic.Services
     /// <summary>
     /// serwis obsługujący tabelę Case
     /// </summary>
-    public class CaseService : ICaseService
+    public class CaseService : CommonDbService, ICaseService
     {
-        /// <summary>
-        /// połączenie z bazą danych
-        /// </summary>
-        private readonly InsuranceDBEntities _dbContext;
-
-        public InsuranceDBEntities DBContext
-        {
-            get
-            {
-                return this._dbContext;
-            }
-        }
-
         /// <summary>
         /// Konstruktor inicjalizujący połączenie z bazą
         /// </summary>
-        public CaseService()
+        public CaseService() : base()
         {
-            _dbContext = new InsuranceDBEntities();
+        }
+
+        public CaseService(InsuranceDBEntities dbContext) : base(dbContext)
+        {
         }
 
         /// <summary>
@@ -145,14 +136,6 @@ namespace MyInsurance.BusinessLogic.Services
 
             }
             return null;
-        }
-
-        /// <summary>
-        /// implementacja interfejsu IDisposable
-        /// </summary>
-        public void Dispose()
-        {
-            _dbContext.Dispose();
         }
 
         /// <summary>

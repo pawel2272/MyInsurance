@@ -127,6 +127,7 @@
     <Compile Include="Constants\Regexes.cs" />
     <Compile Include="Interfaces\ILoginable.cs" />
     <Compile Include="Interfaces\IPerson.cs" />
+    <Compile Include="Services\Base\CommonDbService.cs" />
     <Compile Include="Services\CryptoService.cs" />
     <Compile Include="Services\Exceptions\EntityAlreadyExistsException.cs" />
     <Compile Include="Services\Exceptions\EntityDoesNotExistsException.cs" />

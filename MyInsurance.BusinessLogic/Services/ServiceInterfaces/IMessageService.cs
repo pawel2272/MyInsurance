@@ -3,7 +3,7 @@ using System;
 
 namespace MyInsurance.BusinessLogic.Services.ServiceInterfaces
 {
-    public interface IMessageService : IDisposable
+    public interface IMessageService
     {
         InsuranceDBEntities DBContext { get; }
         void Add(int caseId, string messageText, bool isFromAgent);
