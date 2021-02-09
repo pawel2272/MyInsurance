@@ -15,7 +15,7 @@ namespace MyInsurance.BusinessLogic.Data
     using System.Collections.Generic;
     using System.ComponentModel;
 
-    public partial class Employee : ILoginable, IDataErrorInfo
+    public partial class Employee : ILoginable, IDataErrorInfo, INotifyPropertyChanged
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
@@ -63,6 +63,8 @@ namespace MyInsurance.BusinessLogic.Data
             this.PhoneNumber = old.PhoneNumber;
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public Employee ChangeData(Employee old)
         {
             this.FirstName = old.FirstName;
@@ -81,6 +83,27 @@ namespace MyInsurance.BusinessLogic.Data
             this.IsBoss = old.IsBoss;
             this.IsActive = old.IsActive;
             this.PhoneNumber = old.PhoneNumber;
+
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs("FirstName"));
+                PropertyChanged(this, new PropertyChangedEventArgs("LastName"));
+                PropertyChanged(this, new PropertyChangedEventArgs("Street"));
+                PropertyChanged(this, new PropertyChangedEventArgs("HouseNumber"));
+                PropertyChanged(this, new PropertyChangedEventArgs("City"));
+                PropertyChanged(this, new PropertyChangedEventArgs("ZipCode"));
+                PropertyChanged(this, new PropertyChangedEventArgs("Salary"));
+                PropertyChanged(this, new PropertyChangedEventArgs("BirthDate"));
+                PropertyChanged(this, new PropertyChangedEventArgs("Pesel"));
+                PropertyChanged(this, new PropertyChangedEventArgs("EmailAddress"));
+                PropertyChanged(this, new PropertyChangedEventArgs("Login"));
+                PropertyChanged(this, new PropertyChangedEventArgs("Password"));
+                PropertyChanged(this, new PropertyChangedEventArgs("IsAdmin"));
+                PropertyChanged(this, new PropertyChangedEventArgs("IsBoss"));
+                PropertyChanged(this, new PropertyChangedEventArgs("IsActive"));
+                PropertyChanged(this, new PropertyChangedEventArgs("PhoneNumber"));
+            }
+
             return this;
         }
 

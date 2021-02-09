@@ -1,4 +1,5 @@
-﻿using MyInsurance.BusinessLogic.Data;
+﻿using MyInsurance.BusinessLogic.Constants;
+using MyInsurance.BusinessLogic.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,25 +25,19 @@ namespace MyInsurance.EmployeeGui
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        public MainWindow(Employee employee, List<Window> openedWindows, Window loginWindow)
-        {
-            InitializeComponent();
-            App.loggedPerson = employee;
-            App.loginWindow = loginWindow;
-            App.openedWindows = openedWindows;
-            openedWindows.Add(this);
+            CommonConstants.OPENED_WINDOWS.Add(this);
+            ((Employee)this.Resources["loggedEmployee"]).ChangeData(CommonConstants.LOGGED_EMPLOYEE);
+            MessageBox.Show(((Employee)this.Resources["loggedEmployee"]).IsAdmin.ToString());
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             if (!mcControl.IsExiting)
             {
-                App.openedWindows.Remove(this);
-                foreach (Window window in App.openedWindows)
+                CommonConstants.OPENED_WINDOWS.Remove(this);
+                foreach (Window window in CommonConstants.OPENED_WINDOWS)
                 {
-                    if (window == App.loginWindow)
+                    if (window == CommonConstants.LOGIN_WINDOW)
                     {
                         if (!window.IsVisible)
                             window.Show();

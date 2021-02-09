@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls.Edit"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="300">
+             d:DesignHeight="500" d:DesignWidth="300" IsVisibleChanged="UserControl_IsVisibleChanged">
     <UserControl.Resources>
         <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries >
@@ -68,31 +68,31 @@
         <TextBox x:Name="tbPhoneNumber" Text="{Binding Path=PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="6" Margin="3" Grid.ColumnSpan="2"/>
 
         <Label Content="Pensja" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbSalary" Text="{Binding Path=Salary, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="7" Margin="3" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="tbSalary" Text="{Binding Path=Salary, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="7" Margin="3" Grid.ColumnSpan="2" IsEnabled="{Binding Path=IsBoss, Source={StaticResource loggedEmployee}}"/>
 
         <Label Content="Data urodzenia" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbBirthDate" Text="{Binding Path=BirthDate, UpdateSourceTrigger=PropertyChanged, StringFormat=dd.MM.yyyy}" Grid.Column="1" Grid.Row="8" Margin="3" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="tbBirthDate" Text="{Binding Path=BirthDate, UpdateSourceTrigger=PropertyChanged, StringFormat=dd.MM.yyyy}" Grid.Column="1" Grid.Row="8" Margin="3" Grid.ColumnSpan="2" IsEnabled="{Binding Path=IsAdmin, Source={StaticResource loggedEmployee}}"/>
 
         <Label Content="PESEL" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbPesel" Text="{Binding Path=Pesel, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="9" Margin="3" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="tbPesel" Text="{Binding Path=Pesel, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="9" Margin="3" Grid.ColumnSpan="2" IsEnabled="{Binding Path=IsAdmin, Source={StaticResource loggedEmployee}}"/>
 
         <Label Content="Adres e-mail" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Right"/>
         <TextBox x:Name="tbEmailAddress" Text="{Binding Path=EmailAddress, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="10" Margin="3" Grid.ColumnSpan="2"/>
 
         <Label Content="Login" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="11" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbLogin" Text="{Binding Path=Login, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="11" Margin="3" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="tbLogin" Text="{Binding Path=Login, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="11" Margin="3" Grid.ColumnSpan="2" IsEnabled="{Binding Source={StaticResource loggedEmployee}, Path=IsAdmin}"/>
 
         <Label Content="Hasło" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="12" HorizontalAlignment="Right"/>
         <PasswordBox x:Name="pbPassword" Grid.Column="1" Grid.Row="12" Margin="3" Grid.ColumnSpan="2"/>
 
         <Label Content="Administrator?" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="13" HorizontalAlignment="Right"/>
-        <CheckBox x:Name="cbAdministrator" IsChecked="{Binding Path=IsAdmin}" Grid.Column="1" Grid.Row="13" Margin="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox x:Name="cbAdministrator" IsChecked="{Binding Path=IsAdmin}" Grid.Column="1" Grid.Row="13" Margin="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="{Binding Path=IsAdmin, Source={StaticResource loggedEmployee}}"/>
 
         <Label Content="Szef?" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="14" HorizontalAlignment="Right"/>
-        <CheckBox x:Name="cbBoss" IsChecked="{Binding Path=IsBoss}" Grid.Column="1" Grid.Row="14" Margin="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox x:Name="cbBoss" IsChecked="{Binding Path=IsBoss}" Grid.Column="1" Grid.Row="14" Margin="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="{Binding Path=IsAdmin, Source={StaticResource loggedEmployee}}"/>
 
         <Label Content="Aktywny?" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="15" HorizontalAlignment="Right"/>
-        <CheckBox x:Name="cbActive" IsChecked="{Binding Path=IsActive}" Grid.Column="1" Grid.Row="15" Margin="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox x:Name="cbActive" IsChecked="{Binding Path=IsActive}" Grid.Column="1" Grid.Row="15" Margin="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="{Binding Path=IsAdmin, Source={StaticResource loggedEmployee}}"/>
 
         <Button x:Name="btnOK" Style="{StaticResource btnSmallest}" Content="OK" Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="2" Width="90" Height="25"/>
     </Grid>

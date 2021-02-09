@@ -1,4 +1,5 @@
-﻿using MyInsurance.BusinessLogic.Data;
+﻿using MyInsurance.BusinessLogic.Constants;
+using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Services;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
@@ -132,7 +133,7 @@ namespace MyInsurance.Controls.Start
                 if (!CheckIfTextFieldsAreNotEmpty(customerData.grdCustomerData.Children))
                     return;
 
-                using (ICustomerService service = new CustomerService())
+                using (CustomerService service = new CustomerService(Database.DBCONTEXT))
                 {
                     Customer customer = customerData.DataContext as Customer;
                     customer.Login = NewUserLogin;
@@ -147,7 +148,7 @@ namespace MyInsurance.Controls.Start
                 if (!CheckIfTextFieldsAreNotEmpty(employeeData.grdEmployeeData.Children))
                     return;
 
-                using (IEmployeeService service = new EmployeeService())
+                using (EmployeeService service = new EmployeeService(Database.DBCONTEXT))
                 {
                     Employee employee = employeeData.DataContext as Employee;
                     employee.Login = NewUserLogin;

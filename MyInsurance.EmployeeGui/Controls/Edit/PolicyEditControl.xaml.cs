@@ -1,4 +1,7 @@
-﻿using MyInsurance.EmployeeGui.Controls.Management.Enums;
+﻿using MyInsurance.BusinessLogic.Constants;
+using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Services;
+using MyInsurance.EmployeeGui.Controls.Management.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +83,79 @@ namespace MyInsurance.EmployeeGui.Controls.Edit
         public PolicyEditControl()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (((bool)e.NewValue))
+            {
+                Policy policy;
+                using (EmployeeService service = new EmployeeService(Database.DBCONTEXT))
+                {
+                    List<Employee> employees = service.GetAllEmployees();
+                    cbEmployee.ItemsSource = employees;
+                    if (this.Mode == CrudMode.Edit)
+                    {
+                        if (this.DataContext != null)
+                        {
+                            policy = this.DataContext as Policy;
+                            cbEmployee.SelectedItem = employees.FirstOrDefault(emp => emp.Id == policy.EmployeeId);
+                        }
+                    }
+
+                    if (this.Mode == CrudMode.New)
+                    {
+                        if (this.DataContext != null)
+                        {
+                            policy = this.DataContext as Policy;
+                            cbEmployee.SelectedItem = ((List<Employee>)cbEmployee.ItemsSource).FirstOrDefault(emp => emp.Id == CommonConstants.LOGGED_EMPLOYEE.Id);
+                        }
+                    }
+                }
+
+                using (CustomerService service = new CustomerService(Database.DBCONTEXT))
+                {
+                    List<Customer> customers = service.GetAllCustomers();
+                    cbCustomer.ItemsSource = customers;
+                    if (this.Mode == CrudMode.Edit)
+                    {
+                        if (this.DataContext != null)
+                        {
+                            policy = this.DataContext as Policy;
+                            cbCustomer.SelectedItem = customers.FirstOrDefault(cust => cust.Id == policy.CustomerId);
+                        }
+                    }
+
+                    if (this.Mode == CrudMode.New)
+                    {
+                        if (this.DataContext != null)
+                        {
+                            policy = this.DataContext as Policy;
+                            cbCustomer.SelectedIndex = 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void cbEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                Policy policy = this.DataContext as Policy;
+                policy.Employee = this.cbEmployee.SelectedItem as Employee;
+                policy.EmployeeId = (this.cbEmployee.SelectedItem as Employee).Id;
+            }
+        }
+
+        private void cbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                Policy policy = this.DataContext as Policy;
+                policy.Customer = this.cbCustomer.SelectedItem as Customer;
+                policy.CustomerId = (this.cbCustomer.SelectedItem as Customer).Id;
+            }
         }
     }
 }

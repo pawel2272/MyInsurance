@@ -14,8 +14,5 @@ namespace MyInsurance.EmployeeGui
     /// </summary>
     public partial class App : Application
     {
-        public static Employee loggedPerson;
-        public static Window loginWindow;
-        public static List<Window> openedWindows;
     }
 }

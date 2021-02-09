@@ -1,5 +1,8 @@
-﻿using MyInsurance.EmployeeGui.Controls.Management.Enums;
+﻿using MyInsurance.BusinessLogic.Constants;
+using MyInsurance.BusinessLogic.Data;
+using MyInsurance.EmployeeGui.Controls.Management.Enums;
 using MyInsurance.EmployeeGui.Controls.Management.Interfaces;
+using MyInsurance.EmployeeGui.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +31,8 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for ButtonsForeground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ButtonsForegroundProperty =
-            DependencyProperty.Register("ButtonsForeground", typeof(Brush), typeof(UserAccountControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+            DependencyProperty.Register("ButtonsForeground", typeof(Brush), typeof(UserAccountControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
+            {
                 var source = s as UserAccountControl;
                 var value = e.NewValue as Brush;
                 source.btnChangeData.Foreground = value;
@@ -43,7 +47,8 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for ButtonsBackground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ButtonsBackgroundProperty =
-            DependencyProperty.Register("ButtonsBackground", typeof(Brush), typeof(UserAccountControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+            DependencyProperty.Register("ButtonsBackground", typeof(Brush), typeof(UserAccountControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
+            {
                 var source = s as UserAccountControl;
                 var value = e.NewValue as Brush;
                 source.btnChangeData.Background = value;
@@ -58,7 +63,8 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for CommandBack.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandBackProperty =
-            DependencyProperty.Register("CommandBack", typeof(ICommand), typeof(UserAccountControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+            DependencyProperty.Register("CommandBack", typeof(ICommand), typeof(UserAccountControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
+            {
                 var source = s as UserAccountControl;
                 var value = e.NewValue as CommandBinding;
                 source.CommandBindings.Add(value);
@@ -74,6 +80,14 @@ namespace MyInsurance.EmployeeGui.Controls.Management
             {
                 return NavigationMode.Account;
             }
+        }
+
+        private void btnChangeData_Click(object sender, RoutedEventArgs e)
+        {
+            EditWindow editWindow = new EditWindow(NavigationMode.Employees, CrudMode.Edit, null);
+            editWindow.eecEdit.DataContext = this.DataContext;
+            editWindow.ShowDialog();
+            ((Employee)this.Resources["loggedEmployee"]).ChangeData(CommonConstants.LOGGED_EMPLOYEE);
         }
     }
 }

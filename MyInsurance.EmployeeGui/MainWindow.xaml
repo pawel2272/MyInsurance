@@ -7,6 +7,13 @@
         xmlns:management="clr-namespace:MyInsurance.EmployeeGui.Controls.Start"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closed="Window_Closed" Background="DarkBlue">
+    <Window.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/MyInsurance.EmployeeGui;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid x:Name="grdMain">
         <management:MainControl x:Name="mcControl"/>
     </Grid>

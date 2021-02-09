@@ -1,4 +1,5 @@
-﻿using MyInsurance.EmployeeGui.Controls.Management.Enums;
+﻿using MyInsurance.BusinessLogic.Data;
+using MyInsurance.EmployeeGui.Controls.Management.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +81,15 @@ namespace MyInsurance.EmployeeGui.Controls.Edit
         public EmployeeEditControl()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                var employee = this.DataContext as Employee;
+                pbPassword.Password = employee.Password;
+            }
         }
     }
 }

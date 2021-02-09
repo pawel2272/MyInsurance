@@ -91,7 +91,7 @@ namespace MyInsurance.Controls.Start
 
         private void HideParentWindow()
         {
-            foreach (Window window in App.openedWindows)
+            foreach (Window window in CommonConstants.OPENED_WINDOWS)
             {
                 if (window is MainWindow)
                     window.Hide();
@@ -104,18 +104,34 @@ namespace MyInsurance.Controls.Start
             this.pbPassword.Password = String.Empty;
         }
 
+        private void NotifyWrongLoginOrPassword()
+        {
+            MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void NotifyUserInactive()
+        {
+            MessageBox.Show("Konto nieaktywne. Skontaktuj się z administratorem", "Błąd", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
         private void EmployeeLogin()
         {
-            using (EmployeeService service = new EmployeeService())
+            using (EmployeeService service = new EmployeeService(Database.DBCONTEXT))
             using (LoginService<Employee, EmployeeService> loginService = new LoginService<Employee, EmployeeService>(service, new CryptoService(CryptoConstants.USER_KEY)))
             {
                 if (!loginService.Login(tbLogin.Text, pbPassword.Password))
                 {
-                    MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.NotifyWrongLoginOrPassword();
                 }
                 else
                 {
-                    new EmployeeGui.MainWindow(loginService.GetLoggedPerson, App.openedWindows, App.loginWindow).Show();
+                    if (!loginService.GetLoggedPerson.IsActive)
+                    {
+                        this.NotifyUserInactive();
+                        return;
+                    }
+                    CommonConstants.LOGGED_EMPLOYEE = loginService.GetLoggedPerson;
+                    new EmployeeGui.MainWindow().Show();
                     this.HideParentWindow();
                 }
                 this.ClearLoginAndPasswordTb();
@@ -124,17 +140,23 @@ namespace MyInsurance.Controls.Start
 
         private void CustomerLogin()
         {
-            using (CustomerService service = new CustomerService())
+            using (CustomerService service = new CustomerService(Database.DBCONTEXT))
             {
                 using (LoginService<Customer, CustomerService> loginService = new LoginService<Customer, CustomerService>(service, new CryptoService(CryptoConstants.CUSTOMER_KEY)))
                 {
                     if (!loginService.Login(tbLogin.Text, pbPassword.Password))
                     {
-                        MessageBox.Show("Nieprawidłowy login lub/i hasło.", "Nieprawidłowe dane.", MessageBoxButton.OK, MessageBoxImage.Information);
+                        this.NotifyWrongLoginOrPassword();
                     }
                     else
                     {
-                        new CustomerGui.MainWindow(loginService.GetLoggedPerson, App.openedWindows, App.loginWindow).Show();
+                        if (!loginService.GetLoggedPerson.IsActive)
+                        {
+                            this.NotifyUserInactive();
+                            return;
+                        }
+                        CommonConstants.LOGGED_CUSTOMER = loginService.GetLoggedPerson;
+                        new CustomerGui.MainWindow().Show();
                         this.HideParentWindow();
                     }
                     this.ClearLoginAndPasswordTb();
@@ -173,14 +195,14 @@ namespace MyInsurance.Controls.Start
         {
             if ((bool)this.rbCustomer.IsChecked)
             {
-                using (CustomerService customerService = new CustomerService())
+                using (CustomerService customerService = new CustomerService(Database.DBCONTEXT))
                 {
                     return customerService.CheckIfExists(tbLogin.Text);
                 }
             }
             if ((bool)this.rbEmployee.IsChecked)
             {
-                using (EmployeeService employeeService = new EmployeeService())
+                using (EmployeeService employeeService = new EmployeeService(Database.DBCONTEXT))
                 {
                     return employeeService.CheckIfExists(tbLogin.Text);
                 }

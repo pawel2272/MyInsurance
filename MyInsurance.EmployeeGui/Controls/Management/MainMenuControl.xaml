@@ -30,7 +30,7 @@
         <buttons:NavigableButton x:Name="btnPolicies" Content="Polisy" Command="controls:CustomCommands.Policies" Style="{StaticResource btnHuge}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Click="btnNavigation_Click"/>
         <buttons:NavigableButton x:Name="btnCases" Content="Sprawy" Command="controls:CustomCommands.Cases" Style="{StaticResource btnHuge}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Click="btnNavigation_Click"/>
         <buttons:NavigableButton x:Name="btnMessages" Content="Wiadomości" Command="controls:CustomCommands.Messages" Style="{StaticResource btnHuge}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Click="btnNavigation_Click"/>
-        <buttons:NavigableButton x:Name="btnEmployees" Content="Pracownicy" Command="controls:CustomCommands.ManageEmp" Style="{StaticResource btnHuge}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Click="btnNavigation_Click"/>
+        <buttons:NavigableButton x:Name="btnEmployees" Content="Pracownicy" Command="controls:CustomCommands.ManageEmp" Style="{StaticResource btnHuge}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" Click="btnNavigation_Click" IsEnabled="{Binding Path=IsAdmin, Source={StaticResource loggedEmployee}, Converter={StaticResource boolToVisibilityConverter}}"/>
 
         <buttons:NavigableButton x:Name="btnAccount" Content="Konto" Command="controls:CustomCommands.ManageAcc" Style="{StaticResource btnHuge}" Grid.Row="2" Grid.Column="0" Margin="10" Click="btnNavigation_Click"/>
         <buttons:NavigableButton x:Name="btnLogout" Content="Wyloguj" Command="controls:CustomCommands.Logout" Style="{StaticResource btnHuge}" Grid.Row="2" Grid.Column="3" Margin="10" Click="btnNavigation_Click"/>

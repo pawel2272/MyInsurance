@@ -64,6 +64,6 @@
         <Label Style="{StaticResource commonLbl}" Content="Aktywny?" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2"/>
         <CheckBox IsChecked="{Binding Path=IsActive}" IsEnabled="False" Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button x:Name="btnClose" Content="Zamknij" Style="{StaticResource btnSmall}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Command="controls:CustomCommands.Back"/>
-        <Button x:Name="btnChangeData" Content="Edytuj" Style="{StaticResource btnSmall}" Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="2" />
+        <Button x:Name="btnChangeData" Content="Edytuj" Style="{StaticResource btnSmall}" Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="2" Click="btnChangeData_Click"/>
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using MyInsurance.BusinessLogic.Data;
+﻿using MyInsurance.BusinessLogic.Constants;
+using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Services;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using MyInsurance.EmployeeGui.Controls.Management.Enums;
@@ -83,17 +84,6 @@ namespace MyInsurance.EmployeeGui.Controls.Edit
         public CaseEditControl()
         {
             InitializeComponent();
-            using (IEmployeeService service = new EmployeeService())
-            {
-                List<Employee> employees = service.GetAllEmployees();
-                cbEmployee.ItemsSource = employees;
-                Case casee;
-                if (this.DataContext != null)
-                {
-                    casee = this.DataContext as Case;
-                    cbEmployee.SelectedItem = employees.FirstOrDefault(e => e.Id == casee.EmployeeId);
-                }
-            }
         }
 
         private void cbEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -103,7 +93,81 @@ namespace MyInsurance.EmployeeGui.Controls.Edit
             {
                 casee = this.DataContext as Case;
                 casee.Employee = this.cbEmployee.SelectedItem as Employee;
+                casee.EmployeeId = (this.cbEmployee.SelectedItem as Employee).Id;
             }
+        }
+
+        private void cbCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Case casee;
+            if (this.DataContext != null)
+            {
+                casee = this.DataContext as Case;
+                casee.Customer = this.cbCustomer.SelectedItem as Customer;
+                casee.CustomerId = (this.cbCustomer.SelectedItem as Customer).Id;
+            }
+        }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (((bool)e.NewValue))
+            {
+                using (EmployeeService service = new EmployeeService(Database.DBCONTEXT))
+                {
+                    List<Employee> employees = service.GetAllEmployees();
+                    cbEmployee.ItemsSource = employees;
+                    Case casee;
+                    if (this.Mode == CrudMode.Edit)
+                    {
+                        if (this.DataContext != null)
+                        {
+                            casee = this.DataContext as Case;
+                            cbEmployee.SelectedItem = employees.FirstOrDefault(emp => emp.Id == casee.EmployeeId);
+                        }
+                    }
+
+                    if (this.Mode == CrudMode.New)
+                    {
+                        if (this.DataContext != null)
+                        {
+                            casee = this.DataContext as Case;
+                            cbEmployee.SelectedItem = ((List<Employee>)cbEmployee.ItemsSource).FirstOrDefault(emp => emp.Id == CommonConstants.LOGGED_EMPLOYEE.Id);
+                        }
+                    }
+                }
+
+                using (CustomerService service = new CustomerService(Database.DBCONTEXT))
+                {
+                    List<Customer> customers = service.GetAllCustomers();
+                    cbCustomer.ItemsSource = customers;
+                    Case casee;
+                    if (this.Mode == CrudMode.Edit)
+                    {
+                        if (this.DataContext != null)
+                        {
+                            casee = this.DataContext as Case;
+                            cbCustomer.SelectedItem = customers.FirstOrDefault(cust => cust.Id == casee.CustomerId);
+                        }
+                    }
+
+                    if (this.Mode == CrudMode.New)
+                    {
+                        if (this.DataContext != null)
+                        {
+                            casee = this.DataContext as Case;
+                            cbCustomer.SelectedIndex = 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void tbDescription_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var rtb = sender as RichTextBox;
+            var cas = this.DataContext as Case;
+            TextRange textRange = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
+            cas.Description = textRange.Text;
         }
     }
 }

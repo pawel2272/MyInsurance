@@ -13,7 +13,5 @@ namespace MyInsurance
     /// </summary>
     public partial class App : Application
     {
-        public static Window loginWindow;
-        public static readonly List<Window> openedWindows = new List<Window>();
     }
 }

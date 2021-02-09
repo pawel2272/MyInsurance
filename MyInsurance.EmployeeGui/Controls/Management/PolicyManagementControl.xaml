@@ -46,56 +46,45 @@
                   SelectionUnit="FullRow">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
-                <DataGridTextColumn Header="Imię" Binding="{Binding Path=FirstName}"/>
-                <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=LastName}"/>
-                <DataGridTextColumn Header="Ulica" Binding="{Binding Path=Street}"/>
-                <DataGridTextColumn Header="Numer domu" Binding="{Binding Path=HouseNumber}"/>
-                <DataGridTextColumn Header="Miejscowość" Binding="{Binding Path=City}"/>
-                <DataGridTextColumn Header="Kod pocztowy" Binding="{Binding Path=ZipCode}"/>
-                <DataGridTextColumn Header="Pensja" Binding="{Binding Path=Salary}"/>
-                <DataGridTextColumn Header="Data urodzenia" Binding="{Binding Path=BirthDate, StringFormat=dd.MM.yyyy}"/>
-                <DataGridTextColumn Header="PESEL" Binding="{Binding Path=Pesel}"/>
-                <DataGridTextColumn Header="Adres e-mail" Binding="{Binding Path=EmailAddress}"/>
-                <DataGridTextColumn Header="Login" Binding="{Binding Path=Login}"/>
-                <DataGridTextColumn Header="Hasło" Binding="{Binding Path=Password}"/>
-                <DataGridCheckBoxColumn Header="Administrator?" Binding="{Binding Path=IsAdmin}"/>
-                <DataGridCheckBoxColumn Header="Szef?" Binding="{Binding Path=IsBoss}"/>
-                <DataGridCheckBoxColumn Header="Aktywny?" Binding="{Binding Path=IsActive}"/>
-                <DataGridTextColumn Header="Numer telefonu" Binding="{Binding Path=PhoneNumber}"/>
+                <DataGridTextColumn Header="Id klienta" Binding="{Binding Path=CustomerId}"/>
+                <DataGridTextColumn Header="Id pracownika" Binding="{Binding Path=EmployeeId}"/>
+                <DataGridTextColumn Header="Kwota" Binding="{Binding Path=Amount}"/>
+                <DataGridTextColumn Header="Typ" Binding="{Binding Path=Type}"/>
+                <DataGridTextColumn Header="Nazwa" Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn Header="Data zakończenia" Binding="{Binding Path=DateOfEnding, StringFormat=dd.MM.yyyy}"/>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-                    <DataGrid x:Name="dgCaseDetails"
-                              ItemsSource="{Binding Path=Cases}"
-                              CanUserAddRows="False"
-                              CanUserDeleteRows="False"
-                              CanUserReorderColumns="False"
-                              IsReadOnly="True"
-                              FrozenColumnCount="3"
-                              AutoGenerateColumns="False"
-                              SelectionMode="Single"
-                              SelectionUnit="FullRow">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
-                            <DataGridTextColumn Header="Decyzja" Binding="{Binding Path=Decision}"/>
-                            <DataGridCheckBoxColumn Header="Jest zakończona?" Binding="{Binding Path=IsEnded}"/>
-                            <DataGridTextColumn Header="Id klienta" Binding="{Binding Path=CustomerId}"/>
-                        </DataGrid.Columns>
-                        <DataGrid.RowDetailsTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Decyzja: "/>
-                                        <TextBlock Text="{Binding Path=Decision}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Opis: "/>
-                                        <TextBlock Text="{Binding Path=Description}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGrid.RowDetailsTemplate>
-                    </DataGrid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" DataContext="{Binding Path=Employee}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Imię agenta: "/>
+                                <TextBlock Text="{Binding Path=FirstName}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Nazwisko agenta: "/>
+                                <TextBlock Text="{Binding Path=LastName}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="4" DataContext="{Binding Path=Customer}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Imię klienta: "/>
+                                <TextBlock Text="{Binding Path=FirstName}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Nazwisko klienta: "/>
+                                <TextBlock Text="{Binding Path=LastName}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>

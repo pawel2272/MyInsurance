@@ -1,4 +1,5 @@
-﻿using MyInsurance.BusinessLogic.Data;
+﻿using MyInsurance.BusinessLogic.Constants;
+using MyInsurance.BusinessLogic.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,24 +25,16 @@ namespace MyInsurance.CustomerGui
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        public MainWindow(Customer customer, List<Window> openedWindows, Window loginWindow)
-        {
-            InitializeComponent();
-            App.loggedPerson = customer;
-            App.loginWindow = loginWindow;
-            App.openedWindows = openedWindows;
-            openedWindows.Add(this);
+            CommonConstants.OPENED_WINDOWS.Add(this);
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            App.loggedPerson = null;
-            App.openedWindows.Remove(this);
-            foreach (Window window in App.openedWindows)
+            CommonConstants.LOGGED_CUSTOMER = null;
+            CommonConstants.OPENED_WINDOWS.Remove(this);
+            foreach (Window window in CommonConstants.OPENED_WINDOWS)
             {
-                if (window == App.loginWindow)
+                if (window == CommonConstants.LOGIN_WINDOW)
                     window.Show();
             }
         }

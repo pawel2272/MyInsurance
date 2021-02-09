@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls.Edit"
              mc:Ignorable="d" 
-             d:DesignHeight="210" d:DesignWidth="300">
+             d:DesignHeight="230" d:DesignWidth="300" IsVisibleChanged="UserControl_IsVisibleChanged">
     <UserControl.Resources>
         <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries >
@@ -36,11 +36,11 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Content="ID klienta" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbCustomerId" Text="{Binding Path=CustomerId, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:D}}" Grid.Column="1" Grid.Row="0" Margin="3" Grid.ColumnSpan="2"/>
+        <Label Content="Pracownik" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right"/>
+        <ComboBox x:Name="cbEmployee" Grid.Column="1" Grid.Row="0" Margin="3" SelectionChanged="cbEmployee_SelectionChanged"/>
 
-        <Label Content="ID pracownika" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbEmployeeId" Text="{Binding Path=EmployeeId, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:D}}" Grid.Column="1" Grid.Row="1" Margin="3" Grid.ColumnSpan="2"/>
+        <Label Content="Klient" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right"/>
+        <ComboBox x:Name="cbCustomer" Grid.Column="1" Grid.Row="1" Margin="3" SelectionChanged="cbCustomer_SelectionChanged"/>
 
         <Label Content="Kwota" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right"/>
         <TextBox x:Name="tbAmount" Text="{Binding Path=EmployeeId, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F}}" Grid.Column="1" Grid.Row="2" Margin="3" Grid.ColumnSpan="2"/>

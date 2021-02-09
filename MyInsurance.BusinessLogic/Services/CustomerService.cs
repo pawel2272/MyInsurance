@@ -157,5 +157,10 @@ namespace MyInsurance.BusinessLogic.Services
             this._dbContext.SaveChanges();
             return true;
         }
+
+        public List<Customer> GetAllCustomers()
+        {
+            return _dbContext.Customers.ToList();
+        }
     }
 }

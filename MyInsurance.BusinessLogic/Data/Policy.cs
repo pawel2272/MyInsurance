@@ -21,7 +21,7 @@ namespace MyInsurance.BusinessLogic.Data
             this.Amount = 0;
             this.Type = String.Empty;
             this.Name = String.Empty;
-            this.DateOfEnding = DateTime.Now;
+            this.DateOfEnding = new DateTime(DateTime.Now.Year + 1, DateTime.Now.Month, DateTime.Now.Day);
         }
 
         public Policy(Policy temp) : this()
