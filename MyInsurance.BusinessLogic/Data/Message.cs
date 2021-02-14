@@ -11,7 +11,7 @@ namespace MyInsurance.BusinessLogic.Data
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Message
     {
         public int Id { get; set; }
@@ -19,7 +19,11 @@ namespace MyInsurance.BusinessLogic.Data
         public string Text { get; set; }
         public System.DateTime SendingDate { get; set; }
         public bool IsFromAgent { get; set; }
-    
+        public int EmployeeId { get; set; }
+        public int CustomerId { get; set; }
+
         public virtual Case Case { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

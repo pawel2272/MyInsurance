@@ -11,7 +11,7 @@ namespace MyInsurance.BusinessLogic.Data
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Case
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -44,7 +44,7 @@ namespace MyInsurance.BusinessLogic.Data
         public string Decision { get; set; }
         public bool IsEnded { get; set; }
         public int CustomerId { get; set; }
-    
+
         public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -3,6 +3,7 @@ using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Services.Base;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
@@ -39,6 +40,36 @@ namespace MyInsurance.BusinessLogic.Services
             };
             _dbContext.Messages.Add(message);
             _dbContext.SaveChanges();
+        }
+
+        public List<Customer> GetConversationCustomers(int employeeId)
+        {
+            throw new NotImplementedException();
+            //todo
+        }
+
+        public List<Employee> GetConversationEmployees(int customerId)
+        {
+            throw new NotImplementedException();
+            //todo
+        }
+
+        public List<Message> GetCustomerConversation(int customerId)
+        {
+            throw new NotImplementedException();
+            //todo
+        }
+
+        public List<Message> GetEmployeeConversation(int employeeId)
+        {
+            using (var service = new EmployeeService(_dbContext))
+            {
+                //service.ge
+                //todo
+            }
+            //return _dbContext.Messages.FirstOrDefault(m => m. == messageId);
+            //todo
+            return null;
         }
 
         public Message GetMessage(int messageId)

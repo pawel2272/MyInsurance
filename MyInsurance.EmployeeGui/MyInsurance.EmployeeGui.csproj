@@ -71,6 +71,9 @@
     <Compile Include="Controls\Management\Enums\CrudMode.cs" />
     <Compile Include="Controls\Management\Interfaces\IHasDataGrid.cs" />
     <Compile Include="Controls\Management\Interfaces\INavigator.cs" />
+    <Compile Include="Controls\Management\Menus\Messaging\MessagePeopleControl.xaml.cs">
+      <DependentUpon>MessagePeopleControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Management\MessageManagementControl.xaml.cs">
       <DependentUpon>MessageManagementControl.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Management\Menus\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\Menus\Messaging\MessagePeopleControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

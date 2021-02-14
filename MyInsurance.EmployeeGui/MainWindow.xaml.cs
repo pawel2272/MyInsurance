@@ -27,7 +27,8 @@ namespace MyInsurance.EmployeeGui
             InitializeComponent();
             CommonConstants.OPENED_WINDOWS.Add(this);
             ((Employee)this.Resources["loggedEmployee"]).ChangeData(CommonConstants.LOGGED_EMPLOYEE);
-            MessageBox.Show(((Employee)this.Resources["loggedEmployee"]).IsAdmin.ToString());
+            //MessageBox.Show(((Employee)this.Resources["loggedEmployee"]).IsAdmin.ToString());
+            //todo
         }
 
         private void Window_Closed(object sender, EventArgs e)

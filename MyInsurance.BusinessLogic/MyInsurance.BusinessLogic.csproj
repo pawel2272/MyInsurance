@@ -124,6 +124,7 @@
     <Compile Include="Constants\Database.cs" />
     <Compile Include="Constants\CommonConstants.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Constants\Regexes.cs" />
     <Compile Include="Data\Case.cs">
       <DependentUpon>InsuranceDatabaseModel.tt</DependentUpon>
     </Compile>
@@ -154,7 +155,6 @@
     <Compile Include="Data\Policy.cs">
       <DependentUpon>InsuranceDatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Constants\Regexes.cs" />
     <Compile Include="Interfaces\ILoginable.cs" />
     <Compile Include="Interfaces\IPerson.cs" />
     <Compile Include="Services\Base\CommonDbService.cs" />
@@ -176,7 +176,6 @@
     <Compile Include="Services\ServiceInterfaces\ICustomerService.cs" />
     <Compile Include="Services\ServiceInterfaces\ICaseService.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Data\InsuranceDatabaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -188,6 +187,8 @@
       <DependentUpon>InsuranceDatabaseModel.edmx</DependentUpon>
       <LastGenOutput>InsuranceDatabaseModel.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Resources\Icons\file_save.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

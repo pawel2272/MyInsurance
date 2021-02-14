@@ -4,16 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="605f76a835114f7ba2bb3b0e26008c47" Name="Diagram1">
-        <EntityTypeShape EntityType="InsuranceDBModel.Case" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+      <Diagram DiagramId="e52f94b249c5488da02d744f4a98aa62" Name="Diagram1">
+        <EntityTypeShape EntityType="InsuranceDBModel.Case" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="InsuranceDBModel.Customer" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="InsuranceDBModel.Employee" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceDBModel.Message" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceDBModel.Policy" Width="1.5" PointX="6" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceDBModel.Message" Width="1.5" PointX="8.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceDBModel.Policy" Width="1.5" PointX="6" PointY="3" IsExpanded="true" />
         <AssociationConnector Association="InsuranceDBModel.FK_Case_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceDBModel.FK_Case_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceDBModel.FK_Messages_Case" ManuallyRouted="false" />
+        <AssociationConnector Association="InsuranceDBModel.FK_Messages_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceDBModel.FK_Policy_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="InsuranceDBModel.FK_Messages_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceDBModel.FK_Policy_Employee" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

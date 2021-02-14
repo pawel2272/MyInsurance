@@ -1,4 +1,5 @@
-﻿using MyInsurance.EmployeeGui.Controls.Management.Enums;
+﻿using MyInsurance.BusinessLogic.Services;
+using MyInsurance.EmployeeGui.Controls.Management.Enums;
 using MyInsurance.EmployeeGui.Controls.Management.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,10 @@ namespace MyInsurance.EmployeeGui.Controls.Management
         public MessageManagementControl()
         {
             InitializeComponent();
+            using (var service = new CustomerService(BusinessLogic.Constants.Database.DBCONTEXT))
+            {
+                this.peopleControl.CustomerList = service.GetAllCustomers();
+            }
         }
 
         public Enums.NavigationMode ControlMode

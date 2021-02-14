@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls.Management"
+             xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls.Management" xmlns:messaging="clr-namespace:MyInsurance.EmployeeGui.Controls.Management.Menus.Messaging"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <DockPanel>
+        <messaging:MessagePeopleControl x:Name="peopleControl" DockPanel.Dock="Left"/>
+    </DockPanel>
 </UserControl>

@@ -11,7 +11,7 @@ namespace MyInsurance.BusinessLogic.Data
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Policy
     {
         public Policy()
@@ -44,7 +44,7 @@ namespace MyInsurance.BusinessLogic.Data
         public string Type { get; set; }
         public string Name { get; set; }
         public System.DateTime DateOfEnding { get; set; }
-    
+
         public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }
 
