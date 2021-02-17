@@ -61,5 +61,10 @@ namespace MyInsurance.BusinessLogic.Data
             this.Employee = temp.Employee;
             this.Messages = temp.Messages;
         }
+
+        public override string ToString()
+        {
+            return "ID: " + this.Id + " / " + this.Customer.FirstName + " " + this.Customer.LastName;
+        }
     }
 }

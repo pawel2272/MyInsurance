@@ -6,12 +6,17 @@
              xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls.Management.Menus.Messaging"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="250">
+    <UserControl.Resources>
+        <Style x:Key="hideGridViewHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <ListView x:Name="lvCustomers">
             <ListView.View>
-                <GridView>
+                <GridView ColumnHeaderContainerStyle="{StaticResource hideGridViewHeaderStyle}">
                     <GridView.Columns>
-                        <GridViewColumn Header="Imię i nazwisko"/>
+                        <GridViewColumn/>
                     </GridView.Columns>
                 </GridView>
             </ListView.View>

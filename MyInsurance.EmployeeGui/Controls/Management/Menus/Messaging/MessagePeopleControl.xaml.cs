@@ -21,18 +21,32 @@ namespace MyInsurance.EmployeeGui.Controls.Management.Menus.Messaging
     /// </summary>
     public partial class MessagePeopleControl : UserControl
     {
-        public List<Customer> CustomerList
+        public List<Case> CaseList
         {
-            get { return (List<Customer>)GetValue(CustomerListProperty); }
-            set { SetValue(CustomerListProperty, value); }
+            get { return (List<Case>)GetValue(CaseListProperty); }
+            set { SetValue(CaseListProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for CustomerList.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CustomerListProperty =
-            DependencyProperty.Register("CustomerList", typeof(List<Customer>), typeof(MessagePeopleControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+        // Using a DependencyProperty as the backing store for CaseList.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CaseListProperty =
+            DependencyProperty.Register("CaseList", typeof(List<Case>), typeof(MessagePeopleControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
                 var source = s as MessagePeopleControl;
-                var value = e.NewValue as List<Customer>;
+                var value = e.NewValue as List<Case>;
                 source.lvCustomers.ItemsSource = value;
+            })));
+
+        public SelectionChangedEventHandler SelectionChanged
+        {
+            get { return (SelectionChangedEventHandler)GetValue(SelectionChangedProperty); }
+            set { SetValue(SelectionChangedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectionChanged.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectionChangedProperty =
+            DependencyProperty.Register("SelectionChanged", typeof(SelectionChangedEventHandler), typeof(MessagePeopleControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as MessagePeopleControl;
+                var value = e.NewValue as SelectionChangedEventHandler;
+                source.lvCustomers.SelectionChanged += value;
             })));
 
         public MessagePeopleControl()

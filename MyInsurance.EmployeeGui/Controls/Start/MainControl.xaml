@@ -55,7 +55,9 @@
                                            CommandBack="{Binding cmdBack}"/>
         </TabItem>
         <TabItem x:Key="tiMessageManagement" Header="Wiadomości">
-            <management:MessageManagementControl />
+            <management:MessageManagementControl ButtonsForeground="Red"
+                                                 ButtonsBackground="Black"
+                                                 CommandBack="{Binding cmdBack}"/>
         </TabItem>
     </UserControl.Resources>
     <DockPanel x:Name="dpMain">

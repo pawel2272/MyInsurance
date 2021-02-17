@@ -1,4 +1,5 @@
-﻿using MyInsurance.BusinessLogic.Data;
+﻿using MyInsurance.BusinessLogic.Constants;
+using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Services.Base;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
@@ -12,15 +13,18 @@ namespace MyInsurance.BusinessLogic.Services
     /// </summary>
     public class CaseService : CommonDbService, ICaseService
     {
+        private readonly CryptoService crypto;
         /// <summary>
         /// Konstruktor inicjalizujący połączenie z bazą
         /// </summary>
         public CaseService() : base()
         {
+            crypto = new CryptoService(CryptoConstants.MESSAGE_KEY);
         }
 
         public CaseService(InsuranceDBEntities dbContext) : base(dbContext)
         {
+            crypto = new CryptoService(CryptoConstants.MESSAGE_KEY);
         }
 
         /// <summary>
@@ -90,7 +94,21 @@ namespace MyInsurance.BusinessLogic.Services
         {
             try
             {
-                return GetCase(caseId).Messages.ToList();
+                Console.WriteLine("Id sprawy: " + caseId);
+                Case casee = this.GetCase(caseId);
+                if (casee != null)
+                    return this.GetCase(caseId).Messages.Select(m => new Message()
+                    {
+                        CaseId = m.CaseId,
+                        Text = this.crypto.Decrypt(m.Text),
+                        Case = _dbContext.Cases.FirstOrDefault(c => c.Id == caseId),
+                        IsFromAgent = m.IsFromAgent,
+                        SendingDate = m.SendingDate,
+                        EmployeeId = m.EmployeeId,
+                        CustomerId = m.CustomerId,
+                        Employee = m.Employee,
+                        Customer = m.Customer
+                    }).ToList();
             }
             catch (Exception ex)
             {

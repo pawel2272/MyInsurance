@@ -56,6 +56,8 @@ namespace MyInsurance.BusinessLogic.Data
             this.Type = temp.Type;
             this.Name = temp.Name;
             this.DateOfEnding = new DateTime(temp.DateOfEnding.Year, temp.DateOfEnding.Month, temp.DateOfEnding.Day);
+            this.Customer = temp.Customer;
+            this.Employee = temp.Employee;
         }
     }
 }

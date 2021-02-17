@@ -43,7 +43,7 @@
         <ComboBox x:Name="cbCustomer" Grid.Column="1" Grid.Row="1" Margin="3" SelectionChanged="cbCustomer_SelectionChanged"/>
 
         <Label Content="Kwota" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbAmount" Text="{Binding Path=EmployeeId, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F}}" Grid.Column="1" Grid.Row="2" Margin="3" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="tbAmount" Text="{Binding Path=Amount, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F}}" Grid.Column="1" Grid.Row="2" Margin="3" Grid.ColumnSpan="2"/>
 
         <Label Content="Typ" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right"/>
         <TextBox x:Name="tbType" Text="{Binding Path=Type, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="3" Margin="3" Grid.ColumnSpan="2"/>

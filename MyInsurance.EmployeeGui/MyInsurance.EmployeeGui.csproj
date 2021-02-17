@@ -71,6 +71,9 @@
     <Compile Include="Controls\Management\Enums\CrudMode.cs" />
     <Compile Include="Controls\Management\Interfaces\IHasDataGrid.cs" />
     <Compile Include="Controls\Management\Interfaces\INavigator.cs" />
+    <Compile Include="Controls\Management\Menus\Messaging\MessageContainerControl.xaml.cs">
+      <DependentUpon>MessageContainerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Management\Menus\Messaging\MessagePeopleControl.xaml.cs">
       <DependentUpon>MessagePeopleControl.xaml</DependentUpon>
     </Compile>
@@ -80,6 +83,7 @@
     <Compile Include="Controls\Management\PolicyManagementControl.xaml.cs">
       <DependentUpon>PolicyManagementControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TemplateSelectors\EmployeeMessageTemplateSelector.cs" />
     <Compile Include="Windows\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
@@ -116,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Management\Menus\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\Menus\Messaging\MessageContainerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

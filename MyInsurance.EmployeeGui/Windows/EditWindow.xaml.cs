@@ -198,7 +198,9 @@ namespace MyInsurance.EmployeeGui.Windows
                                 this.hasDataGrid.MainGrid.ItemsSource = service.GetAllPolicies(policy.EmployeeId);
                                 break;
                             case CrudMode.Edit:
-                                service.GetPolicy(policy.Id).ChangeData(policy);
+                                var pol = service.GetPolicy(policy.Id);
+                                pol.ChangeData(policy);
+                                Console.WriteLine(pol.CustomerId);
                                 service.DBContext.SaveChanges();
                                 break;
                         }

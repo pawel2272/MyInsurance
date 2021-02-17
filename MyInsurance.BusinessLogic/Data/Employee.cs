@@ -115,52 +115,76 @@ namespace MyInsurance.BusinessLogic.Data
                 switch (propertyName)
                 {
                     case "FirstName":
-                        if (string.IsNullOrEmpty(FirstName))
-                            errorMessage = "Imiê musi byæ wpisane!";
-                        else if (FirstName.Length < 3)
-                            errorMessage = "Imiê musi mieæ minimum 3 znaki!";
-                        else if (!Regexes.NAME_REGEX.IsMatch(FirstName))
-                            errorMessage = "Imiê mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        if (this.FirstName != null)
+                        {
+                            if (string.IsNullOrEmpty(FirstName))
+                                errorMessage = "Imiê musi byæ wpisane!";
+                            else if (FirstName.Length < 3)
+                                errorMessage = "Imiê musi mieæ minimum 3 znaki!";
+                            else if (!Regexes.NAME_REGEX.IsMatch(FirstName))
+                                errorMessage = "Imiê mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        }
                         break;
                     case "LastName":
-                        if (string.IsNullOrEmpty(LastName))
-                            errorMessage = "Nazwisko musi byæ wpisane!";
-                        else if (LastName.Length < 3)
-                            errorMessage = "Nazwisko musi mieæ minimum 3 znaki!";
-                        else if (!Regexes.NAME_REGEX.IsMatch(LastName))
-                            errorMessage = "Nazwisko mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        if (this.LastName != null)
+                        {
+                            if (string.IsNullOrEmpty(LastName))
+                                errorMessage = "Nazwisko musi byæ wpisane!";
+                            else if (LastName.Length < 3)
+                                errorMessage = "Nazwisko musi mieæ minimum 3 znaki!";
+                            else if (!Regexes.NAME_REGEX.IsMatch(LastName))
+                                errorMessage = "Nazwisko mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        }
                         break;
                     case "Street":
-                        if (string.IsNullOrEmpty(Street))
-                            errorMessage = "Nazwa ulicy musi byæ wpisana!";
-                        else if (Street.Length < 3)
-                            errorMessage = "Nazwa ulicy musi mieæ minimum 3 znaki!";
-                        else if (!Regexes.CITY_REGEX.IsMatch(Street))
-                            errorMessage = "Nazwa ulicy mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        if (this.Street != null)
+                        {
+                            if (string.IsNullOrEmpty(Street))
+                                errorMessage = "Nazwa ulicy musi byæ wpisana!";
+                            else if (Street.Length < 3)
+                                errorMessage = "Nazwa ulicy musi mieæ minimum 3 znaki!";
+                            else if (!Regexes.CITY_REGEX.IsMatch(Street))
+                                errorMessage = "Nazwa ulicy mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        }
                         break;
                     case "City":
-                        if (string.IsNullOrEmpty(City))
-                            errorMessage = "Nazwa miasta musi byæ wpisana!";
-                        else if (City.Length < 3)
-                            errorMessage = "Nazwa miasta mieæ minimum 3 znaki!";
-                        else if (!Regexes.CITY_REGEX.IsMatch(City))
-                            errorMessage = "Nazwa miasta mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        if (this.City != null)
+                        {
+                            if (string.IsNullOrEmpty(City))
+                                errorMessage = "Nazwa miasta musi byæ wpisana!";
+                            else if (City.Length < 3)
+                                errorMessage = "Nazwa miasta mieæ minimum 3 znaki!";
+                            else if (!Regexes.CITY_REGEX.IsMatch(City))
+                                errorMessage = "Nazwa miasta mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        }
                         break;
                     case "ZipCode":
-                        if (!Regexes.ZIPCODE_REGEX.IsMatch(ZipCode))
-                            errorMessage = "Wpisz prawid³owy kod pocztowy!";
+                        if (this.ZipCode != null)
+                        {
+                            if (!Regexes.ZIPCODE_REGEX.IsMatch(ZipCode))
+                                errorMessage = "Wpisz prawid³owy kod pocztowy!";
+                        }
                         break;
                     case "Pesel":
-                        if (!Regexes.PESEL_REGEX.IsMatch(Pesel))
-                            errorMessage = "Wpisz prawid³owy numer PESEL!";
+                        if (this.Pesel != null)
+                        {
+                            if (!Regexes.PESEL_REGEX.IsMatch(Pesel))
+                                errorMessage = "Wpisz prawid³owy numer PESEL!";
+                        }
                         break;
                     case "EmailAddress":
-                        if (!Regexes.EMAIL_REGEX.IsMatch(EmailAddress))
-                            errorMessage = "Wpisz prawid³owy adres e-mail!";
+                        if (this.EmailAddress != null)
+                        {
+                            if (!Regexes.EMAIL_REGEX.IsMatch(EmailAddress))
+                                errorMessage = "Wpisz prawid³owy adres e-mail!";
+                        }
                         break;
                     case "PhoneNumber":
-                        if (!Regexes.PHONENUMBER_REGEX.IsMatch(PhoneNumber))
-                            errorMessage = "Wpisz prawid³owy numer telefonu!";
+                        if (this.PhoneNumber != null)
+                        {
+                            if (!Regexes.PHONENUMBER_REGEX.IsMatch(PhoneNumber))
+                                errorMessage = "Wpisz prawid³owy numer telefonu!";
+                        }
                         break;
                 };
                 return errorMessage;

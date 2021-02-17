@@ -28,7 +28,7 @@ namespace MyInsurance.BusinessLogic.Services
             crypto = new CryptoService(CryptoConstants.MESSAGE_KEY);
         }
 
-        public void Add(int caseId, string messageText, bool isFromAgent)
+        public void Add(int caseId, string messageText, bool isFromAgent, int employeeId, int customerId)
         {
             Message message = new Message()
             {
@@ -36,40 +36,20 @@ namespace MyInsurance.BusinessLogic.Services
                 Text = crypto.Encrypt(messageText),
                 Case = _dbContext.Cases.FirstOrDefault(c => c.Id == caseId),
                 IsFromAgent = isFromAgent,
-                SendingDate = DateTime.Now
+                SendingDate = DateTime.Now,
+                EmployeeId = employeeId,
+                CustomerId = customerId
             };
             _dbContext.Messages.Add(message);
             _dbContext.SaveChanges();
         }
 
-        public List<Customer> GetConversationCustomers(int employeeId)
+        public List<Message> GetCaseMessages(int caseId)
         {
-            throw new NotImplementedException();
-            //todo
-        }
-
-        public List<Employee> GetConversationEmployees(int customerId)
-        {
-            throw new NotImplementedException();
-            //todo
-        }
-
-        public List<Message> GetCustomerConversation(int customerId)
-        {
-            throw new NotImplementedException();
-            //todo
-        }
-
-        public List<Message> GetEmployeeConversation(int employeeId)
-        {
-            using (var service = new EmployeeService(_dbContext))
+            using (var service = new CaseService(this._dbContext))
             {
-                //service.ge
-                //todo
+                return service.GetCaseMessages(caseId);
             }
-            //return _dbContext.Messages.FirstOrDefault(m => m. == messageId);
-            //todo
-            return null;
         }
 
         public Message GetMessage(int messageId)

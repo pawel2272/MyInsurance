@@ -69,7 +69,11 @@ namespace MyInsurance.EmployeeGui.Controls.Start
 
         private void RefreshMessages()
         {
-            throw new NotImplementedException();
+            using (var service = new CaseService(Database.DBCONTEXT))
+            {
+                this.messageManagementControl.CaseList = service.GetAllCases(CommonConstants.LOGGED_EMPLOYEE.Id, CommonConstants.LOGGED_EMPLOYEE.FirstName);
+                this.messageManagementControl.MessageList = service.GetCaseMessages(this.messageManagementControl.SelectedCase);
+            }
         }
 
         private void RefreshPolicies()
@@ -470,14 +474,7 @@ namespace MyInsurance.EmployeeGui.Controls.Start
                 if (tabItem.Content == this.messageManagementControl)
                 {
                     this.navigationMode = NavigationMode.Messages;
-                    try
-                    {
-                        this.RefreshMessages();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.StackTrace);
-                    }
+                    this.RefreshMessages();
                 }
                 if (tabItem.Content == this.policyManagementControl)
                 {
@@ -507,6 +504,7 @@ namespace MyInsurance.EmployeeGui.Controls.Start
         private void cmdMessages_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             this.AddItemFromResourcesToTabControl("tiMessageManagement");
+            this.messageManagementControl.SelectedCase = 0;
         }
 
         private void cmdPolicies_CanExecute(object sender, CanExecuteRoutedEventArgs e)
