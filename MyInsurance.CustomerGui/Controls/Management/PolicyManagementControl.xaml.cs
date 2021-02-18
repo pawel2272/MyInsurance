@@ -1,5 +1,5 @@
-﻿using MyInsurance.EmployeeGui.Controls.Management.Enums;
-using MyInsurance.EmployeeGui.Controls.Management.Interfaces;
+﻿using MyInsurance.CustomerGui.Controls.Management.Enums;
+using MyInsurance.CustomerGui.Controls.Management.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +14,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MyInsurance.EmployeeGui.Controls.Management
+namespace MyInsurance.CustomerGui.Controls.Management
 {
     /// <summary>
-    /// Interaction logic for CaseManagementControl.xaml
+    /// Interaction logic for PolicyManagementControl.xaml
     /// </summary>
-    public partial class CaseManagementControl : UserControl, IHasDataGrid, INavigator
+    public partial class PolicyManagementControl : UserControl, IHasDataGrid, INavigator
     {
         public ICommand CommandBack
         {
@@ -29,8 +29,8 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for CommandBack.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandBackProperty =
-            DependencyProperty.Register("CommandBack", typeof(ICommand), typeof(CaseManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as CaseManagementControl;
+            DependencyProperty.Register("CommandBack", typeof(ICommand), typeof(PolicyManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as PolicyManagementControl;
                 var value = e.NewValue as CommandBinding;
                 source.cbButtons.CommandBindings.Add(value);
             })));
@@ -43,8 +43,8 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for CommandExit.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandNewProperty =
-            DependencyProperty.Register("CommandNew", typeof(ICommand), typeof(CaseManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as CaseManagementControl;
+            DependencyProperty.Register("CommandNew", typeof(ICommand), typeof(PolicyManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as PolicyManagementControl;
                 var value = e.NewValue as CommandBinding;
                 source.cbButtons.CommandBindings.Add(value);
             })));
@@ -57,22 +57,8 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for CommandExit.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandEditProperty =
-            DependencyProperty.Register("CommandEdit", typeof(ICommand), typeof(CaseManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as CaseManagementControl;
-                var value = e.NewValue as CommandBinding;
-                source.cbButtons.CommandBindings.Add(value);
-            })));
-
-        public ICommand CommandDelete
-        {
-            get { return (ICommand)GetValue(CommandDeleteProperty); }
-            set { SetValue(CommandDeleteProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for CommandExit.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CommandDeleteProperty =
-            DependencyProperty.Register("CommandDelete", typeof(ICommand), typeof(CaseManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as CaseManagementControl;
+            DependencyProperty.Register("CommandEdit", typeof(ICommand), typeof(PolicyManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as PolicyManagementControl;
                 var value = e.NewValue as CommandBinding;
                 source.cbButtons.CommandBindings.Add(value);
             })));
@@ -85,13 +71,12 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for ButtonsForeground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ButtonsForegroundProperty =
-            DependencyProperty.Register("ButtonsForeground", typeof(Brush), typeof(CaseManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as CaseManagementControl;
+            DependencyProperty.Register("ButtonsForeground", typeof(Brush), typeof(PolicyManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as PolicyManagementControl;
                 var value = e.NewValue as Brush;
                 source.cbButtons.btnBack.Foreground = value;
                 source.cbButtons.btnNew.Foreground = value;
                 source.cbButtons.btnEdit.Foreground = value;
-                source.cbButtons.btnDelete.Foreground = value;
             })));
 
         public Brush ButtonsBackground
@@ -102,20 +87,19 @@ namespace MyInsurance.EmployeeGui.Controls.Management
 
         // Using a DependencyProperty as the backing store for ButtonsBackground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ButtonsBackgroundProperty =
-            DependencyProperty.Register("ButtonsBackground", typeof(Brush), typeof(CaseManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as CaseManagementControl;
+            DependencyProperty.Register("ButtonsBackground", typeof(Brush), typeof(PolicyManagementControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as PolicyManagementControl;
                 var value = e.NewValue as Brush;
                 source.cbButtons.btnBack.Background = value;
                 source.cbButtons.btnNew.Background = value;
                 source.cbButtons.btnEdit.Background = value;
-                source.cbButtons.btnDelete.Background = value;
             })));
 
         public DataGrid MainGrid
         {
             get
             {
-                return this.dgCases;
+                return this.dgPolicies;
             }
         }
 
@@ -123,11 +107,11 @@ namespace MyInsurance.EmployeeGui.Controls.Management
         {
             get
             {
-                return NavigationMode.Cases;
+                return NavigationMode.Policies;
             }
         }
 
-        public CaseManagementControl()
+        public PolicyManagementControl()
         {
             InitializeComponent();
         }

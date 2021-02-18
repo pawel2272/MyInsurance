@@ -98,11 +98,14 @@ namespace MyInsurance.BusinessLogic.Services
             return true;
         }
 
-        public List<Policy> GetAllPolicies(int agentId)
+        public List<Policy> GetAllPolicies(int agentId, bool isCustomer = false)
         {
             try
             {
-                return this._dbContext.Employees.First(e => e.Id == agentId).Policies.ToList();
+                if (!isCustomer)
+                    return this._dbContext.Employees.First(e => e.Id == agentId).Policies.ToList();
+                else
+                    return this._dbContext.Customers.First(e => e.Id == agentId).Policies.ToList();
             }
             catch (Exception e)
             {

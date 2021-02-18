@@ -1,5 +1,5 @@
 ﻿using MyInsurance.BusinessLogic.Data;
-using MyInsurance.EmployeeGui.Controls.Management.Enums;
+using MyInsurance.CustomerGui.Controls.Management.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +15,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyInsurance.EmployeeGui.Controls.Edit
+namespace MyInsurance.CustomerGui.Controls.Edit
 {
     /// <summary>
-    /// Interaction logic for EmployeeEditControl.xaml
+    /// Interaction logic for CustomerEditControl.xaml
     /// </summary>
-    public partial class EmployeeEditControl : UserControl
+    public partial class CustomerEditControl : UserControl
     {
         public Brush ButtonsForeground
         {
@@ -30,8 +30,8 @@ namespace MyInsurance.EmployeeGui.Controls.Edit
 
         // Using a DependencyProperty as the backing store for ButtonsForeground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ButtonsForegroundProperty =
-            DependencyProperty.Register("ButtonsForeground", typeof(Brush), typeof(EmployeeEditControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as EmployeeEditControl;
+            DependencyProperty.Register("ButtonsForeground", typeof(Brush), typeof(CustomerEditControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as CustomerEditControl;
                 var value = e.NewValue as Brush;
                 source.btnOK.Foreground = value;
             })));
@@ -44,8 +44,8 @@ namespace MyInsurance.EmployeeGui.Controls.Edit
 
         // Using a DependencyProperty as the backing store for ButtonsBackground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ButtonsBackgroundProperty =
-            DependencyProperty.Register("ButtonsBackground", typeof(Brush), typeof(EmployeeEditControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as EmployeeEditControl;
+            DependencyProperty.Register("ButtonsBackground", typeof(Brush), typeof(CustomerEditControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as CustomerEditControl;
                 var value = e.NewValue as Brush;
                 source.btnOK.Background = value;
             })));
@@ -58,8 +58,8 @@ namespace MyInsurance.EmployeeGui.Controls.Edit
 
         // Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ModeProperty =
-            DependencyProperty.Register("Mode", typeof(CrudMode), typeof(EmployeeEditControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
-                var source = s as EmployeeEditControl;
+            DependencyProperty.Register("Mode", typeof(CrudMode), typeof(CustomerEditControl), new PropertyMetadata(new PropertyChangedCallback((s, e) => {
+                var source = s as CustomerEditControl;
                 var value = (CrudMode)e.NewValue;
             })));
 
@@ -71,25 +71,25 @@ namespace MyInsurance.EmployeeGui.Controls.Edit
 
         // Using a DependencyProperty as the backing store for BtnOKClick.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BtnOKClickProperty =
-            DependencyProperty.Register("BtnOKClick", typeof(RoutedEventHandler), typeof(EmployeeEditControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
+            DependencyProperty.Register("BtnOKClick", typeof(RoutedEventHandler), typeof(CustomerEditControl), new PropertyMetadata(new PropertyChangedCallback((s, e) =>
             {
-                var source = s as EmployeeEditControl;
+                var source = s as CustomerEditControl;
                 var value = e.NewValue as RoutedEventHandler;
                 source.btnOK.Click += value;
             })));
 
-        public EmployeeEditControl()
+        public CustomerEditControl()
         {
             InitializeComponent();
-            ((Employee)this.Resources["loggedEmployee"]).ChangeData(BusinessLogic.Constants.CommonConstants.LOGGED_EMPLOYEE).NotifyPermissionsChanged();
+            ((Customer)this.Resources["loggedCustomer"]).ChangeData(BusinessLogic.Constants.CommonConstants.LOGGED_CUSTOMER);
         }
 
         private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if ((bool)e.NewValue)
             {
-                var employee = this.DataContext as Employee;
-                pbPassword.Password = employee.Password;
+                var customer = this.DataContext as Customer;
+                pbPassword.Password = customer.Password;
             }
         }
     }

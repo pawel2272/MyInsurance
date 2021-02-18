@@ -84,27 +84,39 @@ namespace MyInsurance.BusinessLogic.Data
             this.IsActive = old.IsActive;
             this.PhoneNumber = old.PhoneNumber;
 
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs("FirstName"));
-                PropertyChanged(this, new PropertyChangedEventArgs("LastName"));
-                PropertyChanged(this, new PropertyChangedEventArgs("Street"));
-                PropertyChanged(this, new PropertyChangedEventArgs("HouseNumber"));
-                PropertyChanged(this, new PropertyChangedEventArgs("City"));
-                PropertyChanged(this, new PropertyChangedEventArgs("ZipCode"));
-                PropertyChanged(this, new PropertyChangedEventArgs("Salary"));
-                PropertyChanged(this, new PropertyChangedEventArgs("BirthDate"));
-                PropertyChanged(this, new PropertyChangedEventArgs("Pesel"));
-                PropertyChanged(this, new PropertyChangedEventArgs("EmailAddress"));
-                PropertyChanged(this, new PropertyChangedEventArgs("Login"));
-                PropertyChanged(this, new PropertyChangedEventArgs("Password"));
-                PropertyChanged(this, new PropertyChangedEventArgs("IsAdmin"));
-                PropertyChanged(this, new PropertyChangedEventArgs("IsBoss"));
-                PropertyChanged(this, new PropertyChangedEventArgs("IsActive"));
-                PropertyChanged(this, new PropertyChangedEventArgs("PhoneNumber"));
-            }
+            RaiseEventThatPropertyChanged("FirstName");
+            RaiseEventThatPropertyChanged("LastName");
+            RaiseEventThatPropertyChanged("Street");
+            RaiseEventThatPropertyChanged("HouseNumber");
+            RaiseEventThatPropertyChanged("City");
+            RaiseEventThatPropertyChanged("ZipCode");
+            RaiseEventThatPropertyChanged("Salary");
+            RaiseEventThatPropertyChanged("BirthDate");
+            RaiseEventThatPropertyChanged("Pesel");
+            RaiseEventThatPropertyChanged("EmailAddress");
+            RaiseEventThatPropertyChanged("Login");
+            RaiseEventThatPropertyChanged("Password");
+            RaiseEventThatPropertyChanged("IsAdmin");
+            RaiseEventThatPropertyChanged("IsBoss");
+            RaiseEventThatPropertyChanged("IsActive");
+            RaiseEventThatPropertyChanged("PhoneNumber");
 
             return this;
+        }
+
+        private void RaiseEventThatPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public void NotifyPermissionsChanged()
+        {
+            RaiseEventThatPropertyChanged("IsAdmin");
+            RaiseEventThatPropertyChanged("IsBoss");
+            RaiseEventThatPropertyChanged("IsActive");
         }
 
         public string this[string propertyName]

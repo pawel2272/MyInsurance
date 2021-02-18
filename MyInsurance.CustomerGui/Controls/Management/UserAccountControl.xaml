@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="MyInsurance.CustomerGui.Controls.Management.UserAccountControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyInsurance.CustomerGui.Controls.Management"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:controls="clr-namespace:MyInsurance.CustomerGui.Controls">
+    <UserControl.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/MyInsurance.CustomerGui;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Style="{StaticResource commonLbl}" Content="Imię" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=FirstName}" Style="{StaticResource middleTextBox}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Nazwisko" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=LastName}" Style="{StaticResource middleTextBox}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Ulica" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=Street}" Style="{StaticResource middleTextBox}" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Numer domu" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=HouseNumber}" Style="{StaticResource middleTextBox}" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Miejscowość" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=City}" Style="{StaticResource middleTextBox}" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Kod pocztowy" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=ZipCode}" Style="{StaticResource middleTextBox}" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Numer telefonu" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=PhoneNumber}" Style="{StaticResource middleTextBox}" Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Nazwa firmy" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=CompanyName}" Style="{StaticResource middleTextBox}" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="NIP/Pesel" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=NIPNumber}" Style="{StaticResource middleTextBox}" Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Adres e-mail" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=EmailAddress}" Style="{StaticResource middleTextBox}" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Label Style="{StaticResource commonLbl}" Content="Login" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Path=Login}" Style="{StaticResource middleTextBox}" Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Margin="3" IsEnabled="False"/>
+        <Button x:Name="btnClose" Content="Zamknij" Style="{StaticResource btnSmall}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Command="controls:CustomCommands.Back"/>
+        <Button x:Name="btnChangeData" Content="Edytuj" Style="{StaticResource btnSmall}" Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="2" Click="btnChangeData_Click"/>
+    </Grid>
+</UserControl>

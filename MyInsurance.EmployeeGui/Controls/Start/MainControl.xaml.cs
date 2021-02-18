@@ -49,6 +49,14 @@ namespace MyInsurance.EmployeeGui.Controls.Start
             this.policyManagementControl = (PolicyManagementControl)((TabItem)this.Resources["tiPolicyManagement"]).Content;
             this.userAccountControl = (UserAccountControl)((TabItem)this.Resources["tiAccountManagement"]).Content;
             this.messageManagementControl = (MessageManagementControl)((TabItem)this.Resources["tiMessageManagement"]).Content;
+            foreach (var window in CommonConstants.OPENED_WINDOWS)
+            {
+                if (window is MainWindow)
+                {
+                    var win = window as MainWindow;
+                    win.InitializePermissions();
+                }
+            }
         }
 
         private void RefreshCases()
@@ -449,7 +457,9 @@ namespace MyInsurance.EmployeeGui.Controls.Start
 
         private void cmdBack_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            this.tcControl.Items.Remove(tcControl.SelectedItem);
+            var temp = tcControl.SelectedItem;
+            this.tcControl.SelectedItem = this.mainMenuControl;
+            this.tcControl.Items.Remove(temp);
         }
 
         private void tcControl_SelectionChanged(object sender, SelectionChangedEventArgs e)

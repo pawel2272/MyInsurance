@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyInsurance.EmployeeGui.Controls.Management.Menus.Messaging
+namespace MyInsurance.CustomerGui.Controls.Messaging
 {
     /// <summary>
     /// Interaction logic for MessageContainerControl.xaml

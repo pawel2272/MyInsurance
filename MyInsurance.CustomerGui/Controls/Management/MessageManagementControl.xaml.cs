@@ -1,8 +1,8 @@
 ﻿using MyInsurance.BusinessLogic.Constants;
 using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Services;
-using MyInsurance.EmployeeGui.Controls.Management.Enums;
-using MyInsurance.EmployeeGui.Controls.Management.Interfaces;
+using MyInsurance.CustomerGui.Controls.Management.Enums;
+using MyInsurance.CustomerGui.Controls.Management.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MyInsurance.EmployeeGui.Controls.Management
+namespace MyInsurance.CustomerGui.Controls.Management
 {
     /// <summary>
     /// Interaction logic for MessageManagementControl.xaml
@@ -154,7 +154,7 @@ namespace MyInsurance.EmployeeGui.Controls.Management
             {
                 using (var service = new MessageService(Database.DBCONTEXT))
                 {
-                    service.Add(cas.Id, textRange.Text, true, CommonConstants.LOGGED_EMPLOYEE.Id, cas.CustomerId);
+                    service.Add(cas.Id, textRange.Text, false, cas.Employee.Id, CommonConstants.LOGGED_CUSTOMER.Id);
                 }
                 rtb.Document.Blocks.Clear();
                 this.RefreshMessages();

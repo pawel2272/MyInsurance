@@ -3,10 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MyInsurance.CustomerGui"
+        xmlns:local="clr-namespace:MyInsurance.CustomerGui" xmlns:management="clr-namespace:MyInsurance.CustomerGui.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closed="Window_Closed">
-    <Grid>
-        
+    <Window.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/MyInsurance.CustomerGui;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid x:Name="grdMain">
+        <management:MainControl x:Name="mcControl"/>
     </Grid>
 </Window>
