@@ -1,6 +1,8 @@
 ﻿using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Services.Base;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
@@ -8,19 +10,17 @@ namespace MyInsurance.BusinessLogic.Services
     /// <summary>
     /// serwis obsługujący tabelę Policy
     /// </summary>
-    public class PolicyService : IPolicyService
+    public class PolicyService : CommonDbService, IPolicyService
     {
-        /// <summary>
-        /// połączenie z bazą danych
-        /// </summary>
-        private readonly InsuranceDBEntities _dbContext;
-
         /// <summary>
         /// Konstruktor inicjalizujący połączenie z bazą
         /// </summary>
-        public PolicyService()
+        public PolicyService() : base()
         {
-            _dbContext = new InsuranceDBEntities();
+        }
+
+        public PolicyService(InsuranceDBEntities dbContext) : base(dbContext)
+        {
         }
 
         public Policy GetPolicy(int policyId)
@@ -62,12 +62,6 @@ namespace MyInsurance.BusinessLogic.Services
             _dbContext.SaveChanges();
         }
 
-
-        public void Dispose()
-        {
-            _dbContext.Dispose();
-        }
-
         public Customer GetPolicyCustomer(int policyId)
         {
             return GetPolicy(policyId).Customer;
@@ -76,6 +70,54 @@ namespace MyInsurance.BusinessLogic.Services
         public Employee GetPolicyEmployee(int policyId)
         {
             return GetPolicy(policyId).Employee;
+        }
+
+        public bool RemovePolicy(int policyId)
+        {
+            try
+            {
+                return this.RemovePolicy(this._dbContext.Policies.First(p => p.Id == policyId));
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool RemovePolicy(Policy policy)
+        {
+            try
+            {
+                this._dbContext.Policies.Remove(policy);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            this._dbContext.SaveChanges();
+            return true;
+        }
+
+        public List<Policy> GetAllPolicies(int agentId, bool isCustomer = false)
+        {
+            try
+            {
+                if (!isCustomer)
+                    return this._dbContext.Employees.First(e => e.Id == agentId).Policies.ToList();
+                else
+                    return this._dbContext.Customers.First(e => e.Id == agentId).Policies.ToList();
+            }
+            catch (Exception e)
+            {
+                
+            }
+            return new List<Policy>();
+        }
+
+        public void Add(Policy policy)
+        {
+            _dbContext.Policies.Add(policy);
+            _dbContext.SaveChanges();
         }
     }
 }

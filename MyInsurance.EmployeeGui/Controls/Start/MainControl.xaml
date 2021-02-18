@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="MyInsurance.EmployeeGui.Controls.Start.MainControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls"
+             xmlns:menus="clr-namespace:MyInsurance.EmployeeGui.Controls.Management.Menus" xmlns:management="clr-namespace:MyInsurance.EmployeeGui.Controls.Management" xmlns:buttons="clr-namespace:MyInsurance.EmployeeGui.Controls.Management.Buttons"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.CommandBindings>
+        <CommandBinding x:Name="cmdExit" Command="local:CustomCommands.Exit" CanExecute="cmdExit_CanExecute" Executed="cmdExit_Executed"/>
+        <CommandBinding x:Name="cmdLogout" Command="local:CustomCommands.Logout" CanExecute="cmdLogout_CanExecute" Executed="cmdLogout_Executed"/>
+        <CommandBinding x:Name="cmdAbout" Command="local:CustomCommands.About" CanExecute="cmdAbout_CanExecute" Executed="cmdAbout_Executed"/>
+        <CommandBinding x:Name="cmdManageAcc" Command="local:CustomCommands.ManageAcc" CanExecute="cmdManageAcc_CanExecute" Executed="cmdManageAcc_Executed"/>
+        <CommandBinding x:Name="cmdManageEmp" Command="local:CustomCommands.ManageEmp" CanExecute="cmdManageEmp_CanExecute" Executed="cmdManageEmp_Executed"/>
+        <CommandBinding x:Name="cmdNew" Command="local:CustomCommands.New" CanExecute="cmdNew_CanExecute" Executed="cmdNew_Executed"/>
+        <CommandBinding x:Name="cmdEdit" Command="local:CustomCommands.Edit" CanExecute="cmdEdit_CanExecute" Executed="cmdEdit_Executed"/>
+        <CommandBinding x:Name="cmdDelete" Command="local:CustomCommands.Delete" CanExecute="cmdDelete_CanExecute" Executed="cmdDelete_Executed"/>
+        <CommandBinding x:Name="cmdOpen" Command="Open" CanExecute="cmdOpen_CanExecute" Executed="cmdOpen_Executed"/>
+        <CommandBinding x:Name="cmdSave" Command="Save" CanExecute="cmdSave_CanExecute" Executed="cmdSave_Executed"/>
+        <CommandBinding x:Name="cmdSaveAs" Command="SaveAs" CanExecute="cmdSaveAs_CanExecute" Executed="cmdSaveAs_Executed"/>
+        <CommandBinding x:Name="cmdBack" Command="local:CustomCommands.Back" CanExecute="cmdBack_CanExecute"  Executed="cmdBack_Executed"/>
+        <CommandBinding x:Name="cmdCases" Command="local:CustomCommands.Cases" CanExecute="cmdCases_CanExecute"  Executed="cmdCases_Executed"/>
+        <CommandBinding x:Name="cmdMessages" Command="local:CustomCommands.Messages" CanExecute="cmdMessages_CanExecute"  Executed="cmdMessages_Executed"/>
+        <CommandBinding x:Name="cmdPolicies" Command="local:CustomCommands.Policies" CanExecute="cmdPolicies_CanExecute"  Executed="cmdPolicies_Executed"/>
+    </UserControl.CommandBindings>
+    <UserControl.Resources>
+        <TabItem x:Key="tiEmployeeManagement" Header="Pracownicy">
+            <management:EmployeeManagementControl ButtonsForeground="Red"
+                                                  ButtonsBackground="Black"
+                                                  CommandBack="{Binding cmdBack}"
+                                                  CommandNew="{Binding cmdNew}"
+                                                  CommandEdit="{Binding cmdEdit}"
+                                                  CommandDelete="{Binding cmdDelete}"/>
+        </TabItem>
+        <TabItem x:Key="tiCaseManagement" Header="Zgłoszenia">
+            <management:CaseManagementControl ButtonsForeground="Red"
+                                              ButtonsBackground="Black"
+                                              CommandBack="{Binding cmdBack}"
+                                              CommandNew="{Binding cmdNew}"
+                                              CommandEdit="{Binding cmdEdit}"
+                                              CommandDelete="{Binding cmdDelete}"/>
+        </TabItem>
+        <TabItem x:Key="tiPolicyManagement" Header="Polisy">
+            <management:PolicyManagementControl ButtonsForeground="Red"
+                                                ButtonsBackground="Black"
+                                                CommandBack="{Binding cmdBack}"
+                                                CommandNew="{Binding cmdNew}"
+                                                CommandEdit="{Binding cmdEdit}"
+                                                CommandDelete="{Binding cmdDelete}"/>
+        </TabItem>
+        <TabItem x:Key="tiAccountManagement" Header="Twoje konto">
+            <management:UserAccountControl ButtonsForeground="Red"
+                                           ButtonsBackground="Black"
+                                           CommandBack="{Binding cmdBack}"/>
+        </TabItem>
+        <TabItem x:Key="tiMessageManagement" Header="Wiadomości">
+            <management:MessageManagementControl ButtonsForeground="Red"
+                                                 ButtonsBackground="Black"
+                                                 CommandBack="{Binding cmdBack}"/>
+        </TabItem>
+    </UserControl.Resources>
+    <DockPanel x:Name="dpMain">
+        <Grid x:Name="grdMenu" DockPanel.Dock="Top">
+            <menus:CrudMenu x:Name="cmMenu"
+                            CommandExit="{Binding cmdExit}"
+                            CommandLogout="{Binding cmdLogout}"
+                            CommandAbout="{Binding cmdAbout}"
+                            CommandManageAcc="{Binding cmdManageAcc}"
+                            CommandManageEmp="{Binding cmdManageEmp}"
+                            CommandNew="{Binding cmdNew}"
+                            CommandEdit="{Binding cmdEdit}"
+                            CommandDelete="{Binding cmdDelete}"
+                            CommandOpen="{Binding cmdOpen}"
+                            CommandSave="{Binding cmdSave}"
+                            CommandSaveAs="{Binding cmdSaveAs}"
+                            Visibility="Hidden"
+                           />
+            <menus:MainMenu x:Name="mmMenu"
+                            CommandExit="{Binding cmdExit}"
+                            CommandLogout="{Binding cmdLogout}"
+                            CommandAbout="{Binding cmdAbout}"
+                            CommandManageAcc="{Binding cmdManageAcc}"
+                            CommandManageEmp="{Binding cmdManageEmp}"
+                            />
+        </Grid>
+        <TabControl x:Name="tcControl" DockPanel.Dock="Bottom" SelectionChanged="tcControl_SelectionChanged" Background="DarkBlue">
+            <TabItem Header="Menu główne" x:Name="tiMainMenu">
+                <management:MainMenuControl x:Name="mainMenu"
+                                            ButtonsForeground="Red"
+                                            ButtonsBackground="Black"
+                                            CommandAccount="{Binding cmdManageAcc}"
+                                            CommandCases="{Binding cmdCases}"
+                                            CommandEmployees="{Binding cmdManageEmp}"
+                                            CommandLogout="{Binding cmdLogout}"
+                                            CommandMessages="{Binding cmdMessages}"
+                                            CommandPolicies="{Binding cmdPolicies}"
+                                            BtnNavigationClick="btnNavigation_Click"/>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</UserControl>

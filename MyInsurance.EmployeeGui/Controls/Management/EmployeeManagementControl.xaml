@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="MyInsurance.EmployeeGui.Controls.Management.EmployeeManagementControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyInsurance.EmployeeGui.Controls.Management"
+             xmlns:buttons="clr-namespace:MyInsurance.EmployeeGui.Controls.Management.Buttons"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/MyInsurance.EmployeeGui;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="grdEmployees">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dgEmployees"
+                  Grid.Row="0"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="6"
+                  Grid.RowSpan="5"
+                  Margin="3"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  IsReadOnly="True"
+                  FrozenColumnCount="3"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
+                <DataGridTextColumn Header="Imię" Binding="{Binding Path=FirstName}"/>
+                <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=LastName}"/>
+                <DataGridTextColumn Header="Ulica" Binding="{Binding Path=Street}"/>
+                <DataGridTextColumn Header="Numer domu" Binding="{Binding Path=HouseNumber}"/>
+                <DataGridTextColumn Header="Miejscowość" Binding="{Binding Path=City}"/>
+                <DataGridTextColumn Header="Kod pocztowy" Binding="{Binding Path=ZipCode}"/>
+                <DataGridTextColumn Header="Pensja" Binding="{Binding Path=Salary}"/>
+                <DataGridTextColumn Header="Data urodzenia" Binding="{Binding Path=BirthDate, StringFormat=dd.MM.yyyy}"/>
+                <DataGridTextColumn Header="PESEL" Binding="{Binding Path=Pesel}"/>
+                <DataGridTextColumn Header="Adres e-mail" Binding="{Binding Path=EmailAddress}"/>
+                <DataGridTextColumn Header="Login" Binding="{Binding Path=Login}"/>
+                <DataGridTextColumn Header="Hasło" Binding="{Binding Path=Password}"/>
+                <DataGridCheckBoxColumn Header="Administrator?" Binding="{Binding Path=IsAdmin}"/>
+                <DataGridCheckBoxColumn Header="Szef?" Binding="{Binding Path=IsBoss}"/>
+                <DataGridCheckBoxColumn Header="Aktywny?" Binding="{Binding Path=IsActive}"/>
+                <DataGridTextColumn Header="Numer telefonu" Binding="{Binding Path=PhoneNumber}"/>
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DataGrid x:Name="dgCaseDetails"
+                              ItemsSource="{Binding Path=Cases}"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              CanUserReorderColumns="False"
+                              IsReadOnly="True"
+                              FrozenColumnCount="3"
+                              AutoGenerateColumns="False"
+                              SelectionMode="Single"
+                              SelectionUnit="FullRow">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
+                            <DataGridTextColumn Header="Decyzja" Binding="{Binding Path=Decision}"/>
+                            <DataGridCheckBoxColumn Header="Jest zakończona?" Binding="{Binding Path=IsEnded}"/>
+                            <DataGridTextColumn Header="Id klienta" Binding="{Binding Path=CustomerId}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Decyzja: "/>
+                                        <TextBlock Text="{Binding Path=Decision}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Opis: "/>
+                                        <TextBlock Text="{Binding Path=Description}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                    </DataGrid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+        <buttons:CrudButtons x:Name="cbButtons" Grid.Row="6" Grid.ColumnSpan="6"/>
+    </Grid>
+</UserControl>

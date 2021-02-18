@@ -1,6 +1,7 @@
 ﻿using MyInsurance.BusinessLogic.Constants;
 using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Interfaces;
+using MyInsurance.BusinessLogic.Services.Base;
 using MyInsurance.BusinessLogic.Services.Exceptions;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
@@ -12,19 +13,17 @@ namespace MyInsurance.BusinessLogic.Services
     /// <summary>
     /// serwis obsługujący tabelę Employee
     /// </summary>
-    public class EmployeeService : IEmployeeService, IPerson
+    public class EmployeeService : CommonDbService, IEmployeeService, IPerson
     {
-        /// <summary>
-        /// połączenie z bazą danych
-        /// </summary>
-        private readonly InsuranceDBEntities _dbContext;
-
         /// <summary>
         /// Konstruktor inicjalizujący połączenie z bazą
         /// </summary>
-        public EmployeeService()
+        public EmployeeService() : base()
         {
-            _dbContext = new InsuranceDBEntities();
+        }
+
+        public EmployeeService(InsuranceDBEntities dbContext) : base(dbContext)
+        {
         }
 
         public void Add(string username, string password, string email, string firstName, string lastName, DateTime birthDate, bool isBoos, bool isAdmin, decimal salary)
@@ -82,9 +81,9 @@ namespace MyInsurance.BusinessLogic.Services
                 return true;
         }
 
-        public void Dispose()
+        public List<Employee> GetAllEmployees()
         {
-            _dbContext.Dispose();
+            return _dbContext.Employees.ToList();
         }
 
         public Employee GetEmployee(int employeeId)
@@ -131,6 +130,32 @@ namespace MyInsurance.BusinessLogic.Services
         public ILoginable GetPerson(string username)
         {
             return GetEmployee(username);
+        }
+
+        public bool RemoveEmployee(int employeeId)
+        {
+            try
+            {
+                return this.RemoveEmployee(this._dbContext.Employees.First(e => e.Id == employeeId));
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveEmployee(Employee employee)
+        {
+            try
+            {
+                this._dbContext.Employees.Remove(employee);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            this._dbContext.SaveChanges();
+            return true;
         }
     }
 }

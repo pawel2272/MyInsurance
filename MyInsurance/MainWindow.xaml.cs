@@ -14,7 +14,12 @@ namespace MyInsurance
         public MainWindow()
         {
             InitializeComponent();
-            App.openedWindows.Add(this);
+            CommonConstants.LOGIN_WINDOW = this;
+            CommonConstants.OPENED_WINDOWS.Add(this);
+            lcLogin.tbLogin.Text = "admin";
+            lcLogin.pbPassword.Password = "admin";
+            lcLogin.rbEmployee.IsChecked = true;
+            lcLogin.LogIn();
         }
     }
 }

@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -55,6 +56,97 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\Edit\CaseEditControl.xaml.cs">
+      <DependentUpon>CaseEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Edit\EmployeeEditControl.xaml.cs">
+      <DependentUpon>EmployeeEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Edit\PolicyEditControl.xaml.cs">
+      <DependentUpon>PolicyEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Management\CaseManagementControl.xaml.cs">
+      <DependentUpon>CaseManagementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Management\Enums\CrudMode.cs" />
+    <Compile Include="Controls\Management\Interfaces\IHasDataGrid.cs" />
+    <Compile Include="Controls\Management\Interfaces\INavigator.cs" />
+    <Compile Include="Controls\Management\Menus\Messaging\MessageContainerControl.xaml.cs">
+      <DependentUpon>MessageContainerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Management\Menus\Messaging\MessagePeopleControl.xaml.cs">
+      <DependentUpon>MessagePeopleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Management\MessageManagementControl.xaml.cs">
+      <DependentUpon>MessageManagementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Management\PolicyManagementControl.xaml.cs">
+      <DependentUpon>PolicyManagementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateSelectors\EmployeeMessageTemplateSelector.cs" />
+    <Compile Include="Windows\EditWindow.xaml.cs">
+      <DependentUpon>EditWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\Edit\CaseEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Edit\EmployeeEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Edit\PolicyEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\Buttons\CrudButtons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\CaseManagementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\EmployeeManagementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\MainMenuControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\Menus\CrudMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\Menus\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\Menus\Messaging\MessageContainerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\Menus\Messaging\MessagePeopleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\MessageManagementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\PolicyManagementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Management\UserAccountControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Start\MainControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,10 +155,43 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\CustomCommands.cs" />
+    <Compile Include="Controls\Management\Buttons\CrudButtons.xaml.cs">
+      <DependentUpon>CrudButtons.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Management\Buttons\NavigableButton.cs" />
+    <Compile Include="Controls\Management\EmployeeManagementControl.xaml.cs">
+      <DependentUpon>EmployeeManagementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Management\Enums\NavigationMode.cs" />
+    <Compile Include="Controls\Management\Interfaces\INavigable.cs" />
+    <Compile Include="Controls\Management\MainMenuControl.xaml.cs">
+      <DependentUpon>MainMenuControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Management\Menus\CrudMenu.xaml.cs">
+      <DependentUpon>CrudMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Management\Menus\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Management\UserAccountControl.xaml.cs">
+      <DependentUpon>UserAccountControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Start\MainControl.xaml.cs">
+      <DependentUpon>MainControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -100,5 +225,6 @@
       <Name>MyInsurance.BusinessLogic</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

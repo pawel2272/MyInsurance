@@ -1,4 +1,6 @@
-﻿using MyInsurance.BusinessLogic.Data;
+﻿using MyInsurance.BusinessLogic.Constants;
+using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Services.Base;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
@@ -9,19 +11,20 @@ namespace MyInsurance.BusinessLogic.Services
     /// <summary>
     /// serwis obsługujący tabelę Case
     /// </summary>
-    public class CaseService : ICaseService
+    public class CaseService : CommonDbService, ICaseService
     {
-        /// <summary>
-        /// połączenie z bazą danych
-        /// </summary>
-        private readonly InsuranceDBEntities _dbContext;
-
+        private readonly CryptoService crypto;
         /// <summary>
         /// Konstruktor inicjalizujący połączenie z bazą
         /// </summary>
-        public CaseService()
+        public CaseService() : base()
         {
-            _dbContext = new InsuranceDBEntities();
+            crypto = new CryptoService(CryptoConstants.MESSAGE_KEY);
+        }
+
+        public CaseService(InsuranceDBEntities dbContext) : base(dbContext)
+        {
+            crypto = new CryptoService(CryptoConstants.MESSAGE_KEY);
         }
 
         /// <summary>
@@ -91,7 +94,21 @@ namespace MyInsurance.BusinessLogic.Services
         {
             try
             {
-                return GetCase(caseId).Messages.ToList();
+                Console.WriteLine("Id sprawy: " + caseId);
+                Case casee = this.GetCase(caseId);
+                if (casee != null)
+                    return this.GetCase(caseId).Messages.Select(m => new Message()
+                    {
+                        CaseId = m.CaseId,
+                        Text = this.crypto.Decrypt(m.Text),
+                        Case = _dbContext.Cases.FirstOrDefault(c => c.Id == caseId),
+                        IsFromAgent = m.IsFromAgent,
+                        SendingDate = m.SendingDate,
+                        EmployeeId = m.EmployeeId,
+                        CustomerId = m.CustomerId,
+                        Employee = m.Employee,
+                        Customer = m.Customer
+                    }).ToList();
             }
             catch (Exception ex)
             {
@@ -137,14 +154,6 @@ namespace MyInsurance.BusinessLogic.Services
 
             }
             return null;
-        }
-
-        /// <summary>
-        /// implementacja interfejsu IDisposable
-        /// </summary>
-        public void Dispose()
-        {
-            _dbContext.Dispose();
         }
 
         /// <summary>
@@ -195,7 +204,7 @@ namespace MyInsurance.BusinessLogic.Services
             };
 
             _dbContext.Cases.Add(newCase);
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
         /// <summary>
@@ -206,6 +215,53 @@ namespace MyInsurance.BusinessLogic.Services
         public Case GetCase(int caseId)
         {
                 return _dbContext.Cases.FirstOrDefault(cas => cas.Id == caseId);
+        }
+
+        public List<Case> GetAllCases(int agentId, string agentFirstName)
+        {
+            try
+            {
+                return _dbContext.Cases
+                    .Where(cas => cas.EmployeeId == agentId && cas.Employee.FirstName.Equals(agentFirstName))
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                //LOGGER
+            }
+            return new List<Case>();
+        }
+
+        public bool RemoveCase(int caseId)
+        {
+            try
+            {
+                return this.RemoveCase(this._dbContext.Cases.First(c => c.Id == caseId));
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveCase(Case casee)
+        {
+            try
+            {
+                this._dbContext.Cases.Remove(casee);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            this._dbContext.SaveChanges();
+            return true;
+        }
+
+        public void Add(Case casee)
+        {
+            _dbContext.Cases.Add(casee);
+            _dbContext.SaveChanges();
         }
     }
 }

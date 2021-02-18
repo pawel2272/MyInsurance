@@ -63,6 +63,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="CaseId" Type="int" Nullable="false" />
           <Property Name="Text" Type="nvarchar(max)" />
           <Property Name="SendingDate" Type="datetime" Nullable="false" />
@@ -116,6 +118,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Messages_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Policy_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
@@ -156,6 +182,14 @@
           </AssociationSet>
           <AssociationSet Name="FK_Messages_Case" Association="Self.FK_Messages_Case">
             <End Role="Case" EntitySet="Case" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Customer" Association="Self.FK_Messages_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Employee" Association="Self.FK_Messages_Employee">
+            <End Role="Employee" EntitySet="Employee" />
             <End Role="Messages" EntitySet="Messages" />
           </AssociationSet>
           <AssociationSet Name="FK_Policy_Customer" Association="Self.FK_Policy_Customer">
@@ -206,6 +240,7 @@
           <Property Name="Discount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Cases" Relationship="Self.FK_Case_Customer" FromRole="Customer" ToRole="Case" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK_Messages_Customer" FromRole="Customer" ToRole="Messages" />
           <NavigationProperty Name="Policies" Relationship="Self.FK_Policy_Customer" FromRole="Customer" ToRole="Policy" />
         </EntityType>
         <EntityType Name="Employee">
@@ -230,6 +265,7 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cases" Relationship="Self.FK_Case_Employee" FromRole="Employee" ToRole="Case" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK_Messages_Employee" FromRole="Employee" ToRole="Messages" />
           <NavigationProperty Name="Policies" Relationship="Self.FK_Policy_Employee" FromRole="Employee" ToRole="Policy" />
         </EntityType>
         <EntityType Name="Message">
@@ -237,11 +273,15 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="CaseId" Type="Int32" Nullable="false" />
           <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SendingDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsFromAgent" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Case" Relationship="Self.FK_Messages_Case" FromRole="Messages" ToRole="Case" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Messages_Customer" FromRole="Messages" ToRole="Customer" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Messages_Employee" FromRole="Messages" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Policy">
           <Key>
@@ -293,6 +333,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Messages_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Messages" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Policy_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
@@ -302,6 +354,18 @@
             </Principal>
             <Dependent Role="Policy">
               <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Messages" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="EmployeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -335,9 +399,17 @@
             <End Role="Case" EntitySet="Cases" />
             <End Role="Messages" EntitySet="Messages" />
           </AssociationSet>
+          <AssociationSet Name="FK_Messages_Customer" Association="Self.FK_Messages_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
           <AssociationSet Name="FK_Policy_Customer" Association="Self.FK_Policy_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Policy" EntitySet="Policies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Employee" Association="Self.FK_Messages_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Messages" EntitySet="Messages" />
           </AssociationSet>
           <AssociationSet Name="FK_Policy_Employee" Association="Self.FK_Policy_Employee">
             <End Role="Employee" EntitySet="Employees" />
@@ -410,6 +482,8 @@
             <EntityTypeMapping TypeName="InsuranceDBModel.Message">
               <MappingFragment StoreEntitySet="Messages">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="CaseId" ColumnName="CaseId" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="SendingDate" ColumnName="SendingDate" />

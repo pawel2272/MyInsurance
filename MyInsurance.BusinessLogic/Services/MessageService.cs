@@ -1,7 +1,9 @@
 ﻿using MyInsurance.BusinessLogic.Constants;
 using MyInsurance.BusinessLogic.Data;
+using MyInsurance.BusinessLogic.Services.Base;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MyInsurance.BusinessLogic.Services
@@ -9,24 +11,24 @@ namespace MyInsurance.BusinessLogic.Services
     /// <summary>
     /// serwis obsługujący tabelę Message
     /// </summary>
-    public class MessageService : IMessageService
+    public class MessageService : CommonDbService, IMessageService
     {
-        /// <summary>
-        /// połączenie z bazą danych
-        /// </summary>
-        private readonly InsuranceDBEntities _dbContext;
         private readonly CryptoService crypto;
 
         /// <summary>
         /// Konstruktor inicjalizujący połączenie z bazą
         /// </summary>
-        public MessageService()
+        public MessageService() : base()
         {
-            _dbContext = new InsuranceDBEntities();
             crypto = new CryptoService(CryptoConstants.MESSAGE_KEY);
         }
 
-        public void Add(int caseId, string messageText, bool isFromAgent)
+        public MessageService(InsuranceDBEntities dbContext) : base(dbContext)
+        {
+            crypto = new CryptoService(CryptoConstants.MESSAGE_KEY);
+        }
+
+        public void Add(int caseId, string messageText, bool isFromAgent, int employeeId, int customerId)
         {
             Message message = new Message()
             {
@@ -34,16 +36,20 @@ namespace MyInsurance.BusinessLogic.Services
                 Text = crypto.Encrypt(messageText),
                 Case = _dbContext.Cases.FirstOrDefault(c => c.Id == caseId),
                 IsFromAgent = isFromAgent,
-                SendingDate = DateTime.Now
+                SendingDate = DateTime.Now,
+                EmployeeId = employeeId,
+                CustomerId = customerId
             };
             _dbContext.Messages.Add(message);
             _dbContext.SaveChanges();
         }
 
-        public void Dispose()
+        public List<Message> GetCaseMessages(int caseId)
         {
-            _dbContext.Dispose();
-            crypto.Dispose();
+            using (var service = new CaseService(this._dbContext))
+            {
+                return service.GetCaseMessages(caseId);
+            }
         }
 
         public Message GetMessage(int messageId)
@@ -54,6 +60,32 @@ namespace MyInsurance.BusinessLogic.Services
         public Case GetMessageCase(int messageId)
         {
             return GetMessage(messageId).Case;
+        }
+
+        public bool RemoveMessage(int messageId)
+        {
+            try
+            {
+                return this.RemoveMessage(this._dbContext.Messages.First(m => m.Id == messageId));
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveMessage(Message message)
+        {
+            try
+            {
+                this._dbContext.Messages.Remove(message);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            this._dbContext.SaveChanges();
+            return true;
         }
     }
 }

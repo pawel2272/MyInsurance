@@ -1,6 +1,7 @@
 ﻿using MyInsurance.BusinessLogic.Constants;
 using MyInsurance.BusinessLogic.Data;
 using MyInsurance.BusinessLogic.Interfaces;
+using MyInsurance.BusinessLogic.Services.Base;
 using MyInsurance.BusinessLogic.Services.Exceptions;
 using MyInsurance.BusinessLogic.Services.ServiceInterfaces;
 using System;
@@ -12,19 +13,17 @@ namespace MyInsurance.BusinessLogic.Services
     /// <summary>
     /// serwis obsługujący tabelę Customer
     /// </summary>
-    public class CustomerService : ICustomerService, IPerson
+    public class CustomerService : CommonDbService, ICustomerService, IPerson
     {
-        /// <summary>
-        /// połączenie z bazą danych
-        /// </summary>
-        private readonly InsuranceDBEntities _dbContext;
-
         /// <summary>
         /// Konstruktor inicjalizujący połączenie z bazą
         /// </summary>
-        public CustomerService()
+        public CustomerService() : base()
         {
-            _dbContext = new InsuranceDBEntities();
+        }
+
+        public CustomerService(InsuranceDBEntities dbContext) : base(dbContext)
+        {
         }
 
         public void Add(string username, string password, string email, string firstName, string lastName, string street, int houseNumber, string city, string zipCode, string companyName, string phoneNumber, string nipNumber = "00000000000", decimal discount = 0)
@@ -86,11 +85,6 @@ namespace MyInsurance.BusinessLogic.Services
                 return true;
         }
 
-        public void Dispose()
-        {
-            _dbContext.Dispose();
-        }
-
         public Customer GetCustomer(int customerId)
         {
             return _dbContext.Customers.FirstOrDefault(cust => cust.Id == customerId);
@@ -136,6 +130,37 @@ namespace MyInsurance.BusinessLogic.Services
         public ILoginable GetPerson(string username)
         {
             return GetCustomer(username);
+        }
+
+        public bool RemoveCustomer(int customerId)
+        {
+            try
+            {
+                return this.RemoveCustomer(this._dbContext.Customers.First(c => c.Id == customerId));
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveCustomer(Customer customer)
+        {
+            try
+            {
+                this._dbContext.Customers.Remove(customer);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            this._dbContext.SaveChanges();
+            return true;
+        }
+
+        public List<Customer> GetAllCustomers()
+        {
+            return _dbContext.Customers.ToList();
         }
     }
 }

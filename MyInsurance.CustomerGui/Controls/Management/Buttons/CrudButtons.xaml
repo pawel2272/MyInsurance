@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="MyInsurance.CustomerGui.Controls.Management.Buttons.CrudButtons"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyInsurance.CustomerGui.Controls.Management.Buttons"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:controls="clr-namespace:MyInsurance.CustomerGui.Controls">
+    <UserControl.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/MyInsurance.CustomerGui;component/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnBack" Content="Zamknij" Style="{StaticResource btnSmall}" Grid.Column="0" FontSize="30" Command="controls:CustomCommands.Back"/>
+        <Button x:Name="btnNew" Content="Nowy" Style="{StaticResource btnSmall}" Grid.Column="2" FontSize="30" Command="controls:CustomCommands.New"/>
+        <Button x:Name="btnEdit" Content="Edytuj" Style="{StaticResource btnSmall}" Grid.Column="4" FontSize="30" Command="controls:CustomCommands.Edit"/>
+    </Grid>
+</UserControl>

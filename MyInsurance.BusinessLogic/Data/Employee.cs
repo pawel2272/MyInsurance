@@ -15,7 +15,7 @@ namespace MyInsurance.BusinessLogic.Data
     using System.Collections.Generic;
     using System.ComponentModel;
 
-    public partial class Employee : ILoginable, IDataErrorInfo
+    public partial class Employee : ILoginable, IDataErrorInfo, INotifyPropertyChanged
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
@@ -42,6 +42,8 @@ namespace MyInsurance.BusinessLogic.Data
 
         public Employee(Employee old)
         {
+            this.Cases = new HashSet<Case>();
+            this.Policies = new HashSet<Policy>();
             this.Id = old.Id;
             this.FirstName = old.FirstName;
             this.LastName = old.LastName;
@@ -59,8 +61,62 @@ namespace MyInsurance.BusinessLogic.Data
             this.IsBoss = old.IsBoss;
             this.IsActive = old.IsActive;
             this.PhoneNumber = old.PhoneNumber;
-            this.Cases = old.Cases;
-            this.Policies = old.Policies;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Employee ChangeData(Employee old)
+        {
+            this.FirstName = old.FirstName;
+            this.LastName = old.LastName;
+            this.Street = old.Street;
+            this.HouseNumber = old.HouseNumber;
+            this.City = old.City;
+            this.ZipCode = old.ZipCode;
+            this.Salary = old.Salary;
+            this.BirthDate = new DateTime(old.BirthDate.Year, old.BirthDate.Month, old.BirthDate.Day);
+            this.Pesel = old.Pesel;
+            this.EmailAddress = old.EmailAddress;
+            this.Login = old.Login;
+            this.Password = old.Password;
+            this.IsAdmin = old.IsAdmin;
+            this.IsBoss = old.IsBoss;
+            this.IsActive = old.IsActive;
+            this.PhoneNumber = old.PhoneNumber;
+
+            RaiseEventThatPropertyChanged("FirstName");
+            RaiseEventThatPropertyChanged("LastName");
+            RaiseEventThatPropertyChanged("Street");
+            RaiseEventThatPropertyChanged("HouseNumber");
+            RaiseEventThatPropertyChanged("City");
+            RaiseEventThatPropertyChanged("ZipCode");
+            RaiseEventThatPropertyChanged("Salary");
+            RaiseEventThatPropertyChanged("BirthDate");
+            RaiseEventThatPropertyChanged("Pesel");
+            RaiseEventThatPropertyChanged("EmailAddress");
+            RaiseEventThatPropertyChanged("Login");
+            RaiseEventThatPropertyChanged("Password");
+            RaiseEventThatPropertyChanged("IsAdmin");
+            RaiseEventThatPropertyChanged("IsBoss");
+            RaiseEventThatPropertyChanged("IsActive");
+            RaiseEventThatPropertyChanged("PhoneNumber");
+
+            return this;
+        }
+
+        private void RaiseEventThatPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public void NotifyPermissionsChanged()
+        {
+            RaiseEventThatPropertyChanged("IsAdmin");
+            RaiseEventThatPropertyChanged("IsBoss");
+            RaiseEventThatPropertyChanged("IsActive");
         }
 
         public string this[string propertyName]
@@ -71,52 +127,76 @@ namespace MyInsurance.BusinessLogic.Data
                 switch (propertyName)
                 {
                     case "FirstName":
-                        if (string.IsNullOrEmpty(FirstName))
-                            errorMessage = "Imiê musi byæ wpisane!";
-                        else if (FirstName.Length < 3)
-                            errorMessage = "Imiê musi mieæ minimum 3 znaki!";
-                        else if (!Regexes.NAME_REGEX.IsMatch(FirstName))
-                            errorMessage = "Imiê mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        if (this.FirstName != null)
+                        {
+                            if (string.IsNullOrEmpty(FirstName))
+                                errorMessage = "Imiê musi byæ wpisane!";
+                            else if (FirstName.Length < 3)
+                                errorMessage = "Imiê musi mieæ minimum 3 znaki!";
+                            else if (!Regexes.NAME_REGEX.IsMatch(FirstName))
+                                errorMessage = "Imiê mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        }
                         break;
                     case "LastName":
-                        if (string.IsNullOrEmpty(LastName))
-                            errorMessage = "Nazwisko musi byæ wpisane!";
-                        else if (LastName.Length < 3)
-                            errorMessage = "Nazwisko musi mieæ minimum 3 znaki!";
-                        else if (!Regexes.NAME_REGEX.IsMatch(LastName))
-                            errorMessage = "Nazwisko mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        if (this.LastName != null)
+                        {
+                            if (string.IsNullOrEmpty(LastName))
+                                errorMessage = "Nazwisko musi byæ wpisane!";
+                            else if (LastName.Length < 3)
+                                errorMessage = "Nazwisko musi mieæ minimum 3 znaki!";
+                            else if (!Regexes.NAME_REGEX.IsMatch(LastName))
+                                errorMessage = "Nazwisko mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        }
                         break;
                     case "Street":
-                        if (string.IsNullOrEmpty(Street))
-                            errorMessage = "Nazwa ulicy musi byæ wpisana!";
-                        else if (Street.Length < 3)
-                            errorMessage = "Nazwa ulicy musi mieæ minimum 3 znaki!";
-                        else if (!Regexes.CITY_REGEX.IsMatch(Street))
-                            errorMessage = "Nazwa ulicy mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        if (this.Street != null)
+                        {
+                            if (string.IsNullOrEmpty(Street))
+                                errorMessage = "Nazwa ulicy musi byæ wpisana!";
+                            else if (Street.Length < 3)
+                                errorMessage = "Nazwa ulicy musi mieæ minimum 3 znaki!";
+                            else if (!Regexes.CITY_REGEX.IsMatch(Street))
+                                errorMessage = "Nazwa ulicy mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        }
                         break;
                     case "City":
-                        if (string.IsNullOrEmpty(City))
-                            errorMessage = "Nazwa miasta musi byæ wpisana!";
-                        else if (City.Length < 3)
-                            errorMessage = "Nazwa miasta mieæ minimum 3 znaki!";
-                        else if (!Regexes.CITY_REGEX.IsMatch(City))
-                            errorMessage = "Nazwa miasta mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        if (this.City != null)
+                        {
+                            if (string.IsNullOrEmpty(City))
+                                errorMessage = "Nazwa miasta musi byæ wpisana!";
+                            else if (City.Length < 3)
+                                errorMessage = "Nazwa miasta mieæ minimum 3 znaki!";
+                            else if (!Regexes.CITY_REGEX.IsMatch(City))
+                                errorMessage = "Nazwa miasta mo¿e zawieraæ wy³¹cznie litery i musi siê zaczynaæ z du¿ej!";
+                        }
                         break;
                     case "ZipCode":
-                        if (!Regexes.ZIPCODE_REGEX.IsMatch(ZipCode))
-                            errorMessage = "Wpisz prawid³owy kod pocztowy!";
+                        if (this.ZipCode != null)
+                        {
+                            if (!Regexes.ZIPCODE_REGEX.IsMatch(ZipCode))
+                                errorMessage = "Wpisz prawid³owy kod pocztowy!";
+                        }
                         break;
                     case "Pesel":
-                        if (!Regexes.PESEL_REGEX.IsMatch(Pesel))
-                            errorMessage = "Wpisz prawid³owy numer PESEL!";
+                        if (this.Pesel != null)
+                        {
+                            if (!Regexes.PESEL_REGEX.IsMatch(Pesel))
+                                errorMessage = "Wpisz prawid³owy numer PESEL!";
+                        }
                         break;
                     case "EmailAddress":
-                        if (!Regexes.EMAIL_REGEX.IsMatch(EmailAddress))
-                            errorMessage = "Wpisz prawid³owy adres e-mail!";
+                        if (this.EmailAddress != null)
+                        {
+                            if (!Regexes.EMAIL_REGEX.IsMatch(EmailAddress))
+                                errorMessage = "Wpisz prawid³owy adres e-mail!";
+                        }
                         break;
                     case "PhoneNumber":
-                        if (!Regexes.PHONENUMBER_REGEX.IsMatch(PhoneNumber))
-                            errorMessage = "Wpisz prawid³owy numer telefonu!";
+                        if (this.PhoneNumber != null)
+                        {
+                            if (!Regexes.PHONENUMBER_REGEX.IsMatch(PhoneNumber))
+                                errorMessage = "Wpisz prawid³owy numer telefonu!";
+                        }
                         break;
                 };
                 return errorMessage;
@@ -140,12 +220,19 @@ namespace MyInsurance.BusinessLogic.Data
         public bool IsBoss { get; set; }
         public bool IsActive { get; set; }
         public string PhoneNumber { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Case> Cases { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Policy> Policies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> Messages { get; set; }
 
         public string Error => throw new NotImplementedException();
+
+        public override string ToString()
+        {
+            return Id + " " + FirstName + " " + LastName;
+        }
     }
 }
