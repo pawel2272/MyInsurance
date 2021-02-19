@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyInsurance.CustomerGui.Controls.Edit"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" IsVisibleChanged="UserControl_IsVisibleChanged">
     <UserControl.Resources>
         <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries >
@@ -45,19 +45,19 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Content="Pracownik" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right"/>
-        <ComboBox x:Name="cbEmployee" Grid.Column="1" Grid.Row="0" Margin="3" SelectionChanged="cbEmployee_SelectionChanged"/>
+        <ComboBox x:Name="cbEmployee" Grid.Column="1" Grid.Row="0" Margin="3" SelectionChanged="cbEmployee_SelectionChanged" IsEnabled="False"/>
 
         <Label Content="Klient" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right"/>
-        <ComboBox x:Name="cbCustomer" Grid.Column="1" Grid.Row="1" Margin="3" SelectionChanged="cbCustomer_SelectionChanged"/>
+        <ComboBox x:Name="cbCustomer" Grid.Column="1" Grid.Row="1" Margin="3" SelectionChanged="cbCustomer_SelectionChanged" IsEnabled="False"/>
 
         <Label Content="Opis" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
         <RichTextBox x:Name="tbDescription" Grid.Column="0" Grid.Row="3" Margin="3" Grid.ColumnSpan="2" Grid.RowSpan="9" TextChanged="tbDescription_TextChanged"/>
 
         <Label Content="Decyzja" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="12" HorizontalAlignment="Right"/>
-        <TextBox x:Name="tbDecision" Text="{Binding Path=Decision}" Grid.Column="1" Grid.Row="12" Margin="3"/>
+        <TextBox x:Name="tbDecision" Text="{Binding Path=Decision}" Grid.Column="1" Grid.Row="12" Margin="3" IsEnabled="False"/>
 
         <Label Content="Zakończona?" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="13" HorizontalAlignment="Right"/>
-        <CheckBox x:Name="cbEnded" IsChecked="{Binding Path=IsEnded}" Grid.Column="1" Grid.Row="13" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox x:Name="cbEnded" IsChecked="{Binding Path=IsEnded}" Grid.Column="1" Grid.Row="13" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"/>
 
         <Button x:Name="btnOK" Style="{StaticResource btnSmallest}" Content="OK" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="14" Width="90" Height="25"/>
     </Grid>

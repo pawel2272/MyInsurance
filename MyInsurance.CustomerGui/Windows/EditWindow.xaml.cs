@@ -72,7 +72,16 @@ namespace MyInsurance.CustomerGui.Windows
                     switch (this.crudMode)
                     {
                         case CrudMode.New:
-                            this.cccEdit.DataContext = new Case();
+                            var newCase = new Case();
+                            using (var service = new EmployeeService(Database.DBCONTEXT))
+                            {
+                                var emp = service.GetEmployee(2);
+                                newCase.Employee = emp;
+                                newCase.EmployeeId = emp.Id;
+                            }
+                            newCase.Customer = CommonConstants.LOGGED_CUSTOMER;
+                            newCase.CustomerId = CommonConstants.LOGGED_CUSTOMER.Id;
+                            this.cccEdit.DataContext = newCase;
                             break;
                         case CrudMode.Edit:
                             this.cccEdit.DataContext = new Case(((IHasDataGrid)hasDataGrid).MainGrid.SelectedItem as Case);
@@ -86,6 +95,15 @@ namespace MyInsurance.CustomerGui.Windows
                     switch (this.crudMode)
                     {
                         case CrudMode.New:
+                            var newPolicy = new Policy();
+                            using (var service = new EmployeeService(Database.DBCONTEXT))
+                            {
+                                var emp = service.GetEmployee(2);
+                                newPolicy.Employee = emp;
+                                newPolicy.EmployeeId = emp.Id;
+                            }
+                            newPolicy.Customer = CommonConstants.LOGGED_CUSTOMER;
+                            newPolicy.CustomerId = CommonConstants.LOGGED_CUSTOMER.Id;
                             this.pecEdit.DataContext = new Policy();
                             break;
                         case CrudMode.Edit:

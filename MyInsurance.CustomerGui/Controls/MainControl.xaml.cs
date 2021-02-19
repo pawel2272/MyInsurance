@@ -50,7 +50,7 @@ namespace MyInsurance.CustomerGui.Controls
         {
             using (CaseService service = new CaseService(Database.DBCONTEXT))
             {
-                caseManagementControl.dgCases.ItemsSource = service.GetAllCases(CommonConstants.LOGGED_EMPLOYEE.Id);
+                caseManagementControl.dgCases.ItemsSource = service.GetAllCases(CommonConstants.LOGGED_CUSTOMER.Id);
             }
         }
 

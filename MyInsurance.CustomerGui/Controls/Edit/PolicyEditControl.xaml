@@ -37,10 +37,10 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Content="Pracownik" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right"/>
-        <ComboBox x:Name="cbEmployee" Grid.Column="1" Grid.Row="0" Margin="3" SelectionChanged="cbEmployee_SelectionChanged"/>
+        <ComboBox x:Name="cbEmployee" Grid.Column="1" Grid.Row="0" Margin="3" SelectionChanged="cbEmployee_SelectionChanged" IsEnabled="False"/>
 
         <Label Content="Klient" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right"/>
-        <ComboBox x:Name="cbCustomer" Grid.Column="1" Grid.Row="1" Margin="3" SelectionChanged="cbCustomer_SelectionChanged"/>
+        <ComboBox x:Name="cbCustomer" Grid.Column="1" Grid.Row="1" Margin="3" SelectionChanged="cbCustomer_SelectionChanged" IsEnabled="False"/>
 
         <Label Content="Kwota" Style="{StaticResource middleLbl}" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right"/>
         <TextBox x:Name="tbAmount" Text="{Binding Path=Amount, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F}}" Grid.Column="1" Grid.Row="2" Margin="3" Grid.ColumnSpan="2"/>
